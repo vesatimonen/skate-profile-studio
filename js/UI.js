@@ -29,10 +29,6 @@ function uiElementsRedraw() {
     context.fill();
 }
 
-function uiBoardRedraw() {
-    /* Redraw dots and walls */
-    uiElementsRedraw();
-}
 
 
 /*****************************************************************************
@@ -42,32 +38,12 @@ function uiBoardSetup() {
     /* Get board current size (for resizing) */
     gameBoardWidth = gameBoard.clientWidth;
 
-    /* Redraw board */
-    uiBoardRedraw();
+    /* Redraw window */
+    uiElementsRedraw();
 }
 
-/*****************************************************************************
- * Refresh board elements and check if game over
- *****************************************************************************/
-function uiGridAnimationEnd(event) {
-    event.stopPropagation();
-    return false;
-}
-
-function uiGameRefresh(game) {
-    /* Redraw game board */
-    uiBoardRedraw();
-
-    /* Check if end of level */
-    if (game.board.solved()) {
-        /* Start animation */
-        gameBoard.addEventListener("animationend", uiGridAnimationEnd);
-        gameBoard.style.animation = "none";
-        gameBoard.offsetHeight; /* trigger reflow */
-        gameBoard.style.animation = "image-appear 0.5s ease-in 0.2s 1 reverse";
-    }
-}
-
+/* Setup board */
+uiBoardSetup();
 
 //document.getElementById("debug-text").innerHTML = window.innerWidth;
 
