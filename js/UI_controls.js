@@ -29,7 +29,7 @@ function uiRedrawControls() {
     for (let slider = 0; slider < controlSliderCount; slider++) {
         controlSliderPositions[slider] = {
             x: controlCanvasMargin + slider * xScale,
-            y: controlCanvasHeight - controlCanvasMargin - controlSliderValues[slider] * yScale};
+            y: controlCanvasHeight - controlCanvasMargin - (controlSliderValues[slider] - controlSliderValueMin) * yScale};
     }
 
     /* Draw lines between controls */
@@ -62,6 +62,78 @@ function uiRedrawControls() {
 
 
 /*****************************************************************************
+ * Control canvas events
+ *****************************************************************************/
+
+function uiControlPosition(event) {
+    let X, Y;
+
+    switch (event.type) {
+        case "mousedown":
+        case "mousemove":
+        case "mouseup":
+        case "mouseleave":
+            X = event.clientX;
+            Y = event.clientY;
+            break;
+        case "touchstart":
+        case "touchmove":
+        case "touchend":
+        case "touchcancel":
+            /* Ignore if touched multiple fingers */
+            if (event.targetTouches > 1) {
+                return undefined;
+            }
+
+            X = event.touches[0].clientX;
+            Y = event.touches[0].clientY;
+            break;
+        default:
+            return undefined;
+    }
+
+    let rect = controlCanvas.getBoundingClientRect();
+    X -= rect.left;
+    Y -= rect.top;
+
+/*
+    X = X / GridCellSize;
+    Y = Y / GridCellSize;
+*/
+
+    return {X, Y};
+}
+
+
+function uiControlStart(event) {
+    console.log(uiControlPosition(event));
+uiRedrawControls();
+controlSliderValues[0] += 0.1;
+    return false;
+}
+
+function uiControlContinue(event) {
+    return false;
+}
+
+function uiControlEnd(event) {
+    return false;
+}
+
+
+controlCanvas.addEventListener("mousedown",  uiControlStart);
+controlCanvas.addEventListener("mousemove",  uiControlContinue);
+controlCanvas.addEventListener("mouseup",    uiControlEnd);
+controlCanvas.addEventListener("mouseleave", uiControlEnd);
+
+controlCanvas.addEventListener("touchstart", uiControlStart, {passive: true});
+controlCanvas.addEventListener("touchmove",  uiControlContinue, {passive: true});
+controlCanvas.addEventListener("touchend",   uiControlEnd);
+
+
+
+
+/*****************************************************************************
  * Initialize control canvas
  *****************************************************************************/
 function uiInitControls() {
@@ -70,7 +142,7 @@ function uiInitControls() {
 
     for (let slider = 0; slider < controlSliderCount; slider++) {
         controlSliderValues[slider] = controlSliderValueMin;
-controlSliderValues[slider] = controlSliderValueMin + slider / controlSliderCount * (controlSliderValueMax - controlSliderValueMin);
+controlSliderValues[slider] = controlSliderValueMin + slider / (controlSliderCount - 1) * (controlSliderValueMax - controlSliderValueMin);
     }
 
     /* Redraw controls */
@@ -78,4 +150,9 @@ controlSliderValues[slider] = controlSliderValueMin + slider / controlSliderCoun
 }
 
 uiInitControls();
+
+
+
+
+//document.getElementById("debug-text").innerHTML = window.innerWidth;
 
