@@ -30,11 +30,11 @@ function uiMovePosition(event) {
     }
 
 /*
-    let rect = gameGrid.getBoundingClientRect();
+    let rect = .getBoundingClientRect();
     X -= rect.left;
     Y -= rect.top;
-    X = X / gameGridCellSize;
-    Y = Y / gameGridCellSize;
+    X = X / GridCellSize;
+    Y = Y / GridCellSize;
 */
 
     return {X, Y};
@@ -65,17 +65,17 @@ function uiMoveCancel() {
 /*****************************************************************************
  * Register mouse event handlers
  *****************************************************************************/
-gameBoard.addEventListener("mousedown",  uiMoveStart);
-gameBoard.addEventListener("mousemove",  uiMoveContinue);
-gameBoard.addEventListener("mouseup",    uiMoveEnd);
-gameBoard.addEventListener("mouseleave", uiMoveCancel);
+window.addEventListener("mousedown",  uiMoveStart);
+window.addEventListener("mousemove",  uiMoveContinue);
+window.addEventListener("mouseup",    uiMoveEnd);
+window.addEventListener("mouseleave", uiMoveCancel);
 
 /*****************************************************************************
  * Register touch event handlers
  *****************************************************************************/
-gameBoard.addEventListener("touchstart", uiMoveStart, {passive: true});
-gameBoard.addEventListener("touchmove",  uiMoveContinue, {passive: true});
-gameBoard.addEventListener("touchend",   uiMoveEnd);
+window.addEventListener("touchstart", uiMoveStart, {passive: true});
+window.addEventListener("touchmove",  uiMoveContinue, {passive: true});
+window.addEventListener("touchend",   uiMoveEnd);
 
 
 

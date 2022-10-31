@@ -28,7 +28,7 @@
 /*     image-rendering: pixelated; */
 }
 
-/*** Game screen ***/
+/*** App screen ***/
 #app-screen {
     /* Screen size */
     width:              calc(100vw - 10px);
@@ -71,17 +71,11 @@
 }
 
 
-/*** Game controls ***/
-#game-controls {
+/*** Buttons ***/
+#button-area {
     margin-top:     10px;
 
     display:        flex;
-}
-
-#game-controls:after {
-    content:        "";
-    clear:          both;
-    display:        block;
 }
 
 .button {
@@ -127,8 +121,8 @@
 }
 
 
-/*** Game copyright ***/
-#game-copyright {
+/*** Copyright ***/
+#app-copyright {
     margin-top:     10px;
 
     font-size:      12px;

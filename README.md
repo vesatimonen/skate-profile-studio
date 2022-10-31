@@ -1,7 +1,6 @@
-# DIVISIUM-3
+# SKATE PROFILE STUDIO
 
-DIVISIUM-3 is a tiny multi-challenge puzzle made with HTML, CSS and native JavaScript.
+Skate profiling tool made with HTML, CSS and native JavaScript.
 
-<img src="images/capture.png" alt="Game example" />
+<img src="images/capture.png" alt="Example" />
 
-Play online https://vesatimonen.github.io/divisium-3/
