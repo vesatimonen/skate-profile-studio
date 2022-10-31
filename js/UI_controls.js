@@ -10,6 +10,7 @@ const controlSliderCount = 7;
 const controlSliderValueMin = 1.0;
 const controlSliderValueMax = 10.0;
 var   controlSliderValues = [];
+var   controlSliderPositions = [];
 
 
 /*****************************************************************************
@@ -24,17 +25,20 @@ function uiRedrawControls() {
     xScale = (controlCanvasWidth - 2 * controlCanvasMargin)  / (controlSliderCount - 1);
     yScale = (controlCanvasHeight - 2 * controlCanvasMargin) / (controlSliderValueMax - controlSliderValueMin);
 
+    /* Calculate slider positions */
+    for (let slider = 0; slider < controlSliderCount; slider++) {
+        controlSliderPositions[slider] = {
+            x: controlCanvasMargin + slider * xScale,
+            y: controlCanvasHeight - controlCanvasMargin - controlSliderValues[slider] * yScale};
+    }
+
     /* Draw lines between controls */
     controlContext.beginPath();
     for (let slider = 0; slider < controlSliderCount; slider++) {
-        /* Slider position */
-        x = controlCanvasMargin + slider * xScale;
-        y = controlCanvasHeight - controlCanvasMargin - controlSliderValues[slider] * yScale;
-
         if (slider == 0) {
-            controlContext.moveTo(x, y);
+            controlContext.moveTo(controlSliderPositions[slider].x, controlSliderPositions[slider].y);
         } else {
-            controlContext.lineTo(x, y);
+            controlContext.lineTo(controlSliderPositions[slider].x, controlSliderPositions[slider].y);
         }
     }
     controlContext.lineWidth = 3;
@@ -43,13 +47,9 @@ function uiRedrawControls() {
 
     /* Draw slider controls */
     for (let slider = 0; slider < controlSliderCount; slider++) {
-        /* Slider position */
-        x = controlCanvasMargin + slider * xScale;
-        y = controlCanvasHeight - controlCanvasMargin - controlSliderValues[slider] * yScale;
-
         /* Draw slider position */
         controlContext.beginPath();
-        controlContext.arc(x, y, 8, 0, 2 * Math.PI, false);
+        controlContext.arc(controlSliderPositions[slider].x, controlSliderPositions[slider].y, 8, 0, 2 * Math.PI, false);
         controlContext.fillStyle = "#ffffff";
         controlContext.fill();
 
