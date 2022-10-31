@@ -1,16 +1,3 @@
-/*****************************************************************************
- * Canvas helpers
- *****************************************************************************/
-function uiInitCanvas(canvas, width, height) {
-    const pixelRation = 1.0;
-    canvas.width  = width  * pixelRation;
-    canvas.height = height * pixelRation;
-    controlContext.scale(pixelRation, pixelRation);
-}
-
-/*****************************************************************************
- * Canvas helpers
- *****************************************************************************/
 const controlCanvas   = document.getElementById("control-canvas");
 const controlContext = controlCanvas.getContext("2d");
 
@@ -30,8 +17,9 @@ function uiRedrawControls() {
     controlContext.fill();
 }
 
+/*****************************************************************************
+ * Initialize control canvas
+ *****************************************************************************/
 uiInitCanvas(controlCanvas, 401, 401);
 uiRedrawControls();
-
-//document.getElementById("debug-text").innerHTML = window.innerWidth;
 
