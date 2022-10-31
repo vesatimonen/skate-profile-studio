@@ -13,32 +13,37 @@ var gameBoardWidth;
  * Redraw buttons
  *****************************************************************************/
 
+const controlCanvas   = document.getElementById("control-canvas");
+const controlContext = controlCanvas.getContext("2d");
 
 function uiElementsRedraw() {
     var canvas = document.getElementById('control-canvas');
-    var context = canvas.getContext('2d');
 
-    /* Set canvas size and clear it */
-//    canvas.width = gameBoard.clientWidth;
-//    canvas.height = gameBoard.clientHeight;
-//    context.clearRect(0, 0, canvas.width, canvas.height);
+    /* Clear canvas */
+    controlContext.clearRect(0, 0, canvas.width, canvas.height);
 
-//canvas.width = 200;
-//canvas.height = 200;
+document.getElementById("debug-text").innerHTML = controlCanvas.width + " / " + controlCanvas.height;
 
-document.getElementById("debug-text").innerHTML = canvas.width + " / " + canvas.height;
+    controlContext.moveTo(0, 0);
+    controlContext.lineTo(controlCanvas.width, controlCanvas.height);
+    controlContext.stroke();
 
-
-    context.moveTo(0, 0);
-    context.lineTo(canvas.width, canvas.height);
-    context.stroke();
-
-    context.beginPath();
-    context.arc(100, 100, 100, 0, 2 * Math.PI, false);
-    context.fillStyle = "#202020";
-    context.fill();
+    controlContext.beginPath();
+    controlContext.arc(100, 100, 100, 0, 2 * Math.PI, false);
+    controlContext.fillStyle = "#202020";
+    controlContext.fill();
 }
 
+
+
+function initCanvas(canvas, width, height) {
+    const pixelRation = 1.0;
+    canvas.width  = width  * pixelRation;
+    canvas.height = height * pixelRation;
+    controlContext.scale(pixelRation, pixelRation);
+}
+
+initCanvas(controlCanvas, 401, 401);
 
 
 /*****************************************************************************

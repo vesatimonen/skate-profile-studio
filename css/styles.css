@@ -59,36 +59,13 @@
     text-align:     center;
 }
 
-
 #control-canvas {
-    position: relative;
-
-/*
-    width: 100%;
-    height: 100%;
-
-width: 200px;
-height: 200px;
-*/
-width: 200px;
-height: 200px;
-
-    background: none;
-}
-
-.grid-row:after {
-    content:        "";
-    clear:          both;
+    margin-top:     10px;
 
     display:        block;
-}
 
-.grid-cell {
-    margin:         0 auto;
-    float:          left;
-
-    font-family:    Courier New, monospace;
-    font-size:      28px;
+    margin-left:    auto;
+    margin-right:   auto;
 
     background:     none;
 }
