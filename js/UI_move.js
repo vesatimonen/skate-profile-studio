@@ -29,11 +29,13 @@ function uiMovePosition(event) {
             return undefined;
     }
 
+/*
     let rect = gameGrid.getBoundingClientRect();
     X -= rect.left;
     Y -= rect.top;
     X = X / gameGridCellSize;
     Y = Y / gameGridCellSize;
+*/
 
     return {X, Y};
 }

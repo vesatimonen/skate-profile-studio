@@ -2,9 +2,9 @@
  * Game window handling
  *****************************************************************************/
 function windowResize() {
-    if (gameGridWidth != gameGrid.clientWidth) {
-        gameGridWidth = gameGrid.clientWidth;
-        uiBoardSetup(game.board);
+    if (gameBoardWidth != gameBoard.clientWidth) {
+        gameBoardWidth = gameBoard.clientWidth;
+        uiBoardSetup();
     }
 
     return false;

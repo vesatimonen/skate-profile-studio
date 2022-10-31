@@ -26,7 +26,7 @@ function uiRestart(event) {
     }
 
     /* Setup board and refresh UI */
-    uiBoardSetup(game.board);
+    uiBoardSetup();
 
     return false;
 }
@@ -43,7 +43,6 @@ function uiMouseDown(event) {
                             if (game.level == 0) {
                                 clearInterval(restartTimer);
                             } else {
-                                levelStart(game.level - 1);
                             }
                         },
                         500);
@@ -71,5 +70,5 @@ function preventZoom(event) {
     event.preventDefault();
 }
 
-document.getElementById("game-screen").addEventListener("click", preventZoom);
+document.getElementById("app-screen").addEventListener("click", preventZoom);
 
