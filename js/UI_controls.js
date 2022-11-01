@@ -1,33 +1,33 @@
+/* Control canvas definitions */
 const controlCanvas  = document.getElementById("control-canvas");
 const controlContext = controlCanvas.getContext("2d");
-
 const controlCanvasWidth  = 480;
 const controlCanvasHeight = 320;
-const controlCanvasXMargin = 50;
-const controlCanvasYMargin = 20;
+const controlCanvasMargin = {left: 50, right: 50, top: 20, bottom: 20};
 
+/* Slider configurations */
 const sliderCount = 7;
 const sliderValueMin = 1.0;
 const sliderValueMax = 10.0;
 var   sliderValues = [];
 
-const canvasXScale = (controlCanvasWidth - 2 * controlCanvasXMargin)  / (sliderCount - 1);
-const canvasYScale = (controlCanvasHeight - 2 * controlCanvasYMargin) / (sliderValueMax - sliderValueMin);
-
 
 /*****************************************************************************
- * Conversion functions
+ * Scaling conversion functions
  *****************************************************************************/
+const canvasXScale = (controlCanvasWidth - (controlCanvasMargin.left + controlCanvasMargin.right))  / (sliderCount - 1);
+const canvasYScale = (controlCanvasHeight - (controlCanvasMargin.top + controlCanvasMargin.bottom)) / (sliderValueMax - sliderValueMin);
+
 function convertSliderToX(slider) {
-    return Math.floor(controlCanvasXMargin + slider * canvasXScale) + 0.5;
+    return Math.floor(controlCanvasMargin.left + slider * canvasXScale) + 0.5;
 }
 
 function convertValueToY(value) {
-    return Math.floor(controlCanvasHeight - controlCanvasYMargin - (value - sliderValueMin) * canvasYScale) + 0.5;
+    return Math.floor(controlCanvasHeight - controlCanvasMargin.bottom - (value - sliderValueMin) * canvasYScale) + 0.5;
 }
 
 function convertYToValue(y) {
-    value = sliderValueMin + (controlCanvasHeight - controlCanvasYMargin - y) / canvasYScale;
+    value = sliderValueMin + (controlCanvasHeight - controlCanvasMargin.bottom - y) / canvasYScale;
 
     if (value > 5.0) {
         value = Math.round(value * 2.0) / 2.0;
@@ -124,8 +124,7 @@ function uiRedrawControls() {
 /*****************************************************************************
  * Control canvas events
  *****************************************************************************/
-
-function uiControlPosition(event) {
+function uiEventPosition(event) {
     let x, y;
 
     switch (event.type) {
@@ -162,15 +161,16 @@ function uiControlPosition(event) {
 var sliderToMove = undefined;
 
 function uiControlStart(event) {
-    position = uiControlPosition(event);
+    position = uiEventPosition(event);
+    if (position != undefined) {
+        /* Find out if slider selected */
+        for (let slider = 0; slider < sliderCount; slider++) {
+            sliderX = convertSliderToX(slider);
+            sliderY = convertValueToY(sliderValues[slider]);
 
-    /* Find out if slider selected */
-    for (let slider = 0; slider < sliderCount; slider++) {
-        sliderX = convertSliderToX(slider);
-        sliderY = convertValueToY(sliderValues[slider]);
-
-        if (Math.abs(sliderX - position.x) + Math.abs(sliderY - position.y) < 20) {
-            sliderToMove = slider;
+            if (Math.abs(sliderX - position.x) + Math.abs(sliderY - position.y) < 20) {
+                sliderToMove = slider;
+            }
         }
     }
 
@@ -180,11 +180,12 @@ function uiControlStart(event) {
 function uiControlContinue(event) {
 
     if (sliderToMove != undefined) {
-        position = uiControlPosition(event);
-
-        document.getElementById("debug-text").innerHTML = sliderToMove;
-        sliderValues[sliderToMove] = convertYToValue(position.y);
-        uiRedrawControls();
+        position = uiEventPosition(event);
+        if (position != undefined) {
+            document.getElementById("debug-text").innerHTML = sliderToMove;
+            sliderValues[sliderToMove] = convertYToValue(position.y);
+            uiRedrawControls();
+        }
     }
 
     return false;
