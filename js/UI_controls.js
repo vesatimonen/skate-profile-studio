@@ -1,9 +1,10 @@
 const controlCanvas   = document.getElementById("control-canvas");
 const controlContext = controlCanvas.getContext("2d");
 
-const controlCanvasWidth  = 401;
-const controlCanvasHeight = 401;
-const controlCanvasMargin = 20;
+const controlCanvasWidth  = 480;
+const controlCanvasHeight = 320;
+const controlCanvasXMargin = 50;
+const controlCanvasYMargin = 20;
 
 const controlSliderCount = 7;
 
@@ -13,15 +14,15 @@ var   controlSliderValues = [];
 var   controlSliderPositions = [];
 
 
-const canvasXScale = (controlCanvasWidth - 2 * controlCanvasMargin)  / (controlSliderCount - 1);
-const canvasYScale = (controlCanvasHeight - 2 * controlCanvasMargin) / (controlSliderValueMax - controlSliderValueMin);
+const canvasXScale = (controlCanvasWidth - 2 * controlCanvasXMargin)  / (controlSliderCount - 1);
+const canvasYScale = (controlCanvasHeight - 2 * controlCanvasYMargin) / (controlSliderValueMax - controlSliderValueMin);
 
 function convertSliderToX(slider) {
-    return controlCanvasMargin + slider * canvasXScale;
+    return controlCanvasXMargin + slider * canvasXScale;
 }
 
 function convertValueToY(value) {
-    return controlCanvasHeight - controlCanvasMargin - (value - controlSliderValueMin) * canvasYScale;
+    return controlCanvasHeight - controlCanvasYMargin - (value - controlSliderValueMin) * canvasYScale;
 }
 
 /*****************************************************************************
@@ -33,7 +34,6 @@ function uiRedrawControls() {
     /* Clear canvas */
     controlContext.clearRect(0, 0, canvas.width, canvas.height);
 
-
     /* Calculate slider positions */
     for (let slider = 0; slider < controlSliderCount; slider++) {
         controlSliderPositions[slider] = {
@@ -41,21 +41,31 @@ function uiRedrawControls() {
             y: convertValueToY(controlSliderValues[slider]) };
     }
 
-
-    /* Draw slider tracks */
+    /* Draw slider tracks and ticks */
     controlContext.beginPath();
     for (let slider = 0; slider < controlSliderCount; slider++) {
         controlContext.moveTo(controlSliderPositions[slider].x, convertValueToY(controlSliderValueMin));
         controlContext.lineTo(controlSliderPositions[slider].x, convertValueToY(controlSliderValueMax));
+    }
 
-        var yDelta = 0.5;
-        var tickLen = 5;
-        for (let y = controlSliderValueMin; y <= controlSliderValueMax; y += yDelta) {
-            if (y == Math.floor(y)) {
-                tickLen = 4;
-            } else {
-                tickLen = 2;
-            }
+    var yDelta = 0.5;
+    var tickLen = 5;
+    for (let y = controlSliderValueMin; y <= controlSliderValueMax; y += yDelta) {
+
+
+
+        if (y == Math.floor(y)) {
+            controlContext.font         = "12px monospace";
+            controlContext.textBaseline = "middle";
+            controlContext.textAlign    = "center";
+            controlContext.fillStyle    = "#303030";
+            controlContext.fillText(y.toFixed(1) + "m", controlSliderPositions[controlSliderCount - 1].x + 30, convertValueToY(y));
+            controlContext.fillText(y.toFixed(1) + "m", controlSliderPositions[0].x - 30, convertValueToY(y));
+            tickLen = 4;
+        } else {
+            tickLen = 2;
+        }
+        for (let slider = 0; slider < controlSliderCount; slider++) {
             controlContext.moveTo(controlSliderPositions[slider].x - tickLen, convertValueToY(y));
             controlContext.lineTo(controlSliderPositions[slider].x + tickLen, convertValueToY(y));
         }
