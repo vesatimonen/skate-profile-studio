@@ -6,27 +6,28 @@ const controlCanvasHeight = 320;
 const controlCanvasXMargin = 50;
 const controlCanvasYMargin = 20;
 
-const controlSliderCount = 7;
+const sliderCount = 7;
+const sliderValueMin = 1.0;
+const sliderValueMax = 10.0;
+var   sliderValues = [];
 
-const controlSliderValueMin = 1.0;
-const controlSliderValueMax = 10.0;
-var   controlSliderValues = [];
-var   controlSliderPositions = [];
+const canvasXScale = (controlCanvasWidth - 2 * controlCanvasXMargin)  / (sliderCount - 1);
+const canvasYScale = (controlCanvasHeight - 2 * controlCanvasYMargin) / (sliderValueMax - sliderValueMin);
 
 
-const canvasXScale = (controlCanvasWidth - 2 * controlCanvasXMargin)  / (controlSliderCount - 1);
-const canvasYScale = (controlCanvasHeight - 2 * controlCanvasYMargin) / (controlSliderValueMax - controlSliderValueMin);
-
+/*****************************************************************************
+ * Conversion functions
+ *****************************************************************************/
 function convertSliderToX(slider) {
     return Math.floor(controlCanvasXMargin + slider * canvasXScale) + 0.5;
 }
 
 function convertValueToY(value) {
-    return Math.floor(controlCanvasHeight - controlCanvasYMargin - (value - controlSliderValueMin) * canvasYScale) + 0.5;
+    return Math.floor(controlCanvasHeight - controlCanvasYMargin - (value - sliderValueMin) * canvasYScale) + 0.5;
 }
 
 function convertYToValue(y) {
-    value = controlSliderValueMin + (controlCanvasHeight - controlCanvasYMargin - y) / canvasYScale;
+    value = sliderValueMin + (controlCanvasHeight - controlCanvasYMargin - y) / canvasYScale;
 
     if (value > 5.0) {
         value = Math.round(value * 2.0) / 2.0;
@@ -34,55 +35,56 @@ function convertYToValue(y) {
         value = Math.round(value * 10.0) / 10.0;
     }
 
-    if (value < controlSliderValueMin) {
-        return controlSliderValueMin;
+    if (value < sliderValueMin) {
+        return sliderValueMin;
     }
-    if (value > controlSliderValueMax) {
-        return controlSliderValueMax;
+    if (value > sliderValueMax) {
+        return sliderValueMax;
     }
     return value;
 }
+
 
 /*****************************************************************************
  * Redraw control canvas
  *****************************************************************************/
 function uiRedrawControls() {
-    var canvas = document.getElementById('control-canvas');
+    var sliderPositions = [];
 
     /* Clear canvas */
-    controlContext.clearRect(0, 0, canvas.width, canvas.height);
+    controlContext.clearRect(0, 0, controlCanvas.width, controlCanvas.height);
 
     /* Calculate slider positions */
-    for (let slider = 0; slider < controlSliderCount; slider++) {
-        controlSliderPositions[slider] = {
+    for (let slider = 0; slider < sliderCount; slider++) {
+        sliderPositions[slider] = {
             x: convertSliderToX(slider),
-            y: convertValueToY(controlSliderValues[slider]) };
+            y: convertValueToY(sliderValues[slider]) };
     }
 
     /* Draw slider tracks and ticks */
     controlContext.beginPath();
-    for (let slider = 0; slider < controlSliderCount; slider++) {
-        controlContext.moveTo(controlSliderPositions[slider].x, convertValueToY(controlSliderValueMin));
-        controlContext.lineTo(controlSliderPositions[slider].x, convertValueToY(controlSliderValueMax));
+    for (let slider = 0; slider < sliderCount; slider++) {
+        controlContext.moveTo(sliderPositions[slider].x, convertValueToY(sliderValueMin));
+        controlContext.lineTo(sliderPositions[slider].x, convertValueToY(sliderValueMax));
     }
 
     var yDelta = 0.5;
     var tickLen = 5;
-    for (let y = controlSliderValueMin; y <= controlSliderValueMax; y += yDelta) {
+    for (let y = sliderValueMin; y <= sliderValueMax; y += yDelta) {
         if (y == Math.floor(y)) {
             controlContext.font         = "12px monospace";
             controlContext.textBaseline = "middle";
             controlContext.textAlign    = "center";
             controlContext.fillStyle    = "#303030";
-            controlContext.fillText(y.toFixed(1) + "m", controlSliderPositions[controlSliderCount - 1].x + 30, convertValueToY(y));
-            controlContext.fillText(y.toFixed(1) + "m", controlSliderPositions[0].x - 30, convertValueToY(y));
+            controlContext.fillText(y.toFixed(1) + "m", sliderPositions[sliderCount - 1].x + 30, convertValueToY(y));
+            controlContext.fillText(y.toFixed(1) + "m", sliderPositions[0].x - 30, convertValueToY(y));
             tickLen = 4;
         } else {
             tickLen = 2;
         }
-        for (let slider = 0; slider < controlSliderCount; slider++) {
-            controlContext.moveTo(controlSliderPositions[slider].x - tickLen, convertValueToY(y));
-            controlContext.lineTo(controlSliderPositions[slider].x + tickLen, convertValueToY(y));
+        for (let slider = 0; slider < sliderCount; slider++) {
+            controlContext.moveTo(sliderPositions[slider].x - tickLen, convertValueToY(y));
+            controlContext.lineTo(sliderPositions[slider].x + tickLen, convertValueToY(y));
         }
     }
     controlContext.lineWidth = 1.0;
@@ -92,11 +94,11 @@ function uiRedrawControls() {
 
     /* Draw lines between controls */
     controlContext.beginPath();
-    for (let slider = 0; slider < controlSliderCount; slider++) {
+    for (let slider = 0; slider < sliderCount; slider++) {
         if (slider == 0) {
-            controlContext.moveTo(controlSliderPositions[slider].x, controlSliderPositions[slider].y);
+            controlContext.moveTo(sliderPositions[slider].x, sliderPositions[slider].y);
         } else {
-            controlContext.lineTo(controlSliderPositions[slider].x, controlSliderPositions[slider].y);
+            controlContext.lineTo(sliderPositions[slider].x, sliderPositions[slider].y);
         }
     }
     controlContext.lineWidth = 3;
@@ -104,10 +106,10 @@ function uiRedrawControls() {
     controlContext.stroke();
 
     /* Draw slider controls */
-    for (let slider = 0; slider < controlSliderCount; slider++) {
+    for (let slider = 0; slider < sliderCount; slider++) {
         /* Draw slider position */
         controlContext.beginPath();
-        controlContext.arc(controlSliderPositions[slider].x, controlSliderPositions[slider].y, 8, 0, 2 * Math.PI, false);
+        controlContext.arc(sliderPositions[slider].x, sliderPositions[slider].y, 8, 0, 2 * Math.PI, false);
         controlContext.fillStyle = "#ffffff";
         controlContext.fill();
 
@@ -163,9 +165,9 @@ function uiControlStart(event) {
     position = uiControlPosition(event);
 
     /* Find out if slider selected */
-    for (let slider = 0; slider < controlSliderCount; slider++) {
+    for (let slider = 0; slider < sliderCount; slider++) {
         sliderX = convertSliderToX(slider);
-        sliderY = convertValueToY(controlSliderValues[slider]);
+        sliderY = convertValueToY(sliderValues[slider]);
 
         if (Math.abs(sliderX - position.x) + Math.abs(sliderY - position.y) < 20) {
             sliderToMove = slider;
@@ -181,7 +183,7 @@ function uiControlContinue(event) {
         position = uiControlPosition(event);
 
         document.getElementById("debug-text").innerHTML = sliderToMove;
-        controlSliderValues[sliderToMove] = convertYToValue(position.y);
+        sliderValues[sliderToMove] = convertYToValue(position.y);
         uiRedrawControls();
     }
 
@@ -217,9 +219,9 @@ function uiInitControls() {
     /* Initialize canvas area */
     uiInitCanvas(controlCanvas, controlCanvasWidth, controlCanvasHeight);
 
-    for (let slider = 0; slider < controlSliderCount; slider++) {
-        controlSliderValues[slider] = controlSliderValueMin;
-controlSliderValues[slider] = controlSliderValueMin + slider / (controlSliderCount - 1) * (controlSliderValueMax - controlSliderValueMin);
+    for (let slider = 0; slider < sliderCount; slider++) {
+        sliderValues[slider] = sliderValueMin;
+sliderValues[slider] = sliderValueMin + slider / (sliderCount - 1) * (sliderValueMax - sliderValueMin);
     }
 
     /* Redraw controls */
