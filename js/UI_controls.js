@@ -27,6 +27,13 @@ function convertValueToY(value) {
 
 function convertYToValue(y) {
     value = controlSliderValueMin + (controlCanvasHeight - controlCanvasYMargin - y) / canvasYScale;
+
+    if (value > 5.0) {
+        value = Math.round(value * 2.0) / 2.0;
+    } else {
+        value = Math.round(value * 10.0) / 10.0;
+    }
+
     if (value < controlSliderValueMin) {
         return controlSliderValueMin;
     }
