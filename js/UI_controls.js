@@ -1,16 +1,30 @@
 /* Control canvas definitions */
 const controlCanvas  = document.getElementById("control-canvas");
 const controlContext = controlCanvas.getContext("2d");
-const controlCanvasWidth  = 480;
+const controlCanvasWidth  = 540;
 const controlCanvasHeight = 360;
 const controlCanvasMargin = {left: 50, right: 50, top: 20, bottom: 60};
 
 /* Slider configurations */
 const sliderCount = 7;
-const sliderDistance = 30; /* mm */
+const sliderDistance = 50; /* mm */
 const sliderValueMin = 1.0;
 const sliderValueMax = 10.0;
 var   sliderValues = [];
+
+const skateBlades = [
+    {size: 221, length: 65},
+    {size: 230, length: 70},
+    {size: 238, length: 75},
+    {size: 245, length: 80},
+    {size: 254, length: 85},
+    {size: 263, length: 90},
+    {size: 272, length: 95},
+    {size: 280, length: 100},
+    {size: 288, length: 105},
+    {size: 296, length: 110},
+    {size: 306, length: 115},
+];
 
 
 /*****************************************************************************
@@ -122,7 +136,7 @@ function uiRedrawControls() {
             controlContext.textBaseline = "middle";
             controlContext.textAlign    = "center";
             controlContext.fillStyle    = "#303030";
-            controlContext.fillText(xValue, convertValueToX(xValue), baselineY + 20);
+            controlContext.fillText(Math.abs(xValue), convertValueToX(xValue), baselineY + 20);
         }
     }
 
