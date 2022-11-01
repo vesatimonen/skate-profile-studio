@@ -18,11 +18,11 @@ const canvasXScale = (controlCanvasWidth - 2 * controlCanvasXMargin)  / (control
 const canvasYScale = (controlCanvasHeight - 2 * controlCanvasYMargin) / (controlSliderValueMax - controlSliderValueMin);
 
 function convertSliderToX(slider) {
-    return controlCanvasXMargin + slider * canvasXScale;
+    return Math.floor(controlCanvasXMargin + slider * canvasXScale) + 0.5;
 }
 
 function convertValueToY(value) {
-    return controlCanvasHeight - controlCanvasYMargin - (value - controlSliderValueMin) * canvasYScale;
+    return Math.floor(controlCanvasHeight - controlCanvasYMargin - (value - controlSliderValueMin) * canvasYScale) + 0.5;
 }
 
 /*****************************************************************************
@@ -51,9 +51,6 @@ function uiRedrawControls() {
     var yDelta = 0.5;
     var tickLen = 5;
     for (let y = controlSliderValueMin; y <= controlSliderValueMax; y += yDelta) {
-
-
-
         if (y == Math.floor(y)) {
             controlContext.font         = "12px monospace";
             controlContext.textBaseline = "middle";
@@ -70,7 +67,7 @@ function uiRedrawControls() {
             controlContext.lineTo(controlSliderPositions[slider].x + tickLen, convertValueToY(y));
         }
     }
-    controlContext.lineWidth = 3;
+    controlContext.lineWidth = 1.0;
     controlContext.lineCap = "round";
     controlContext.strokeStyle = "#303030";
     controlContext.stroke();
