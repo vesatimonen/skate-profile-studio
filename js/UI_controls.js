@@ -13,6 +13,17 @@ var   controlSliderValues = [];
 var   controlSliderPositions = [];
 
 
+const canvasXScale = (controlCanvasWidth - 2 * controlCanvasMargin)  / (controlSliderCount - 1);
+const canvasYScale = (controlCanvasHeight - 2 * controlCanvasMargin) / (controlSliderValueMax - controlSliderValueMin);
+
+function convertSliderToX(slider) {
+    return controlCanvasMargin + slider * canvasXScale;
+}
+
+function convertValueToY(value) {
+    return controlCanvasHeight - controlCanvasMargin - (value - controlSliderValueMin) * canvasYScale;
+}
+
 /*****************************************************************************
  * Redraw control canvas
  *****************************************************************************/
@@ -22,15 +33,37 @@ function uiRedrawControls() {
     /* Clear canvas */
     controlContext.clearRect(0, 0, canvas.width, canvas.height);
 
-    xScale = (controlCanvasWidth - 2 * controlCanvasMargin)  / (controlSliderCount - 1);
-    yScale = (controlCanvasHeight - 2 * controlCanvasMargin) / (controlSliderValueMax - controlSliderValueMin);
 
     /* Calculate slider positions */
     for (let slider = 0; slider < controlSliderCount; slider++) {
         controlSliderPositions[slider] = {
-            x: controlCanvasMargin + slider * xScale,
-            y: controlCanvasHeight - controlCanvasMargin - (controlSliderValues[slider] - controlSliderValueMin) * yScale};
+            x: convertSliderToX(slider),
+            y: convertValueToY(controlSliderValues[slider]) };
     }
+
+
+    /* Draw slider tracks */
+    controlContext.beginPath();
+    for (let slider = 0; slider < controlSliderCount; slider++) {
+        controlContext.moveTo(controlSliderPositions[slider].x, convertValueToY(controlSliderValueMin));
+        controlContext.lineTo(controlSliderPositions[slider].x, convertValueToY(controlSliderValueMax));
+
+        var yDelta = 0.5;
+        var tickLen = 5;
+        for (let y = controlSliderValueMin; y <= controlSliderValueMax; y += yDelta) {
+            if (y == Math.floor(y)) {
+                tickLen = 4;
+            } else {
+                tickLen = 2;
+            }
+            controlContext.moveTo(controlSliderPositions[slider].x - tickLen, convertValueToY(y));
+            controlContext.lineTo(controlSliderPositions[slider].x + tickLen, convertValueToY(y));
+        }
+    }
+    controlContext.lineWidth = 3;
+    controlContext.lineCap = "round";
+    controlContext.strokeStyle = "#303030";
+    controlContext.stroke();
 
     /* Draw lines between controls */
     controlContext.beginPath();
