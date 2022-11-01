@@ -2,8 +2,8 @@
 const controlCanvas  = document.getElementById("control-canvas");
 const controlContext = controlCanvas.getContext("2d");
 const controlCanvasWidth  = 540;
-const controlCanvasHeight = 360;
-const controlCanvasMargin = {left: 50, right: 50, top: 20, bottom: 60};
+const controlCanvasHeight = 480;
+const controlCanvasMargin = {left: 50, right: 50, top: 20, bottom: 180};
 
 /* Slider configurations */
 const sliderCount = 7;
@@ -158,6 +158,62 @@ function uiRedrawControls() {
     controlContext.fillText("HEEL", convertValueToX( ((sliderCount - 1) / 2 - 0.5) * sliderDistance), baselineY);
 
 
+    /* Draw effective skate blade lengths */
+    baselineY += 70;
+    controlContext.beginPath();
+    controlContext.moveTo(convertValueToX(-skateBlades[skateBlades.length - 1].length), baselineY);
+    controlContext.lineTo(convertValueToX( skateBlades[skateBlades.length - 1].length), baselineY);
+    controlContext.lineWidth = 7.0;
+    controlContext.lineCap = "round";
+    controlContext.strokeStyle = "#00A000";
+    controlContext.stroke();
+
+    controlContext.beginPath();
+    tickLen = 5;
+    for (let blade = 0; blade < skateBlades.length; blade++) {
+        if (blade % 2 == 0) {
+            controlContext.moveTo(convertValueToX(-skateBlades[blade].length), baselineY - 0);
+            controlContext.lineTo(convertValueToX(-skateBlades[blade].length), baselineY + tickLen);
+            controlContext.moveTo(convertValueToX( skateBlades[blade].length), baselineY - 0);
+            controlContext.lineTo(convertValueToX( skateBlades[blade].length), baselineY + tickLen);
+        } else {
+            controlContext.moveTo(convertValueToX(-skateBlades[blade].length), baselineY - tickLen);
+            controlContext.lineTo(convertValueToX(-skateBlades[blade].length), baselineY + 0);
+            controlContext.moveTo(convertValueToX( skateBlades[blade].length), baselineY - tickLen);
+            controlContext.lineTo(convertValueToX( skateBlades[blade].length), baselineY + 0);
+        }
+
+        controlContext.font         = "12px monospace";
+        controlContext.textBaseline = "middle";
+        controlContext.textAlign    = "center";
+        controlContext.fillStyle    = "#303030";
+
+        controlContext.save();
+//        controlContext.rotate(-0.5*Math.PI);
+        if (blade % 2 == 0) {
+            controlContext.translate(convertValueToX( skateBlades[blade].length), baselineY + 20);
+        } else {
+            controlContext.translate(convertValueToX( skateBlades[blade].length), baselineY - 20);
+        }
+        controlContext.rotate(-0.5 * Math.PI);
+        controlContext.fillText(skateBlades[blade].size,  0, 0);
+        controlContext.restore();
+
+        controlContext.save();
+//        controlContext.rotate(-0.5*Math.PI);
+        if (blade % 2 == 0) {
+            controlContext.translate(convertValueToX(-skateBlades[blade].length), baselineY + 20);
+        } else {
+            controlContext.translate(convertValueToX(-skateBlades[blade].length), baselineY - 20);
+        }
+        controlContext.rotate(-0.5 * Math.PI);
+        controlContext.fillText(skateBlades[blade].size,  0, 0);
+        controlContext.restore();
+    }
+    controlContext.lineWidth = 1.0;
+    controlContext.lineCap = "round";
+    controlContext.strokeStyle = "#303030";
+    controlContext.stroke();
 
     /* Draw lines between controls */
     controlContext.beginPath();
