@@ -2,8 +2,8 @@
 const controlCanvas  = document.getElementById("control-canvas");
 const controlContext = controlCanvas.getContext("2d");
 const controlCanvasWidth  = 480;
-const controlCanvasHeight = 320;
-const controlCanvasMargin = {left: 50, right: 50, top: 20, bottom: 20};
+const controlCanvasHeight = 360;
+const controlCanvasMargin = {left: 50, right: 50, top: 20, bottom: 60};
 
 /* Slider configurations */
 const sliderCount = 7;
@@ -119,7 +119,11 @@ function uiRedrawControls() {
     }
 }
 
-
+function uiRedrawProfile() {
+    const svg = document.getElementById("profile-svg");
+    svg.innerHTML = "<circle cx='50' cy='50' r='" + 3 * sliderValues[0] + "' stroke='green' stroke-width='4' fill='yellow' />";
+//console.log(svg.outerHTML);
+}
 
 /*****************************************************************************
  * Control canvas events
@@ -182,9 +186,9 @@ function uiControlContinue(event) {
     if (sliderToMove != undefined) {
         position = uiEventPosition(event);
         if (position != undefined) {
-            document.getElementById("debug-text").innerHTML = sliderToMove;
             sliderValues[sliderToMove] = convertYToValue(position.y);
             uiRedrawControls();
+            uiRedrawProfile();
         }
     }
 
@@ -194,7 +198,6 @@ function uiControlContinue(event) {
 function uiControlEnd(event) {
     if (sliderToMove != undefined) {
         sliderToMove = undefined;
-        uiRedrawControls();
     }
 
     return false;
@@ -225,8 +228,9 @@ function uiInitControls() {
 sliderValues[slider] = sliderValueMin + slider / (sliderCount - 1) * (sliderValueMax - sliderValueMin);
     }
 
-    /* Redraw controls */
+    /* Redraw controls and profile */
     uiRedrawControls();
+    uiRedrawProfile();
 }
 
 uiInitControls();
