@@ -123,13 +123,18 @@ function uiRedrawControls() {
     controlContext.lineTo( convertValueToX( ((sliderCount - 1) / 2 - 1) * sliderDistance), baselineY);
 
     for (let xValue = -((sliderCount - 1) / 2 - 1) * sliderDistance; xValue <= ((sliderCount - 1) / 2 - 1) * sliderDistance; xValue += 5) {
-        if (xValue % 10 == 0) {
-            controlContext.moveTo(convertValueToX(xValue), baselineY - 4);
-            controlContext.lineTo(convertValueToX(xValue), baselineY + 4);
+        if (xValue == 0) {
+            tickLen = 8;
         } else {
-            controlContext.moveTo(convertValueToX(xValue), baselineY - 2);
-            controlContext.lineTo(convertValueToX(xValue), baselineY + 2);
+            if (xValue % 10 == 0) {
+                tickLen = 4;
+            } else {
+                tickLen = 2;
+            }
         }
+
+        controlContext.moveTo(convertValueToX(xValue), baselineY - tickLen);
+        controlContext.lineTo(convertValueToX(xValue), baselineY + tickLen);
 
         if (xValue % 20 == 0) {
             controlContext.font         = "12px monospace";
