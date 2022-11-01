@@ -1,4 +1,4 @@
-const controlCanvas   = document.getElementById("control-canvas");
+const controlCanvas  = document.getElementById("control-canvas");
 const controlContext = controlCanvas.getContext("2d");
 
 const controlCanvasWidth  = 480;
@@ -23,6 +23,17 @@ function convertSliderToX(slider) {
 
 function convertValueToY(value) {
     return Math.floor(controlCanvasHeight - controlCanvasYMargin - (value - controlSliderValueMin) * canvasYScale) + 0.5;
+}
+
+function convertYToValue(y) {
+    value = controlSliderValueMin + (controlCanvasHeight - controlCanvasYMargin - y) / canvasYScale;
+    if (value < controlSliderValueMin) {
+        return controlSliderValueMin;
+    }
+    if (value > controlSliderValueMax) {
+        return controlSliderValueMax;
+    }
+    return value;
 }
 
 /*****************************************************************************
@@ -106,15 +117,15 @@ function uiRedrawControls() {
  *****************************************************************************/
 
 function uiControlPosition(event) {
-    let X, Y;
+    let x, y;
 
     switch (event.type) {
         case "mousedown":
         case "mousemove":
         case "mouseup":
         case "mouseleave":
-            X = event.clientX;
-            Y = event.clientY;
+            x = event.clientX;
+            y = event.clientY;
             break;
         case "touchstart":
         case "touchmove":
@@ -125,50 +136,69 @@ function uiControlPosition(event) {
                 return undefined;
             }
 
-            X = event.touches[0].clientX;
-            Y = event.touches[0].clientY;
+            x = event.touches[0].clientX;
+            y = event.touches[0].clientY;
             break;
         default:
             return undefined;
     }
 
     let rect = controlCanvas.getBoundingClientRect();
-    X -= rect.left;
-    Y -= rect.top;
+    x -= rect.left;
+    y -= rect.top;
 
-/*
-    X = X / GridCellSize;
-    Y = Y / GridCellSize;
-*/
-
-    return {X, Y};
+    return {x, y};
 }
 
+var sliderToMove = undefined;
 
 function uiControlStart(event) {
-    console.log(uiControlPosition(event));
-uiRedrawControls();
-controlSliderValues[0] += 0.1;
+    position = uiControlPosition(event);
+
+    /* Find out if slider selected */
+    for (let slider = 0; slider < controlSliderCount; slider++) {
+        sliderX = convertSliderToX(slider);
+        sliderY = convertValueToY(controlSliderValues[slider]);
+
+        if (Math.abs(sliderX - position.x) + Math.abs(sliderY - position.y) < 20) {
+            sliderToMove = slider;
+        }
+    }
+
     return false;
 }
 
 function uiControlContinue(event) {
+
+    if (sliderToMove != undefined) {
+        position = uiControlPosition(event);
+
+        document.getElementById("debug-text").innerHTML = sliderToMove;
+        controlSliderValues[sliderToMove] = convertYToValue(position.y);
+        uiRedrawControls();
+    }
+
     return false;
 }
 
 function uiControlEnd(event) {
+    if (sliderToMove != undefined) {
+        sliderToMove = undefined;
+        uiRedrawControls();
+    }
+
     return false;
 }
 
 
-controlCanvas.addEventListener("mousedown",  uiControlStart);
-controlCanvas.addEventListener("mousemove",  uiControlContinue);
-controlCanvas.addEventListener("mouseup",    uiControlEnd);
-controlCanvas.addEventListener("mouseleave", uiControlEnd);
+window.addEventListener("mousedown",  uiControlStart);
+window.addEventListener("mousemove",  uiControlContinue);
+window.addEventListener("mouseup",    uiControlEnd);
+window.addEventListener("mouseleave", uiControlEnd);
 
-controlCanvas.addEventListener("touchstart", uiControlStart, {passive: true});
-controlCanvas.addEventListener("touchmove",  uiControlContinue, {passive: true});
-controlCanvas.addEventListener("touchend",   uiControlEnd);
+window.addEventListener("touchstart", uiControlStart, {passive: true});
+window.addEventListener("touchmove",  uiControlContinue, {passive: true});
+window.addEventListener("touchend",   uiControlEnd);
 
 
 
