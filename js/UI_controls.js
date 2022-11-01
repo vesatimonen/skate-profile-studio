@@ -7,6 +7,7 @@ const controlCanvasMargin = {left: 50, right: 50, top: 20, bottom: 60};
 
 /* Slider configurations */
 const sliderCount = 7;
+const sliderDistance = 30; /* mm */
 const sliderValueMin = 1.0;
 const sliderValueMax = 10.0;
 var   sliderValues = [];
@@ -20,6 +21,14 @@ const canvasYScale = (controlCanvasHeight - (controlCanvasMargin.top + controlCa
 
 function convertSliderToX(slider) {
     return Math.floor(controlCanvasMargin.left + slider * canvasXScale) + 0.5;
+}
+
+function convertValueToX(value) {
+    xPixels = controlCanvasWidth - (controlCanvasMargin.left + controlCanvasMargin.right);
+    xLength = (sliderCount - 1) * sliderDistance;
+    xScale  = xPixels / xLength;
+
+    return Math.floor(controlCanvasMargin.left + xPixels / 2 + value * xScale) + 0.5;
 }
 
 function convertValueToY(value) {
@@ -61,13 +70,14 @@ function uiRedrawControls() {
             y: convertValueToY(sliderValues[slider]) };
     }
 
-    /* Draw slider tracks and ticks */
+    /* Draw slider tracks */
     controlContext.beginPath();
     for (let slider = 0; slider < sliderCount; slider++) {
         controlContext.moveTo(sliderPositions[slider].x, convertValueToY(sliderValueMin));
         controlContext.lineTo(sliderPositions[slider].x, convertValueToY(sliderValueMax));
     }
 
+    /* Draw slider ticks and legends */
     var yDelta = 0.5;
     var tickLen = 5;
     for (let y = sliderValueMin; y <= sliderValueMax; y += yDelta) {
@@ -91,6 +101,44 @@ function uiRedrawControls() {
     controlContext.lineCap = "round";
     controlContext.strokeStyle = "#303030";
     controlContext.stroke();
+
+    /* Draw X legend */
+    var baselineY = 25 + Math.floor(controlCanvasHeight - controlCanvasMargin.bottom) + 0.5;
+    controlContext.beginPath();
+    controlContext.moveTo( convertValueToX(-((sliderCount - 1) / 2 - 1) * sliderDistance), baselineY);
+    controlContext.lineTo( convertValueToX( ((sliderCount - 1) / 2 - 1) * sliderDistance), baselineY);
+
+    for (let xValue = -((sliderCount - 1) / 2 - 1) * sliderDistance; xValue <= ((sliderCount - 1) / 2 - 1) * sliderDistance; xValue += 5) {
+        if (xValue % 10 == 0) {
+            controlContext.moveTo(convertValueToX(xValue), baselineY - 4);
+            controlContext.lineTo(convertValueToX(xValue), baselineY + 4);
+        } else {
+            controlContext.moveTo(convertValueToX(xValue), baselineY - 2);
+            controlContext.lineTo(convertValueToX(xValue), baselineY + 2);
+        }
+
+        if (xValue % 20 == 0) {
+            controlContext.font         = "12px monospace";
+            controlContext.textBaseline = "middle";
+            controlContext.textAlign    = "center";
+            controlContext.fillStyle    = "#303030";
+            controlContext.fillText(xValue, convertValueToX(xValue), baselineY + 20);
+        }
+    }
+
+    controlContext.lineWidth = 1.0;
+    controlContext.lineCap = "round";
+    controlContext.strokeStyle = "#303030";
+    controlContext.stroke();
+
+    controlContext.font         = "12px monospace";
+    controlContext.textBaseline = "middle";
+    controlContext.textAlign    = "center";
+    controlContext.fillStyle    = "#303030";
+    controlContext.fillText("TOE",  convertValueToX(-((sliderCount - 1) / 2 - 0.5) * sliderDistance), baselineY);
+    controlContext.fillText("HEEL", convertValueToX( ((sliderCount - 1) / 2 - 0.5) * sliderDistance), baselineY);
+
+
 
     /* Draw lines between controls */
     controlContext.beginPath();
