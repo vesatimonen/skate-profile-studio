@@ -6,7 +6,7 @@ const controlCanvasHeight = 360;
 const controlCanvasMargin = {left: 50, right: 50, top: 20, bottom: 100};
 
 /* Slider configurations */
-const sliderCount    = 7;
+const sliderCount    = 9;
 const sliderValueMin = 1.0;
 const sliderValueMax = 10.0;
 
@@ -218,7 +218,49 @@ function uiRedrawControlCurve() {
         controlContext.strokeStyle = "#0000ff";
         controlContext.stroke();
     }
+
+
+// https://www.particleincell.com/2012/bezier-splines/
+/*
+controlContext.beginPath();
+controlContext.moveTo(sliderPositions[0].x, sliderPositions[0].y);
+
+    var t = 1.0;
+    for (var i = 0; i < sliderCount - 1; i++) {
+        var p0 = (i > 0) ? sliderPositions[i - 1] : sliderPositions[0];
+        var p1 = sliderPositions[i];
+        var p2 = sliderPositions[i + 1];
+        var p3 = (i != sliderCount - 2) ? sliderPositions[i + 2] : p2;
+
+        var cp1x = p1.x + (p2.x - p0.x) / 6 * t;
+        var cp1y = p1.y + (p2.y - p0.y) / 6 * t;
+
+        var cp2x = p2.x - (p3.x - p1.x) / 6 * t;
+        var cp2y = p2.y - (p3.y - p1.y) / 6 * t;
+
+        controlContext.bezierCurveTo(cp1x, cp1y, cp2x, cp2y, p2.x, p2.y);
+    }
+controlContext.stroke();
+*/
+
+/*
+controlContext.beginPath();
+controlContext.moveTo(sliderPositions[0].x, sliderPositions[0].y);
+
+var slider;
+for (slider = 1; slider < sliderCount - 2; slider++) {
+      var xc = (sliderPositions[slider].x + sliderPositions[slider + 1].x) / 2;
+      var yc = (sliderPositions[slider].y + sliderPositions[slider + 1].y) / 2;
+      controlContext.quadraticCurveTo(sliderPositions[slider].x, sliderPositions[slider].y, xc, yc);
 }
+controlContext.quadraticCurveTo(sliderPositions[slider].x, sliderPositions[slider].y, sliderPositions[slider+1].x,sliderPositions[slider+1].y);
+
+controlContext.lineWidth = 3;
+controlContext.strokeStyle = "#0000ff";
+controlContext.stroke();
+*/
+}
+
 
 function uiRedrawControls() {
     sliderDistance = skateBlades[skateBladeIndex].size / (sliderCount - 1);
