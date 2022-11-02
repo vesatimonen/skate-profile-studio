@@ -146,10 +146,10 @@ function uiRedrawXLegend() {
 }
 
 const skateZones = [
-    {length: 1, color: "#FF0000", label: "A"},
-    {length: 2, color: "#00FF00", label: "B"},
-    {length: 2, color: "#0000FF", label: "C"},
-    {length: 1, color: "#FFFF00", label: "D"},
+    {length: 3, color: "#FF4040", label: "accel"},
+    {length: 2, color: "#EEEE40", label: "agility"},
+    {length: 9, color: "#00EE00", label: "speed"},
+    {length: 3, color: "#6060FF", label: "stability"},
 ];
 
 function uiRedrawZones() {
@@ -167,8 +167,8 @@ function uiRedrawZones() {
 
     var zoneCurrent = 0;
     for (let zone = 0; zone < skateZones.length; zone++) {
-        var startZoneX = convertValueToX(zoneStart + zoneCurrent * zoneScale) + 5;
-        var endZoneX   = convertValueToX(zoneStart + (zoneCurrent + skateZones[zone].length) * zoneScale) - 5;
+        var startZoneX = convertValueToX(zoneStart + zoneCurrent * zoneScale) + 7;
+        var endZoneX   = convertValueToX(zoneStart + (zoneCurrent + skateZones[zone].length) * zoneScale) - 7;
 
         controlContext.beginPath();
         controlContext.moveTo(startZoneX, baselineY);
