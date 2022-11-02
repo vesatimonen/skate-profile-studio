@@ -6,12 +6,13 @@ const controlCanvasHeight = 480;
 const controlCanvasMargin = {left: 50, right: 50, top: 20, bottom: 180};
 
 /* Slider configurations */
-const sliderCount = 7;
-const sliderDistance = 50; /* mm */
+const sliderCount    = 7;
 const sliderValueMin = 1.0;
 const sliderValueMax = 10.0;
-var   sliderValues = [];
 
+var   sliderDistance  = 50; /* mm */
+var   sliderValues    = [];
+var   sliderPositions = [];
 
 
 /*****************************************************************************
@@ -58,19 +59,7 @@ function convertYToValue(y) {
 /*****************************************************************************
  * Redraw control canvas
  *****************************************************************************/
-function uiRedrawControls() {
-    var sliderPositions = [];
-
-    /* Clear canvas */
-    controlContext.clearRect(0, 0, controlCanvas.width, controlCanvas.height);
-
-    /* Calculate slider positions */
-    for (let slider = 0; slider < sliderCount; slider++) {
-        sliderPositions[slider] = {
-            x: convertSliderToX(slider),
-            y: convertValueToY(sliderValues[slider]) };
-    }
-
+function uiRedrawSliders() {
     /* Draw slider tracks */
     controlContext.beginPath();
     for (let slider = 0; slider < sliderCount; slider++) {
@@ -102,8 +91,10 @@ function uiRedrawControls() {
     controlContext.lineCap = "round";
     controlContext.strokeStyle = "#303030";
     controlContext.stroke();
+}
 
-    /* Draw X legend */
+function uiRedrawXLegend() {
+    /* Draw legends */
     var baselineY = 25 + Math.floor(controlCanvasHeight - controlCanvasMargin.bottom) + 0.5;
     controlContext.beginPath();
     controlContext.moveTo( convertValueToX(-((sliderCount - 1) / 2 - 1) * sliderDistance), baselineY);
@@ -143,10 +134,11 @@ function uiRedrawControls() {
     controlContext.fillStyle    = "#303030";
     controlContext.fillText("TOE",  convertValueToX(-((sliderCount - 1) / 2 - 0.5) * sliderDistance), baselineY);
     controlContext.fillText("HEEL", convertValueToX( ((sliderCount - 1) / 2 - 0.5) * sliderDistance), baselineY);
+}
 
-
+function uiRedrawZones() {
     /* Draw effective skate blade lengths */
-    baselineY += 70;
+    var baselineY = 95 + Math.floor(controlCanvasHeight - controlCanvasMargin.bottom) + 0.5;
     controlContext.beginPath();
     controlContext.moveTo(convertValueToX(-skateBlades[skateBlades.length - 1].length), baselineY);
     controlContext.lineTo(convertValueToX( skateBlades[skateBlades.length - 1].length), baselineY);
@@ -201,7 +193,9 @@ function uiRedrawControls() {
     controlContext.lineCap = "round";
     controlContext.strokeStyle = "#303030";
     controlContext.stroke();
+}
 
+function uiRedrawControlCurve() {
     /* Draw lines between controls */
     controlContext.beginPath();
     for (let slider = 0; slider < sliderCount; slider++) {
@@ -229,11 +223,46 @@ function uiRedrawControls() {
     }
 }
 
+function uiRedrawControls() {
+    /* Clear canvas */
+    controlContext.clearRect(0, 0, controlCanvas.width, controlCanvas.height);
+
+    /* Calculate slider positions */
+    for (let slider = 0; slider < sliderCount; slider++) {
+        sliderPositions[slider] = {
+            x: convertSliderToX(slider),
+            y: convertValueToY(sliderValues[slider]) };
+    }
+
+    uiRedrawSliders();
+    uiRedrawXLegend();
+    uiRedrawZones();
+    uiRedrawControlCurve();
+}
+
 function uiRedrawProfile() {
     const svg = document.getElementById("profile-svg");
     svg.innerHTML = "<circle cx='50' cy='50' r='" + 3 * sliderValues[0] + "' stroke='green' stroke-width='4' fill='yellow' />";
 //console.log(svg.outerHTML);
 }
+
+/*****************************************************************************
+ * Initialize control canvas
+ *****************************************************************************/
+function uiInitControls() {
+    /* Initialize canvas area */
+    uiInitCanvas(controlCanvas, controlCanvasWidth, controlCanvasHeight);
+
+    for (let slider = 0; slider < sliderCount; slider++) {
+        sliderValues[slider] = sliderValueMin;
+sliderValues[slider] = sliderValueMin + slider / (sliderCount - 1) * (sliderValueMax - sliderValueMin);
+    }
+
+    /* Redraw controls and profile */
+    uiRedrawControls();
+    uiRedrawProfile();
+}
+
 
 /*****************************************************************************
  * Control canvas events
@@ -326,22 +355,6 @@ window.addEventListener("touchend",   uiControlEnd);
 
 
 
-/*****************************************************************************
- * Initialize control canvas
- *****************************************************************************/
-function uiInitControls() {
-    /* Initialize canvas area */
-    uiInitCanvas(controlCanvas, controlCanvasWidth, controlCanvasHeight);
-
-    for (let slider = 0; slider < sliderCount; slider++) {
-        sliderValues[slider] = sliderValueMin;
-sliderValues[slider] = sliderValueMin + slider / (sliderCount - 1) * (sliderValueMax - sliderValueMin);
-    }
-
-    /* Redraw controls and profile */
-    uiRedrawControls();
-    uiRedrawProfile();
-}
 
 
 
