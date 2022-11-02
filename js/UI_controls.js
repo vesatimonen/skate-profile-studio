@@ -2,8 +2,8 @@
 const controlCanvas  = document.getElementById("control-canvas");
 const controlContext = controlCanvas.getContext("2d");
 const controlCanvasWidth  = document.getElementById("app-screen").getBoundingClientRect().width;
-const controlCanvasHeight = 480;
-const controlCanvasMargin = {left: 50, right: 50, top: 20, bottom: 180};
+const controlCanvasHeight = 360;
+const controlCanvasMargin = {left: 50, right: 50, top: 20, bottom: 100};
 
 /* Slider configurations */
 const sliderCount    = 7;
@@ -145,63 +145,48 @@ function uiRedrawXLegend() {
     controlContext.fillText("HEEL", convertValueToX( ((sliderCount - 1) / 2 - 0.5) * sliderDistance), baselineY);
 }
 
+const skateZones = [
+    {length: 1, color: "#FF0000", label: "A"},
+    {length: 2, color: "#00FF00", label: "B"},
+    {length: 2, color: "#0000FF", label: "C"},
+    {length: 1, color: "#FFFF00", label: "D"},
+];
+
 function uiRedrawZones() {
     /* Draw effective skate blade lengths */
-    var baselineY = 95 + Math.floor(controlCanvasHeight - controlCanvasMargin.bottom) + 0.5;
-    controlContext.beginPath();
-    controlContext.moveTo(convertValueToX(-skateBlades[skateBlades.length - 1].length), baselineY);
-    controlContext.lineTo(convertValueToX( skateBlades[skateBlades.length - 1].length), baselineY);
-    controlContext.lineWidth = 7.0;
-    controlContext.lineCap = "round";
-    controlContext.strokeStyle = "#00A000";
-    controlContext.stroke();
+    var baselineY = 65 + Math.floor(controlCanvasHeight - controlCanvasMargin.bottom) + 0.5;
 
-    controlContext.beginPath();
-    tickLen = 5;
-    for (let blade = 0; blade < skateBlades.length; blade++) {
-        if (blade % 2 == 0) {
-            controlContext.moveTo(convertValueToX(-skateBlades[blade].length), baselineY - 0);
-            controlContext.lineTo(convertValueToX(-skateBlades[blade].length), baselineY + tickLen);
-            controlContext.moveTo(convertValueToX( skateBlades[blade].length), baselineY - 0);
-            controlContext.lineTo(convertValueToX( skateBlades[blade].length), baselineY + tickLen);
-        } else {
-            controlContext.moveTo(convertValueToX(-skateBlades[blade].length), baselineY - tickLen);
-            controlContext.lineTo(convertValueToX(-skateBlades[blade].length), baselineY + 0);
-            controlContext.moveTo(convertValueToX( skateBlades[blade].length), baselineY - tickLen);
-            controlContext.lineTo(convertValueToX( skateBlades[blade].length), baselineY + 0);
-        }
+    var lengthSum = 0;
+    for (let zone = 0; zone < skateZones.length; zone++) {
+        lengthSum = lengthSum + skateZones[zone].length;
+    }
+    console.log(lengthSum);
 
+    var zoneStart = -skateBlades[skateBladeIndex].effectiveLength;
+    var zoneScale = skateBlades[skateBladeIndex].effectiveLength * 2 / lengthSum;
+
+    var zoneCurrent = 0;
+    for (let zone = 0; zone < skateZones.length; zone++) {
+        var startZoneX = convertValueToX(zoneStart + zoneCurrent * zoneScale) + 5;
+        var endZoneX   = convertValueToX(zoneStart + (zoneCurrent + skateZones[zone].length) * zoneScale) - 5;
+
+        controlContext.beginPath();
+        controlContext.moveTo(startZoneX, baselineY);
+        controlContext.lineTo(endZoneX, baselineY);
+        controlContext.lineWidth = 12.0;
+        controlContext.lineCap = "round";
+        controlContext.strokeStyle = skateZones[zone].color;
+        controlContext.stroke();
+
+        /* TOE/HEEL texts */
         controlContext.font         = "12px monospace";
         controlContext.textBaseline = "middle";
         controlContext.textAlign    = "center";
         controlContext.fillStyle    = "#303030";
+        controlContext.fillText(skateZones[zone].label,  (startZoneX + endZoneX) / 2, baselineY + 14);
 
-        controlContext.save();
-//        controlContext.rotate(-0.5*Math.PI);
-        if (blade % 2 == 0) {
-            controlContext.translate(convertValueToX( skateBlades[blade].length), baselineY + 20);
-        } else {
-            controlContext.translate(convertValueToX( skateBlades[blade].length), baselineY - 20);
-        }
-        controlContext.rotate(-0.5 * Math.PI);
-        controlContext.fillText(skateBlades[blade].size,  0, 0);
-        controlContext.restore();
-
-        controlContext.save();
-//        controlContext.rotate(-0.5*Math.PI);
-        if (blade % 2 == 0) {
-            controlContext.translate(convertValueToX(-skateBlades[blade].length), baselineY + 20);
-        } else {
-            controlContext.translate(convertValueToX(-skateBlades[blade].length), baselineY - 20);
-        }
-        controlContext.rotate(-0.5 * Math.PI);
-        controlContext.fillText(skateBlades[blade].size,  0, 0);
-        controlContext.restore();
+        zoneCurrent += skateZones[zone].length;
     }
-    controlContext.lineWidth = 1.0;
-    controlContext.lineCap = "round";
-    controlContext.strokeStyle = "#303030";
-    controlContext.stroke();
 }
 
 function uiRedrawControlCurve() {
