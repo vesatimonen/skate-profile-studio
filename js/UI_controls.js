@@ -125,9 +125,9 @@ function uiRedrawXLegend() {
             controlContext.textBaseline = "middle";
             controlContext.textAlign    = "center";
             controlContext.fillStyle    = "#303030";
-            controlContext.fillText(Math.abs(xValue), convertValueToX(xValue), baselineY + 20);
+            controlContext.fillText(Math.abs(xValue), convertValueToX(xValue), baselineY + 15);
             if (xValue != 0) {
-                controlContext.fillText(Math.abs(xValue), convertValueToX(-xValue), baselineY + 20);
+                controlContext.fillText(Math.abs(xValue), convertValueToX(-xValue), baselineY + 15);
             }
         }
     }
@@ -146,7 +146,7 @@ function uiRedrawXLegend() {
 }
 
 const skateZones = [
-    {length: 3, color: "#FF4040", label: "accel"},
+    {length: 3, color: "#FF4040", label: "acceleration"},
     {length: 2, color: "#EEEE40", label: "agility"},
     {length: 9, color: "#00EE00", label: "speed"},
     {length: 3, color: "#6060FF", label: "stability"},
@@ -154,13 +154,12 @@ const skateZones = [
 
 function uiRedrawZones() {
     /* Draw effective skate blade lengths */
-    var baselineY = 65 + Math.floor(controlCanvasHeight - controlCanvasMargin.bottom) + 0.5;
+    var baselineY = 75 + Math.floor(controlCanvasHeight - controlCanvasMargin.bottom) + 0.5;
 
     var lengthSum = 0;
     for (let zone = 0; zone < skateZones.length; zone++) {
         lengthSum = lengthSum + skateZones[zone].length;
     }
-    console.log(lengthSum);
 
     var zoneStart = -skateBlades[skateBladeIndex].effectiveLength;
     var zoneScale = skateBlades[skateBladeIndex].effectiveLength * 2 / lengthSum;
@@ -183,7 +182,11 @@ function uiRedrawZones() {
         controlContext.textBaseline = "middle";
         controlContext.textAlign    = "center";
         controlContext.fillStyle    = "#303030";
-        controlContext.fillText(skateZones[zone].label,  (startZoneX + endZoneX) / 2, baselineY + 14);
+        if (zone % 2 == 0) {
+            controlContext.fillText(skateZones[zone].label,  (startZoneX + endZoneX) / 2, baselineY + 14);
+        } else {
+            controlContext.fillText(skateZones[zone].label,  (startZoneX + endZoneX) / 2, baselineY - 14);
+        }
 
         zoneCurrent += skateZones[zone].length;
     }
@@ -239,7 +242,6 @@ function uiRedrawControls() {
 function uiRedrawProfile() {
     const svg = document.getElementById("profile-svg");
     svg.innerHTML = "<circle cx='50' cy='50' r='" + 3 * sliderValues[0] + "' stroke='green' stroke-width='4' fill='yellow' />";
-//console.log(svg.outerHTML);
 }
 
 /*****************************************************************************

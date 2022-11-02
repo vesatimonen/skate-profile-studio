@@ -65,7 +65,6 @@
     display:        block;
 
     background:     none;
-
 }
 
 
@@ -117,16 +116,6 @@
 
 .button:disabled {
     opacity: 0.3;
-}
-
-
-
-#game-info {
-    font-size:      28px;
-    font-weight:    bold;
-    text-align:     center;
-
-    margin:         auto;
 }
 
 
