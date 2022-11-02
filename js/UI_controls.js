@@ -2,7 +2,7 @@
 const controlCanvas  = document.getElementById("control-canvas");
 const controlContext = controlCanvas.getContext("2d");
 const controlCanvasWidth  = document.getElementById("app-screen").getBoundingClientRect().width;
-const controlCanvasHeight = 360;
+const controlCanvasHeight = 420;
 const controlCanvasMargin = {left: 50, right: 50, top: 20, bottom: 100};
 
 /* Slider configurations */
