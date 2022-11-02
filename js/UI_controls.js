@@ -261,6 +261,18 @@ controlContext.stroke();
 */
 }
 
+function uiRedrawFingerprint() {
+    var fingerprint = "";
+
+    fingerprint += skateBlades[skateBladeIndex].size;
+
+    for (let slider = 0; slider < sliderCount; slider++) {
+        fingerprint += "-";
+        fingerprint += sliderValues[slider].toFixed(1);
+    }
+
+    document.getElementById("fingerprint-text").innerHTML = fingerprint;
+}
 
 function uiRedrawControls() {
     sliderDistance = skateBlades[skateBladeIndex].size / (sliderCount - 1);
@@ -279,6 +291,7 @@ function uiRedrawControls() {
     uiRedrawXLegend();
     uiRedrawZones();
     uiRedrawControlCurve();
+    uiRedrawFingerprint();
 }
 
 function uiRedrawProfile() {
@@ -295,7 +308,6 @@ function uiInitControls() {
 
     for (let slider = 0; slider < sliderCount; slider++) {
         sliderValues[slider] = sliderValueMin;
-sliderValues[slider] = sliderValueMin + slider / (sliderCount - 1) * (sliderValueMax - sliderValueMin);
     }
 
     /* Redraw controls and profile */

@@ -91,7 +91,6 @@
     background:     #67BFEC;
     border:         2px solid #202020;
     border-radius:  12px;
-    outline:        0;
 
     /* Size */
     width:          228px;
@@ -119,7 +118,16 @@
 }
 
 
-/*** Copyright ***/
+#fingerprint-text {
+    margin-top:     20px;
+
+    font-size:      18px;
+    text-align:     center;
+
+    border:         2px solid #202020;
+    border-radius:  2px;
+}
+
 #app-copyright {
     margin-top:     10px;
 
