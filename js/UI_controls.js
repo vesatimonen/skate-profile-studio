@@ -1,7 +1,7 @@
 /* Control canvas definitions */
 const controlCanvas  = document.getElementById("control-canvas");
 const controlContext = controlCanvas.getContext("2d");
-const controlCanvasWidth  = 540;
+const controlCanvasWidth  = document.getElementById("app-screen").getBoundingClientRect().width;
 const controlCanvasHeight = 480;
 const controlCanvasMargin = {left: 50, right: 50, top: 20, bottom: 180};
 
@@ -343,7 +343,6 @@ sliderValues[slider] = sliderValueMin + slider / (sliderCount - 1) * (sliderValu
     uiRedrawProfile();
 }
 
-uiInitControls();
 
 
 

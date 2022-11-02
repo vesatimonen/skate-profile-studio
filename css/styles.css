@@ -31,9 +31,7 @@
 /*** App screen ***/
 #app-screen {
     /* Screen size */
-    width:              calc(100vw - 10px);
-    max-width:          480px;
-    min-width:          320px;
+    width:              580px;
 
     margin-left:        auto;
     margin-right:       auto;
@@ -61,48 +59,60 @@
 
 #control-canvas {
     margin-top:     10px;
-
-    display:        block;
-
     margin-left:    auto;
     margin-right:   auto;
 
+    display:        block;
+
     background:     none;
+
+    border: 2px solid #202020;
 }
 
 
 /*** Buttons ***/
-#button-area {
+.button-line {
     margin-top:     10px;
 
     display:        flex;
 }
 
+.button-line:after {
+    content:        "";
+    clear:          both;
+
+    display:        block;
+}
+
 .button {
     /* Behaviour */
-    display:        block;
+    margin:         auto;
 
     /* Appearance */
     color:          #000000;
     background:     #67BFEC;
     border:         2px solid #202020;
-    border-radius:  16px;
+    border-radius:  12px;
     outline:        0;
 
     /* Size */
-    width:          128px;
-    height:         40px;
+    width:          228px;
+    height:         32px;
     padding:        0;
 
     /* Text position */
-    font-size:      24px;
+    font-size:      18px;
     text-align:     center;
 
 /*    box-shadow:         3px 3px 5px rgb(0,0,0); */
 }
 
+.button-selected {
+    background:     #378FBC;
+    background:     #FFFFFF;
+}
+
 .button:active:enabled {
-/*    box-shadow:         none; */
     background:     #B0DDFF;
 }
 

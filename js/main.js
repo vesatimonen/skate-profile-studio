@@ -11,4 +11,8 @@ const skateBlades = [
     {size: 296, length: 110},
     {size: 306, length: 115},
 ];
+var skateBladeSize = 296;
 
+
+uiInitSizeButtons();
+uiInitControls();
