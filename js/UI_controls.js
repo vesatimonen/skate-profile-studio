@@ -272,6 +272,7 @@ function uiRedrawFingerprint() {
     }
 
     document.getElementById("fingerprint-form").value = fingerprint;
+    document.getElementById("fingerprint-form").style.background = "none";
 }
 
 function uiRedrawControls() {
@@ -394,7 +395,6 @@ function uiControlEnd(event) {
     return false;
 }
 
-
 window.addEventListener("mousedown",  uiControlStart);
 window.addEventListener("mousemove",  uiControlContinue);
 window.addEventListener("mouseup",    uiControlEnd);
@@ -405,11 +405,60 @@ window.addEventListener("touchmove",  uiControlContinue, {passive: true});
 window.addEventListener("touchend",   uiControlEnd);
 
 
+/*****************************************************************************
+ * Form events
+ *****************************************************************************/
+function uiFormChange(event) {
+    var fields = event.target.value.split("-");
 
+    var index = -1;
+    for (let blade = 0; blade < skateBlades.length; blade++) {
+        if (fields[0] == skateBlades[blade].size) {
+            index = blade;
+            break;
+        }
+    }
 
+    /* Check that blade size found */
+    if (index < 0) {
+        event.target.style.background = "#FF8888";
+        return;
+    }
 
+    /* Check amount of fields */
+    if (fields.length != 1 + sliderCount) {
+        event.target.style.background = "#FF8888";
+        return;
+    }
 
+    /* Check slider values */
+    for (let fieldIndex = 1; fieldIndex < fields.length; fieldIndex++) {
+        if (isNaN(fields[fieldIndex]) == true) {
+            event.target.style.background = "#FF8888";
+            return;
+        }
 
+        if (parseFloat(fields[fieldIndex]) < sliderValueMin ||
+            parseFloat(fields[fieldIndex]) > sliderValueMax) {
+            event.target.style.background = "#FF8888";
+            return;
+        }
+    }
+
+    /* Set skate index and slider values */
+    skateBladeIndex = index;
+    for (let fieldIndex = 1; fieldIndex < fields.length; fieldIndex++) {
+        sliderValues[fieldIndex - 1] = parseFloat(fields[fieldIndex]);
+    }
+
+    event.target.style.background = "none";
+
+    uiRedrawSizeButtons();
+    uiRedrawControls();
+    uiRedrawProfile();
+}
+
+document.getElementById("fingerprint-form").addEventListener("change", uiFormChange);
 
 
 //document.getElementById("debug-text").innerHTML = window.innerWidth;
