@@ -22,6 +22,7 @@ function uiRedrawSizeButtons() {
             button.className = "button";
         }
     }
+    uiRedrawControls();
 }
 
 function uiInitSizeButtons() {

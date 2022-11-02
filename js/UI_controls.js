@@ -97,10 +97,12 @@ function uiRedrawXLegend() {
     /* Draw legends */
     var baselineY = 25 + Math.floor(controlCanvasHeight - controlCanvasMargin.bottom) + 0.5;
     controlContext.beginPath();
-    controlContext.moveTo( convertValueToX(-((sliderCount - 1) / 2 - 1) * sliderDistance), baselineY);
-    controlContext.lineTo( convertValueToX( ((sliderCount - 1) / 2 - 1) * sliderDistance), baselineY);
+    controlContext.moveTo( sliderPositions[1].x, baselineY);
+    controlContext.lineTo( sliderPositions[sliderCount - 2].x, baselineY);
+    controlContext.stroke();
 
-    for (let xValue = -((sliderCount - 1) / 2 - 1) * sliderDistance; xValue <= ((sliderCount - 1) / 2 - 1) * sliderDistance; xValue += 5) {
+    controlContext.beginPath();
+    for (let xValue = 0; xValue <= ((sliderCount - 1) / 2 - 1) * sliderDistance; xValue += 5) {
         if (xValue == 0) {
             tickLen = 8;
         } else {
@@ -113,6 +115,10 @@ function uiRedrawXLegend() {
 
         controlContext.moveTo(convertValueToX(xValue), baselineY - tickLen);
         controlContext.lineTo(convertValueToX(xValue), baselineY + tickLen);
+        if (xValue != 0) {
+            controlContext.moveTo(convertValueToX(-xValue), baselineY - tickLen);
+            controlContext.lineTo(convertValueToX(-xValue), baselineY + tickLen);
+        }
 
         if (xValue % 20 == 0) {
             controlContext.font         = "12px monospace";
@@ -120,14 +126,17 @@ function uiRedrawXLegend() {
             controlContext.textAlign    = "center";
             controlContext.fillStyle    = "#303030";
             controlContext.fillText(Math.abs(xValue), convertValueToX(xValue), baselineY + 20);
+            if (xValue != 0) {
+                controlContext.fillText(Math.abs(xValue), convertValueToX(-xValue), baselineY + 20);
+            }
         }
     }
-
     controlContext.lineWidth = 1.0;
     controlContext.lineCap = "round";
     controlContext.strokeStyle = "#303030";
     controlContext.stroke();
 
+    /* TOE/HEEL texts */
     controlContext.font         = "12px monospace";
     controlContext.textBaseline = "middle";
     controlContext.textAlign    = "center";
@@ -224,6 +233,8 @@ function uiRedrawControlCurve() {
 }
 
 function uiRedrawControls() {
+    sliderDistance = skateBlades[skateBladeIndex].size / (sliderCount - 1);
+
     /* Clear canvas */
     controlContext.clearRect(0, 0, controlCanvas.width, controlCanvas.height);
 
