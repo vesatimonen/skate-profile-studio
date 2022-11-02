@@ -271,7 +271,7 @@ function uiRedrawFingerprint() {
         fingerprint += sliderValues[slider].toFixed(1);
     }
 
-    document.getElementById("fingerprint-text").innerHTML = fingerprint;
+    document.getElementById("fingerprint-form").value = fingerprint;
 }
 
 function uiRedrawControls() {
