@@ -5,13 +5,12 @@ var profilePoints = [];
 
 const profileStep = 1.0;
 
+var svgContent = "";
+
 /*****************************************************************************
  * SVG helpers
  *****************************************************************************/
 function svgDrawPath(points) {
-
-    var svgContent = "";
-
     /* Create svg content */
     svgContent += "\n";
     svgContent += "  <polyline\n";
@@ -22,14 +21,23 @@ function svgDrawPath(points) {
     svgContent += "    '\n";
     svgContent += "    stroke='black' stroke-width='0.1' fill='none'\n";
     svgContent += "  />\n";
+}
 
-    /* Draw svg */
-    stencilSvg.innerHTML = svgContent;
-
-//console.log(stencilSvg.outerHTML);
-
-//    stencilSvg.innerHTML = "<circle cx='" + (50 + 3 * sliderValues[1]) + "' cy='" + (50 - 3 * sliderValues[2]) + "' r='" + 3 * sliderValues[0] + "' stroke='green' stroke-width='4' fill='yellow' />";
-
+function svgDrawText(text, x, y) {
+    svgContent += "  <text\n";
+    svgContent += "    x=" + x + "\n";
+    svgContent += "    y=" + y + "\n";
+    svgContent += "    style='\n";
+    svgContent += "      font-style:   normal;\n";
+    svgContent += "      stroke:       #0000FF;\n";
+    svgContent += "      font-weight:  normal;\n";
+    svgContent += "      font-family:  Arial;\n";
+    svgContent += "      fill:         none;\n";
+    svgContent += "      stroke-width: 0.2;\n";
+    svgContent += "    '\n";
+    svgContent += "  >\n";
+    svgContent += "  " + text + "\n";
+    svgContent += "  </text>\n";
 }
 
 /*****************************************************************************
@@ -131,6 +139,11 @@ function uiRedrawStencil() {
 
 
     /* Draw stencil path */
+    svgContent = "";
     svgDrawPath(stencilPoints);
+    svgDrawText("TEST", 50, 50);
+    stencilSvg.innerHTML = svgContent;
+
+console.log(svgContent);
 }
 
