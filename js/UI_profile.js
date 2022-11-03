@@ -64,26 +64,26 @@ function svgDrawOutline() {
     stencilPoints = [];
     var index = 0;
 
-    stencilPoints[index] = {x:395, y:50};
+    stencilPoints[index] = {x:395, y:20};
     index++;
-    stencilPoints[index] = {x:395, y:5};
+    stencilPoints[index] = {x:395, y:1};
     index++;
-    stencilPoints[index] = {x:5, y:5};
+    stencilPoints[index] = {x:5, y:1};
     index++;
-    stencilPoints[index] = {x:5, y:50};
+    stencilPoints[index] = {x:5, y:20};
     index++;
     for (let i = 0; i < profilePoints.length; i++) {
         stencilPoints[index] = {x:svgWidth / 2 + profilePoints[i].x, y:svgHeight - profilePoints[i].y};
         index++;
     }
-    stencilPoints[index] = {x:395, y:50};
+    stencilPoints[index] = {x:395, y:20};
     index++;
 
     svgDrawPath(stencilPoints);
 }
 
 function svgDrawScale() {
-    var baselineY = 50;
+    var baselineY = 27;
     var axisLength = 40;
     var tickLen = 0;
     for (let x = 0; x < axisLength; x += 5) {
@@ -102,8 +102,8 @@ function svgDrawScale() {
         }
     }
 
-    svgDrawText("TOE", svgWidth / 2 - axisLength - 20, baselineY + 8, "3mm");
-    svgDrawText("HEEL", svgWidth / 2 + axisLength + 20, baselineY + 8, "3mm");
+    svgDrawText("TOE", svgWidth / 2 - axisLength - 12, baselineY + 6, "2mm");
+    svgDrawText("HEEL", svgWidth / 2 + axisLength + 12, baselineY + 6, "2mm");
 }
 
 /*****************************************************************************
@@ -187,8 +187,8 @@ function uiRedrawStencil() {
     name = name.replace(/>/g, "&gt;");
     name = name.replace(/"/g, "&quot;");
     name = name.replace(/'/g, "&#39;");
-    svgDrawText(name, svgWidth / 2, 20, "4mm");
-    svgDrawText(document.getElementById("fingerprint").value, svgWidth / 2,  35, "4mm");
+    svgDrawText(name, svgWidth / 2, 10, "3mm");
+    svgDrawText(document.getElementById("fingerprint").value, svgWidth / 2,  22, "3mm");
     svgDrawScale();
     svgDrawOutline();
     stencilSvg.innerHTML = svgContent;
