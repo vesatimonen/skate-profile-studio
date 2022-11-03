@@ -85,13 +85,13 @@ function calculateProfile() {
 
     /* Calculate right profile */
     for (let i = pivotIndex + 1; i < profilePoints.length; i++) {
-        profilePoints[i].y = calculateRadius(profilePoints[i].x) * 10;
+        profilePoints[i].y = profilePoints[i - 1].y + calculateRadius(profilePoints[i].x) * 0.1;
         index++;
     }
 
     /* Calculate left profile */
     for (let i = pivotIndex - 1; i >= 0; i--) {
-        profilePoints[i].y = calculateRadius(profilePoints[i].x) * 10;
+        profilePoints[i].y = profilePoints[i + 1].y + calculateRadius(profilePoints[i].x) * 0.1;
         index++;
     }
 }
