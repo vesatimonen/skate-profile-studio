@@ -1,6 +1,6 @@
+const stencilSvg = document.getElementById("stencil-svg");
 
 var stencilPoints = [];
-var profilePoints = [];
 
 
 /* Origo in skate middle point (mm) */
@@ -34,20 +34,55 @@ function calculateRadius(x) {
     return y;
 }
 
+function calculateStencil() {
+    stencilPoints = [];
 
+    stencilPoints[0] = {x:0, y:10.0};
+    stencilPoints[1] = {x:120 , y:100.0};
+/*
+    var skateSize = skateBlades[skateBladeIndex].size;
+    var index = 0;
+    for (let x = 0; x < skateSize / 2.0; x += 1.0) {
+        stencilPoints[index] = {x:x, y:10.0};
+        index++;
+    }
+*/
+}
+
+function svgDrawPath(points) {
+
+    var svgContent = "";
+
+    /* Create svg content */
+    svgContent += "\n";
+    svgContent += "  <polyline\n";
+    svgContent += "    points='\n";
+    for (let i = 0; i < points.length; i++) {
+        svgContent += "      " + points[i].x + ", " + points[i].y + "\n";
+    }
+    svgContent += "    '\n";
+    svgContent += "    stroke='black' stroke-width='0.1'\n";
+    svgContent += "  />\n";
+
+    /* Draw svg */
+    stencilSvg.innerHTML = svgContent;
+
+console.log(stencilSvg.outerHTML);
+
+//    stencilSvg.innerHTML = "<circle cx='" + (50 + 3 * sliderValues[1]) + "' cy='" + (50 - 3 * sliderValues[2]) + "' r='" + 3 * sliderValues[0] + "' stroke='green' stroke-width='4' fill='yellow' />";
+
+}
 
 function calculateProfile() {
-
-
 }
 
 
 function uiRedrawProfile() {
-    const svg = document.getElementById("profile-svg");
 
-    stencilPoints = [];
-console.log(calculateRadius(150));
+    calculateStencil();
+    svgDrawPath(stencilPoints);
 
-    svg.innerHTML = "<circle cx='" + (50 + 3 * sliderValues[1]) + "' cy='" + (50 - 3 * sliderValues[2]) + "' r='" + 3 * sliderValues[0] + "' stroke='green' stroke-width='4' fill='yellow' />";
+//console.log(calculateRadius(150));
+
 
 }

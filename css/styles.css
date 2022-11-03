@@ -129,6 +129,10 @@
     outline: none;
 }
 
+#stencil-svg {
+    height: 100%;
+    width: 100%;
+}
 
 #app-copyright {
     margin-top:     10px;
