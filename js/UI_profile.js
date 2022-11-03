@@ -33,6 +33,7 @@ function svgDrawText(text, x, y) {
     svgContent += "      font-weight:  normal;\n";
     svgContent += "      font-family:  Arial;\n";
     svgContent += "      fill:         none;\n";
+    svgContent += "      text-anchor:  middle;\n";
     svgContent += "      stroke-width: 0.2;\n";
     svgContent += "    '\n";
     svgContent += "  >\n";
@@ -141,7 +142,7 @@ function uiRedrawStencil() {
     /* Draw stencil path */
     svgContent = "";
     svgDrawPath(stencilPoints);
-    svgDrawText("TEST", 50, 50);
+    svgDrawText(document.getElementById("fingerprint-form").value, svgWidth / 2, 30);
     stencilSvg.innerHTML = svgContent;
 
 console.log(svgContent);
