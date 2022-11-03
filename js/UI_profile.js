@@ -81,7 +81,7 @@ function calculateProfile() {
 
     /* Calculate pivot point */
     var pivotIndex = (skateSize / 2.0) / profileStep;
-    profilePoints[pivotIndex].y = calculateRadius(profilePoints[pivotIndex].x) * 10;
+    profilePoints[pivotIndex].y = 0;
 
     /* Calculate right profile */
     for (let i = pivotIndex + 1; i < profilePoints.length; i++) {
@@ -110,10 +110,25 @@ function uiRedrawStencil() {
     /* Calculate stencil profile */
     stencilPoints = [];
     var index = 0;
+
+    stencilPoints[index] = {x:395, y:50};
+    index++;
+    stencilPoints[index] = {x:395, y:5};
+    index++;
+    stencilPoints[index] = {x:5, y:5};
+    index++;
+    stencilPoints[index] = {x:5, y:50};
+    index++;
+
+
     for (let i = 0; i < profilePoints.length; i++) {
         stencilPoints[index] = {x:svgWidth / 2 + profilePoints[i].x, y:svgHeight - profilePoints[i].y};
         index++;
     }
+
+    stencilPoints[index] = {x:395, y:50};
+    index++;
+
 
     /* Draw stencil path */
     svgDrawPath(stencilPoints);
