@@ -146,6 +146,7 @@ function calculateProfile() {
 
     profilePoints = [];
 
+
     /* Initialize points */
     var index = 0;
     for (let x = -skateSize / 2.0; x < skateSize / 2.0; x += profileStep) {
@@ -153,8 +154,10 @@ function calculateProfile() {
         index++;
     }
 
+
+
     /* Calculate pivot point */
-    var pivotIndex = (skateSize / 2.0) / profileStep;
+    var pivotIndex = Math.floor((skateSize / 2.0) / profileStep);
     profilePoints[pivotIndex].y = 0;
 
     /* Calculate right profile */
