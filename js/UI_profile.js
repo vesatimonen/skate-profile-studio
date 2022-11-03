@@ -3,6 +3,7 @@ const stencilSvg = document.getElementById("stencil-svg");
 var stencilPoints = [];
 var profilePoints = [];
 
+const profileStep = 1.0;
 
 /*****************************************************************************
  * SVG helpers
@@ -67,15 +68,15 @@ function calculateRadius(x) {
 
 
 function calculateProfile() {
-/*
     profilePoints = [];
 
+    var skateSize = skateBlades[skateBladeIndex].size;
+
     var index = 0;
-    for (let x = -skateSize / 2.0; x < skateSize / 2.0; x += 1.0) {
+    for (let x = -skateSize / 2.0; x < skateSize / 2.0; x += profileStep) {
         profilePoints[index] = {x:x, y:calculateRadius(x) * 10};
         index++;
     }
-*/
 }
 
 /*****************************************************************************
@@ -89,13 +90,15 @@ function uiRedrawStencil() {
 
     var skateSize = skateBlades[skateBladeIndex].size;
 
+    /* Calculate stencil profile */
     stencilPoints = [];
     var index = 0;
-    for (let x = -skateSize / 2.0; x < skateSize / 2.0; x += 1.0) {
-        stencilPoints[index] = {x:svgWidth / 2 + x, y:svgHeight - calculateRadius(x) * 10};
+    for (let i = 0; i < profilePoints.length; i++) {
+        stencilPoints[index] = {x:svgWidth / 2 + profilePoints[i].x, y:svgHeight - profilePoints[i].y};
         index++;
     }
 
+    /* Draw stencil path */
     svgDrawPath(stencilPoints);
 }
 
