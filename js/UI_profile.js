@@ -29,6 +29,7 @@ function svgDrawText(text, x, y) {
     svgContent += "    y=" + y + "\n";
     svgContent += "    style='\n";
     svgContent += "      font-style:   normal;\n";
+    svgContent += "      font-size:    4mm;\n";
     svgContent += "      stroke:       #0000FF;\n";
     svgContent += "      font-weight:  normal;\n";
     svgContent += "      font-family:  Arial;\n";
@@ -141,10 +142,17 @@ function uiRedrawStencil() {
 
     /* Draw stencil path */
     svgContent = "";
+    var name = document.getElementById("profile-name").value;
+    name = name.replace(/</g, "&lt;");
+    name = name.replace(/>/g, "&gt;");
+    name = name.replace(/"/g, "&quot;");
+    name = name.replace(/'/g, "&#39;");
+    svgDrawText(name, svgWidth / 2, 20);
+    svgDrawText(document.getElementById("fingerprint").value, svgWidth / 2,  40);
     svgDrawPath(stencilPoints);
-    svgDrawText(document.getElementById("fingerprint-form").value, svgWidth / 2, 30);
     stencilSvg.innerHTML = svgContent;
 
-console.log(svgContent);
+
+console.log(document.getElementById("profile-name").value);
 }
 

@@ -276,8 +276,8 @@ function uiRedrawFingerprint() {
         fingerprint += sliderValues[slider].toFixed(1);
     }
 
-    document.getElementById("fingerprint-form").value = fingerprint;
-    document.getElementById("fingerprint-form").style.background = "none";
+    document.getElementById("fingerprint").value = fingerprint;
+    document.getElementById("fingerprint").style.background = "none";
 }
 
 function uiRedrawControls() {
@@ -411,7 +411,7 @@ window.addEventListener("touchend",   uiControlEnd);
 /*****************************************************************************
  * Form events
  *****************************************************************************/
-function uiFormChange(event) {
+function uiFingerprintChange(event) {
     var fields = event.target.value.split("-");
 
     var index = -1;
@@ -468,7 +468,12 @@ function uiFormChange(event) {
     uiRedrawStencil();
 }
 
-document.getElementById("fingerprint-form").addEventListener("change", uiFormChange);
+function uiNameChange(event) {
+    uiRedrawStencil();
+}
+
+document.getElementById("profile-name").addEventListener("change", uiNameChange);
+document.getElementById("fingerprint").addEventListener("change", uiFingerprintChange);
 
 
 //document.getElementById("debug-text").innerHTML = window.innerWidth;
