@@ -130,6 +130,8 @@
 }
 
 #stencil-svg {
+    margin-top: 20px;
+    margin-bottom: 20px;
     height: 100%;
     width: 100%;
 }
