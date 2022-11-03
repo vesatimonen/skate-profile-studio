@@ -83,17 +83,17 @@ function svgDrawOutline() {
 }
 
 function svgDrawScale() {
-    var baselineY = 27;
+    var baselineY = 28;
     var axisLength = 40;
     var tickLen = 0;
     for (let x = 0; x < axisLength; x += 5) {
         if (x == 0) {
-            tickLen = 15;
+            tickLen = 8;
         } else {
             if (x % 10 == 0) {
-                tickLen = 10;
+                tickLen = 4;
             } else {
-                tickLen = 5;
+                tickLen = 2;
             }
         }
         svgDrawLine(svgWidth / 2 + x, baselineY, svgWidth / 2 + x, baselineY + tickLen);
@@ -187,8 +187,8 @@ function uiRedrawStencil() {
     name = name.replace(/>/g, "&gt;");
     name = name.replace(/"/g, "&quot;");
     name = name.replace(/'/g, "&#39;");
-    svgDrawText(name, svgWidth / 2, 10, "3mm");
-    svgDrawText(document.getElementById("fingerprint").value, svgWidth / 2,  22, "3mm");
+    svgDrawText(name, svgWidth / 2, 11, "3mm");
+    svgDrawText(document.getElementById("fingerprint").value, svgWidth / 2,  23, "3mm");
     svgDrawScale();
     svgDrawOutline();
     stencilSvg.innerHTML = svgContent;
