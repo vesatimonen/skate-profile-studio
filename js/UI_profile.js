@@ -25,13 +25,13 @@ function svgDrawPath(points) {
     svgContent += "  />\n";
 }
 
-function svgDrawText(text, x, y) {
+function svgDrawText(text, x, y, size) {
     svgContent += "  <text\n";
     svgContent += "    x=" + x + "\n";
     svgContent += "    y=" + y + "\n";
     svgContent += "    style='\n";
     svgContent += "      font-style:   normal;\n";
-    svgContent += "      font-size:    4mm;\n";
+    svgContent += "      font-size:    " + size + ";\n";
     svgContent += "      stroke:       blue;\n";
     svgContent += "      font-weight:  normal;\n";
     svgContent += "      font-family:  Arial;\n";
@@ -83,7 +83,27 @@ function svgDrawOutline() {
 }
 
 function svgDrawScale() {
-    svgDrawLine(50, 50, 100, 100);
+    var baselineY = 50;
+    var axisLength = 40;
+    var tickLen = 0;
+    for (let x = 0; x < axisLength; x += 5) {
+        if (x == 0) {
+            tickLen = 15;
+        } else {
+            if (x % 10 == 0) {
+                tickLen = 10;
+            } else {
+                tickLen = 5;
+            }
+        }
+        svgDrawLine(svgWidth / 2 + x, baselineY, svgWidth / 2 + x, baselineY + tickLen);
+        if (x != 0) {
+            svgDrawLine(svgWidth / 2 - x, baselineY, svgWidth / 2 - x, baselineY + tickLen);
+        }
+    }
+
+    svgDrawText("TOE", svgWidth / 2 - axisLength - 20, baselineY + 8, "3mm");
+    svgDrawText("HEEL", svgWidth / 2 + axisLength + 20, baselineY + 8, "3mm");
 }
 
 /*****************************************************************************
@@ -167,8 +187,8 @@ function uiRedrawStencil() {
     name = name.replace(/>/g, "&gt;");
     name = name.replace(/"/g, "&quot;");
     name = name.replace(/'/g, "&#39;");
-    svgDrawText(name, svgWidth / 2, 20);
-    svgDrawText(document.getElementById("fingerprint").value, svgWidth / 2,  40);
+    svgDrawText(name, svgWidth / 2, 20, "4mm");
+    svgDrawText(document.getElementById("fingerprint").value, svgWidth / 2,  35, "4mm");
     svgDrawScale();
     svgDrawOutline();
     stencilSvg.innerHTML = svgContent;
