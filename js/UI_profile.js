@@ -37,16 +37,16 @@ function calculateRadius(x) {
 function calculateStencil() {
     stencilPoints = [];
 
-    stencilPoints[0] = {x:0, y:10.0};
-    stencilPoints[1] = {x:120 , y:100.0};
-/*
+    svgWidth  = parseFloat(stencilSvg.getAttribute("width")); /* mm */
+    svgHeight = parseFloat(stencilSvg.getAttribute("height")); /* mm */
+
     var skateSize = skateBlades[skateBladeIndex].size;
     var index = 0;
-    for (let x = 0; x < skateSize / 2.0; x += 1.0) {
-        stencilPoints[index] = {x:x, y:10.0};
+    for (let x = -skateSize / 2.0; x < skateSize / 2.0; x += 1.0) {
+        stencilPoints[index] = {x:svgWidth / 2 + x, y:svgHeight - calculateRadius(x) * 10};
         index++;
     }
-*/
+
 }
 
 function svgDrawPath(points) {
@@ -61,13 +61,13 @@ function svgDrawPath(points) {
         svgContent += "      " + points[i].x + ", " + points[i].y + "\n";
     }
     svgContent += "    '\n";
-    svgContent += "    stroke='black' stroke-width='0.1'\n";
+    svgContent += "    stroke='black' stroke-width='0.1' fill='none'\n";
     svgContent += "  />\n";
 
     /* Draw svg */
     stencilSvg.innerHTML = svgContent;
 
-console.log(stencilSvg.outerHTML);
+//console.log(stencilSvg.outerHTML);
 
 //    stencilSvg.innerHTML = "<circle cx='" + (50 + 3 * sliderValues[1]) + "' cy='" + (50 - 3 * sliderValues[2]) + "' r='" + 3 * sliderValues[0] + "' stroke='green' stroke-width='4' fill='yellow' />";
 
