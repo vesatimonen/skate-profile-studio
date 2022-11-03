@@ -6,10 +6,9 @@ const controlCanvasHeight = 420;
 const controlCanvasMargin = {left: 50, right: 50, top: 20, bottom: 100};
 
 /* Slider configurations */
-const sliderCount    = 9;
-const sliderValueMin = 1.0;
-const sliderValueMax = 10.0;
-
+const sliderValueMin  = 1.0;
+const sliderValueMax  = 10.0;
+var   sliderCount     = 7;
 var   sliderDistance  = 50; /* mm */
 var   sliderValues    = [];
 var   sliderPositions = [];
@@ -18,8 +17,14 @@ var   sliderPositions = [];
 /*****************************************************************************
  * Scaling conversion functions
  *****************************************************************************/
-const canvasXScale = (controlCanvasWidth - (controlCanvasMargin.left + controlCanvasMargin.right))  / (sliderCount - 1);
-const canvasYScale = (controlCanvasHeight - (controlCanvasMargin.top + controlCanvasMargin.bottom)) / (sliderValueMax - sliderValueMin);
+var canvasXScale = 1;
+var canvasYScale = 1;
+
+function calculateCanvasScale() {
+    canvasXScale = (controlCanvasWidth - (controlCanvasMargin.left + controlCanvasMargin.right))  / (sliderCount - 1);
+    canvasYScale = (controlCanvasHeight - (controlCanvasMargin.top + controlCanvasMargin.bottom)) / (sliderValueMax - sliderValueMin);
+}
+
 
 function convertSliderToX(slider) {
     return Math.floor(controlCanvasMargin.left + slider * canvasXScale) + 0.5;
@@ -311,6 +316,8 @@ function uiInitControls() {
         sliderValues[slider] = sliderValueMin;
     }
 
+    calculateCanvasScale();
+
     /* Redraw controls and profile */
     uiRedrawControls();
     uiRedrawProfile();
@@ -426,7 +433,7 @@ function uiFormChange(event) {
     }
 
     /* Check amount of fields */
-    if (fields.length != 1 + sliderCount) {
+    if (fields.length < 1 + 2) {
         event.target.style.background = "#FF8888";
         return;
     }
@@ -434,6 +441,11 @@ function uiFormChange(event) {
     /* Check slider values */
     for (let fieldIndex = 1; fieldIndex < fields.length; fieldIndex++) {
         if (isNaN(fields[fieldIndex]) == true) {
+//            event.target.style.background = "#FF8888";
+//            return;
+        }
+
+        if (isNaN(parseFloat(fields[fieldIndex])) == true) {
             event.target.style.background = "#FF8888";
             return;
         }
@@ -447,12 +459,14 @@ function uiFormChange(event) {
 
     /* Set skate index and slider values */
     skateBladeIndex = index;
+    sliderCount = fields.length - 1;
     for (let fieldIndex = 1; fieldIndex < fields.length; fieldIndex++) {
         sliderValues[fieldIndex - 1] = parseFloat(fields[fieldIndex]);
     }
 
     event.target.style.background = "none";
 
+    calculateCanvasScale();
     uiRedrawSizeButtons();
     uiRedrawControls();
     uiRedrawProfile();
