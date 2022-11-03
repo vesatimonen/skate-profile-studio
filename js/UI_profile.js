@@ -6,6 +6,8 @@ var profilePoints = [];
 const profileStep = 1.0;
 
 var svgContent = "";
+var svgWidth;
+var svgHeight;
 
 /*****************************************************************************
  * SVG helpers
@@ -19,7 +21,7 @@ function svgDrawPath(points) {
         svgContent += "      " + points[i].x + ", " + points[i].y + "\n";
     }
     svgContent += "    '\n";
-    svgContent += "    stroke='black' stroke-width='0.1' fill='none'\n";
+    svgContent += "    stroke='black' stroke-width='0.2' fill='none'\n";
     svgContent += "  />\n";
 }
 
@@ -30,7 +32,7 @@ function svgDrawText(text, x, y) {
     svgContent += "    style='\n";
     svgContent += "      font-style:   normal;\n";
     svgContent += "      font-size:    4mm;\n";
-    svgContent += "      stroke:       #0000FF;\n";
+    svgContent += "      stroke:       blue;\n";
     svgContent += "      font-weight:  normal;\n";
     svgContent += "      font-family:  Arial;\n";
     svgContent += "      fill:         none;\n";
@@ -40,6 +42,48 @@ function svgDrawText(text, x, y) {
     svgContent += "  >\n";
     svgContent += "  " + text + "\n";
     svgContent += "  </text>\n";
+}
+
+function svgDrawLine(x1, y1, x2, y2) {
+    svgContent += "  <line\n";
+    svgContent += "    x1=" + x1 + "\n";
+    svgContent += "    y1=" + y1 + "\n";
+    svgContent += "    x2=" + x2 + "\n";
+    svgContent += "    y2=" + y2 + "\n";
+    svgContent += "    '\n";
+    svgContent += "    stroke='blue' stroke-width='0.2' fill='none'\n";
+    svgContent += "  />\n";
+
+}
+
+function svgDrawOutline() {
+    /* Calculate stencil profile */
+    calculateProfile();
+
+    /* Create stencil */
+    stencilPoints = [];
+    var index = 0;
+
+    stencilPoints[index] = {x:395, y:50};
+    index++;
+    stencilPoints[index] = {x:395, y:5};
+    index++;
+    stencilPoints[index] = {x:5, y:5};
+    index++;
+    stencilPoints[index] = {x:5, y:50};
+    index++;
+    for (let i = 0; i < profilePoints.length; i++) {
+        stencilPoints[index] = {x:svgWidth / 2 + profilePoints[i].x, y:svgHeight - profilePoints[i].y};
+        index++;
+    }
+    stencilPoints[index] = {x:395, y:50};
+    index++;
+
+    svgDrawPath(stencilPoints);
+}
+
+function svgDrawScale() {
+    svgDrawLine(50, 50, 100, 100);
 }
 
 /*****************************************************************************
@@ -110,35 +154,11 @@ function calculateProfile() {
  * Stencil draw
  *****************************************************************************/
 function uiRedrawStencil() {
-    calculateProfile();
 
     svgWidth  = parseFloat(stencilSvg.getAttribute("width")); /* mm */
     svgHeight = parseFloat(stencilSvg.getAttribute("height")); /* mm */
 
     var skateSize = skateBlades[skateBladeIndex].size;
-
-    /* Calculate stencil profile */
-    stencilPoints = [];
-    var index = 0;
-
-    stencilPoints[index] = {x:395, y:50};
-    index++;
-    stencilPoints[index] = {x:395, y:5};
-    index++;
-    stencilPoints[index] = {x:5, y:5};
-    index++;
-    stencilPoints[index] = {x:5, y:50};
-    index++;
-
-
-    for (let i = 0; i < profilePoints.length; i++) {
-        stencilPoints[index] = {x:svgWidth / 2 + profilePoints[i].x, y:svgHeight - profilePoints[i].y};
-        index++;
-    }
-
-    stencilPoints[index] = {x:395, y:50};
-    index++;
-
 
     /* Draw stencil path */
     svgContent = "";
@@ -149,10 +169,8 @@ function uiRedrawStencil() {
     name = name.replace(/'/g, "&#39;");
     svgDrawText(name, svgWidth / 2, 20);
     svgDrawText(document.getElementById("fingerprint").value, svgWidth / 2,  40);
-    svgDrawPath(stencilPoints);
+    svgDrawScale();
+    svgDrawOutline();
     stencilSvg.innerHTML = svgContent;
-
-
-console.log(document.getElementById("profile-name").value);
 }
 
