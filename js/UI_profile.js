@@ -68,13 +68,30 @@ function calculateRadius(x) {
 
 
 function calculateProfile() {
-    profilePoints = [];
-
     var skateSize = skateBlades[skateBladeIndex].size;
 
+    profilePoints = [];
+
+    /* Initialize points */
     var index = 0;
     for (let x = -skateSize / 2.0; x < skateSize / 2.0; x += profileStep) {
-        profilePoints[index] = {x:x, y:calculateRadius(x) * 10};
+        profilePoints[index] = {x:x, y:0};
+        index++;
+    }
+
+    /* Calculate pivot point */
+    var pivotIndex = (skateSize / 2.0) / profileStep;
+    profilePoints[pivotIndex].y = calculateRadius(profilePoints[pivotIndex].x) * 10;
+
+    /* Calculate right profile */
+    for (let i = pivotIndex + 1; i < profilePoints.length; i++) {
+        profilePoints[i].y = calculateRadius(profilePoints[i].x) * 10;
+        index++;
+    }
+
+    /* Calculate left profile */
+    for (let i = pivotIndex - 1; i >= 0; i--) {
+        profilePoints[i].y = calculateRadius(profilePoints[i].x) * 10;
         index++;
     }
 }
