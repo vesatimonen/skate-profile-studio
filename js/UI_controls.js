@@ -300,10 +300,6 @@ function uiRedrawControls() {
     uiRedrawFingerprint();
 }
 
-function uiRedrawProfile() {
-    const svg = document.getElementById("profile-svg");
-    svg.innerHTML = "<circle cx='" + (50 + 3 * sliderValues[1]) + "' cy='" + (50 - 3 * sliderValues[2]) + "' r='" + 3 * sliderValues[0] + "' stroke='green' stroke-width='4' fill='yellow' />";
-}
 
 /*****************************************************************************
  * Initialize control canvas
