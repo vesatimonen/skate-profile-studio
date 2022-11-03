@@ -102,6 +102,7 @@
 
 .button:active:enabled {
     background:     #B0DDFF;
+    box-shadow:     none;
 }
 
 .button:disabled {

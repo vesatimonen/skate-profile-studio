@@ -22,7 +22,6 @@ function uiRedrawSizeButtons() {
             button.className = "button";
         }
     }
-    uiRedrawControls();
 }
 
 function uiInitSizeButtons() {
@@ -52,10 +51,12 @@ function uiSave(event) {
 function uiSizeButton(event) {
     skateBladeIndex = event.target.sizeIndex;
     uiRedrawSizeButtons();
+    uiRedrawControls();
+    uiRedrawStencil();
 }
 
 /*****************************************************************************
  * Register button event handlers
  *****************************************************************************/
-document.getElementById("button-save").addEventListener("click",    uiSave);
+document.getElementById("button-save").addEventListener("click",   uiSave);
 document.getElementById("size-buttons").addEventListener("click",  uiSizeButton);
