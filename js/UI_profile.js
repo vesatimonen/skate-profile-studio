@@ -1,8 +1,39 @@
 const stencilSvg = document.getElementById("stencil-svg");
 
 var stencilPoints = [];
+var profilePoints = [];
 
 
+/*****************************************************************************
+ * SVG helpers
+ *****************************************************************************/
+function svgDrawPath(points) {
+
+    var svgContent = "";
+
+    /* Create svg content */
+    svgContent += "\n";
+    svgContent += "  <polyline\n";
+    svgContent += "    points='\n";
+    for (let i = 0; i < points.length; i++) {
+        svgContent += "      " + points[i].x + ", " + points[i].y + "\n";
+    }
+    svgContent += "    '\n";
+    svgContent += "    stroke='black' stroke-width='0.1' fill='none'\n";
+    svgContent += "  />\n";
+
+    /* Draw svg */
+    stencilSvg.innerHTML = svgContent;
+
+//console.log(stencilSvg.outerHTML);
+
+//    stencilSvg.innerHTML = "<circle cx='" + (50 + 3 * sliderValues[1]) + "' cy='" + (50 - 3 * sliderValues[2]) + "' r='" + 3 * sliderValues[0] + "' stroke='green' stroke-width='4' fill='yellow' />";
+
+}
+
+/*****************************************************************************
+ * Profile calculation
+ *****************************************************************************/
 /* Origo in skate middle point (mm) */
 function calculateRadius(x) {
     var y;
@@ -34,55 +65,37 @@ function calculateRadius(x) {
     return y;
 }
 
-function calculateStencil() {
-    stencilPoints = [];
+
+function calculateProfile() {
+/*
+    profilePoints = [];
+
+    var index = 0;
+    for (let x = -skateSize / 2.0; x < skateSize / 2.0; x += 1.0) {
+        profilePoints[index] = {x:x, y:calculateRadius(x) * 10};
+        index++;
+    }
+*/
+}
+
+/*****************************************************************************
+ * Stencil draw
+ *****************************************************************************/
+function uiRedrawStencil() {
+    calculateProfile();
 
     svgWidth  = parseFloat(stencilSvg.getAttribute("width")); /* mm */
     svgHeight = parseFloat(stencilSvg.getAttribute("height")); /* mm */
 
     var skateSize = skateBlades[skateBladeIndex].size;
+
+    stencilPoints = [];
     var index = 0;
     for (let x = -skateSize / 2.0; x < skateSize / 2.0; x += 1.0) {
         stencilPoints[index] = {x:svgWidth / 2 + x, y:svgHeight - calculateRadius(x) * 10};
         index++;
     }
 
-}
-
-function svgDrawPath(points) {
-
-    var svgContent = "";
-
-    /* Create svg content */
-    svgContent += "\n";
-    svgContent += "  <polyline\n";
-    svgContent += "    points='\n";
-    for (let i = 0; i < points.length; i++) {
-        svgContent += "      " + points[i].x + ", " + points[i].y + "\n";
-    }
-    svgContent += "    '\n";
-    svgContent += "    stroke='black' stroke-width='0.1' fill='none'\n";
-    svgContent += "  />\n";
-
-    /* Draw svg */
-    stencilSvg.innerHTML = svgContent;
-
-//console.log(stencilSvg.outerHTML);
-
-//    stencilSvg.innerHTML = "<circle cx='" + (50 + 3 * sliderValues[1]) + "' cy='" + (50 - 3 * sliderValues[2]) + "' r='" + 3 * sliderValues[0] + "' stroke='green' stroke-width='4' fill='yellow' />";
-
-}
-
-function calculateProfile() {
-}
-
-
-function uiRedrawProfile() {
-
-    calculateStencil();
     svgDrawPath(stencilPoints);
-
-//console.log(calculateRadius(150));
-
-
 }
+

@@ -316,7 +316,7 @@ function uiInitControls() {
 
     /* Redraw controls and profile */
     uiRedrawControls();
-    uiRedrawProfile();
+    uiRedrawStencil();
 }
 
 
@@ -383,7 +383,7 @@ function uiControlContinue(event) {
         if (position != undefined) {
             sliderValues[sliderToMove] = convertYToValue(position.y);
             uiRedrawControls();
-            uiRedrawProfile();
+            uiRedrawStencil();
         }
     }
 
@@ -465,7 +465,7 @@ function uiFormChange(event) {
     calculateCanvasScale();
     uiRedrawSizeButtons();
     uiRedrawControls();
-    uiRedrawProfile();
+    uiRedrawStencil();
 }
 
 document.getElementById("fingerprint-form").addEventListener("change", uiFormChange);
