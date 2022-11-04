@@ -53,9 +53,9 @@ function svgDrawLine(x1, y1, x2, y2) {
 
 const stencilWidth  = 400;
 const stencilHeight = 40;
-const stencilSlotPosition = 100;
-const stencilSlotWidth    = 10;
-const stencilSlotHeight   = 10;
+const stencilSlotPosition = 120;
+const stencilSlotWidth    = 8;
+const stencilSlotHeight   = 15;
 function svgDrawOutline(x, y) {
     /* Calculate stencil profile */
     calculateProfile(1.0);

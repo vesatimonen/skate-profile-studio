@@ -41,7 +41,7 @@ function uiInitSizeButtons() {
 /*****************************************************************************
  * Button handlers
  *****************************************************************************/
-function uiSave(event) {
+function uiExport(event) {
     save(stencilSvg.outerHTML, "testi.svg", "text/plain");
 
     return false;
@@ -57,5 +57,5 @@ function uiSizeButton(event) {
 /*****************************************************************************
  * Register button event handlers
  *****************************************************************************/
-document.getElementById("button-save").addEventListener("click",   uiSave);
+document.getElementById("button-export").addEventListener("click", uiExport);
 document.getElementById("size-buttons").addEventListener("click",  uiSizeButton);
