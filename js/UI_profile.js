@@ -150,17 +150,17 @@ function svgDrawSliders(x, y, scale) {
     height = controlCanvasHeight / scale;
 
     /* Border */
-    points[0] = {x: x,         y: y};
-    points[1] = {x: x + width, y: y};
-    points[2] = {x: x + width, y: y + height};
-    points[3] = {x: x,         y: y + height};
-    points[4] = {x: x,         y: y};
+    points[0] = {x: x - width/2 ,         y: y};
+    points[1] = {x: x + width/2, y: y};
+    points[2] = {x: x + width/2, y: y + height};
+    points[3] = {x: x - width/2,         y: y + height};
+    points[4] = {x: x - width/2,         y: y};
     svgDrawPath(points, "blue");
 
     /* Slider curve */
     points = [];
     for (let slider = 0; slider < sliderCount; slider++) {
-        points[slider] = {x: x + slider * width / (sliderCount - 1), y: y + height - height * (sliderValues[slider]  - sliderValueMin) / (sliderValueMax - sliderValueMin)};
+        points[slider] = {x: x + slider * width / (sliderCount - 1) - width/2, y: y + height - height * (sliderValues[slider]  - sliderValueMin) / (sliderValueMax - sliderValueMin)};
     }
     svgDrawPath(points, "blue");
 }
@@ -267,7 +267,8 @@ function uiRedrawStencil() {
     svgDrawText(   svgWidth / 2,       15, "3mm", name);
     svgDrawText(   svgWidth / 2,       26, "3mm", document.getElementById("fingerprint").value);
     svgDrawScale(  svgWidth / 2,       28, 40);
-    svgDrawSliders(svgWidth / 2 + 150, 7, 25.0);
+    svgDrawSliders(svgWidth / 2 + 160, 7, 25.0);
+    svgDrawSliders(svgWidth / 2 - 160, 7, 25.0);
     svgDrawOutline(svgWidth / 2,       5);
     stencilSvg.innerHTML = svgContent;
 }
