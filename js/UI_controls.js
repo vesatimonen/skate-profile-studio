@@ -6,7 +6,7 @@ const controlCanvasHeight = 420;
 const controlCanvasMargin = {left: 50, right: 50, top: 20, bottom: 100};
 
 /* Slider configurations */
-const sliderValueMin  = 1.0;
+const sliderValueMin  = 0.5;
 const sliderValueMax  = 10.0;
 var   sliderCount     = 7;
 var   sliderDistance  = 50; /* mm */
