@@ -52,10 +52,10 @@ function svgDrawLine(x1, y1, x2, y2) {
 }
 
 const stencilWidth  = 400;
-const stencilHeight = 40;
+const stencilHeight = 33;
 const stencilSlotPosition = 120;
 const stencilSlotWidth    = 8;
-const stencilSlotHeight   = 15;
+const stencilSlotHeight   = 13;
 function svgDrawOutline(x, y) {
     /* Calculate stencil profile */
     calculateProfile(1.0);
@@ -259,9 +259,9 @@ function uiRedrawStencil() {
     name = name.replace(/"/g, "&quot;");
     name = name.replace(/'/g, "&#39;");
     svgDrawText(   svgWidth / 2,       15, "3mm", name);
-    svgDrawText(   svgWidth / 2,       27, "3mm", document.getElementById("fingerprint").value);
-    svgDrawScale(  svgWidth / 2,       31, 40);
-    svgDrawSliders(svgWidth / 2 + 140, 8, 25.0);
+    svgDrawText(   svgWidth / 2,       26, "3mm", document.getElementById("fingerprint").value);
+    svgDrawScale(  svgWidth / 2,       28, 40);
+    svgDrawSliders(svgWidth / 2 + 140, 7, 25.0);
     svgDrawOutline(svgWidth / 2,       5);
     stencilSvg.innerHTML = svgContent;
 }
