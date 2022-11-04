@@ -42,8 +42,7 @@ function uiInitSizeButtons() {
  * Button handlers
  *****************************************************************************/
 function uiSave(event) {
-    var aaa = "sfsdfsdfsdfsdfsdfsf";
-    save(aaa, "test.tst", "text/plain");
+    save(stencilSvg.outerHTML, "testi.svg", "text/plain");
 
     return false;
 }
