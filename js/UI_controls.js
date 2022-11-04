@@ -311,7 +311,7 @@ function uiInitControls() {
     uiInitCanvas(controlCanvas, controlCanvasWidth, controlCanvasHeight);
 
     for (let slider = 0; slider < sliderCount; slider++) {
-        sliderValues[slider] = sliderValueMin;
+        sliderValues[slider] = 1.0;
     }
 
     calculateCanvasScale();
