@@ -277,7 +277,7 @@ function uiRedrawFingerprint() {
     }
 
     document.getElementById("fingerprint").value = fingerprint;
-    document.getElementById("fingerprint").style.background = "none";
+    document.getElementById("fingerprint").style.background = "#FFFFFF";
 }
 
 function uiRedrawControls() {
@@ -411,6 +411,7 @@ window.addEventListener("touchend",   uiControlEnd);
 /*****************************************************************************
  * Form events
  *****************************************************************************/
+const errorColor = "#FF8888";
 function uiFingerprintChange(event) {
     var fields = event.target.value.split("-");
 
@@ -424,31 +425,31 @@ function uiFingerprintChange(event) {
 
     /* Check that blade size found */
     if (index < 0) {
-        event.target.style.background = "#FF8888";
+        event.target.style.background = errorColor;
         return;
     }
 
     /* Check amount of fields */
     if (fields.length < 1 + 2) {
-        event.target.style.background = "#FF8888";
+        event.target.style.background = errorColor;
         return;
     }
 
     /* Check slider values */
     for (let fieldIndex = 1; fieldIndex < fields.length; fieldIndex++) {
         if (isNaN(fields[fieldIndex]) == true) {
-//            event.target.style.background = "#FF8888";
-//            return;
+            event.target.style.background = errorColor;
+            return;
         }
 
         if (isNaN(parseFloat(fields[fieldIndex])) == true) {
-            event.target.style.background = "#FF8888";
+            event.target.style.background = errorColor;
             return;
         }
 
         if (parseFloat(fields[fieldIndex]) < sliderValueMin ||
             parseFloat(fields[fieldIndex]) > sliderValueMax) {
-            event.target.style.background = "#FF8888";
+            event.target.style.background = errorColor;
             return;
         }
     }
@@ -460,7 +461,7 @@ function uiFingerprintChange(event) {
         sliderValues[fieldIndex - 1] = parseFloat(fields[fieldIndex]);
     }
 
-    event.target.style.background = "none";
+    event.target.style.background = "#FFFFFF";
 
     calculateCanvasScale();
     uiRedrawSizeButtons();
