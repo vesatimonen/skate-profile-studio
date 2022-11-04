@@ -54,8 +54,11 @@ function svgDrawLine(x1, y1, x2, y2) {
 
 }
 
-const stencilWidth  = 390;
-const stencilHeight = 48;
+const stencilWidth  = 400;
+const stencilHeight = 50;
+const stencilSlotPosition = 100;
+const stencilSlotWidth    = 10;
+const stencilSlotHeight   = 10;
 function svgDrawOutline(x, y) {
     /* Calculate stencil profile */
     calculateProfile();
@@ -64,18 +67,50 @@ function svgDrawOutline(x, y) {
     stencilPoints = [];
     var index = 0;
 
+    /* Lower right */
     stencilPoints[index] = {x: x + stencilWidth / 2, y: y + 20};
     index++;
+
+    /* Upper right */
     stencilPoints[index] = {x: x + stencilWidth / 2, y: y};
     index++;
+
+    /* Right slot */
+    stencilPoints[index] = {x: x + stencilSlotPosition, y: y};
+    index++;
+    stencilPoints[index] = {x: x + stencilSlotPosition, y: y + stencilSlotHeight};
+    index++;
+    stencilPoints[index] = {x: x + stencilSlotPosition - stencilSlotWidth, y: y + stencilSlotHeight};
+    index++;
+    stencilPoints[index] = {x: x + stencilSlotPosition - stencilSlotWidth, y: y};
+    index++;
+
+    /* Left slot */
+    stencilPoints[index] = {x: x - stencilSlotPosition, y: y};
+    index++;
+    stencilPoints[index] = {x: x - stencilSlotPosition, y: y + stencilSlotHeight};
+    index++;
+    stencilPoints[index] = {x: x - stencilSlotPosition - stencilSlotWidth, y: y + stencilSlotHeight};
+    index++;
+    stencilPoints[index] = {x: x - stencilSlotPosition - stencilSlotWidth, y: y};
+    index++;
+
+    /* Upper left */
     stencilPoints[index] = {x: x - stencilWidth / 2, y: y};
     index++;
+
+    /* Lower left */
     stencilPoints[index] = {x: x - stencilWidth / 2, y: y + 20};
     index++;
+
+
+    /* Profile */
     for (let i = 0; i < profilePoints.length; i++) {
         stencilPoints[index] = {x: x + profilePoints[i].x, y: y + stencilHeight - profilePoints[i].y};
         index++;
     }
+
+    /* Lower right */
     stencilPoints[index] = {x: x + stencilWidth / 2, y: y + 20};
     index++;
 
@@ -212,11 +247,11 @@ function uiRedrawStencil() {
     name = name.replace(/>/g, "&gt;");
     name = name.replace(/"/g, "&quot;");
     name = name.replace(/'/g, "&#39;");
-    svgDrawText(   svgWidth / 2, 11, "3mm", name);
-    svgDrawText(   svgWidth / 2, 23, "3mm", document.getElementById("fingerprint").value);
-    svgDrawScale(  svgWidth / 2, 28, 40);
-    svgDrawSliders(svgWidth / 2 + 100, 10, 25.0);
-    svgDrawOutline(svgWidth / 2, 1);
+    svgDrawText(   svgWidth / 2, 16, "3mm", name);
+    svgDrawText(   svgWidth / 2, 28, "3mm", document.getElementById("fingerprint").value);
+    svgDrawScale(  svgWidth / 2, 33, 40);
+    svgDrawSliders(svgWidth / 2 + 100, 18, 25.0);
+    svgDrawOutline(svgWidth / 2, 5);
     stencilSvg.innerHTML = svgContent;
 }
 
