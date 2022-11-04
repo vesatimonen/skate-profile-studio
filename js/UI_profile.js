@@ -10,7 +10,7 @@ var svgContent = "";
 /*****************************************************************************
  * SVG helpers
  *****************************************************************************/
-function svgDrawPath(points) {
+function svgDrawPath(points, color) {
     /* Create svg content */
     svgContent += "\n";
     svgContent += "  <polyline\n";
@@ -19,7 +19,7 @@ function svgDrawPath(points) {
         svgContent += "      " + points[i].x + ", " + points[i].y + "\n";
     }
     svgContent += "    '\n";
-    svgContent += "    stroke='black' stroke-width='0.2' fill='none'\n";
+    svgContent += "    stroke='" + color + "' stroke-width='0.2' fill='none'\n";
     svgContent += "  />\n";
 }
 
@@ -77,7 +77,7 @@ function svgDrawOutline(x, y) {
     stencilPoints[index] = {x:395, y:20};
     index++;
 
-    svgDrawPath(stencilPoints);
+    svgDrawPath(stencilPoints, "black");
 }
 
 function svgDrawScale(x, y, length) {
@@ -102,6 +102,28 @@ function svgDrawScale(x, y, length) {
     /* Draw skate directions */
     svgDrawText(x - length - 12, y + 6, "2mm", "TOE");
     svgDrawText(x + length + 12, y + 6, "2mm", "HEEL");
+}
+
+function svgDrawSliders(x, y, scale) {
+    var points = [];
+
+    width  = controlCanvasWidth / 20.0;
+    height = controlCanvasHeight / 20.0;
+
+    /* Border */
+    points[0] = {x: x,         y: y};
+    points[1] = {x: x + width, y: y};
+    points[2] = {x: x + width, y: y + height};
+    points[3] = {x: x,         y: y + height};
+    points[4] = {x: x,         y: y};
+    svgDrawPath(points, "blue");
+
+    /* Slider curve */
+    points = [];
+    for (let slider = 0; slider < sliderCount; slider++) {
+        points[slider] = {x: x + slider * width / (sliderCount - 1), y: y + height - height * (sliderValues[slider]  - sliderValueMin) / (sliderValueMax - sliderValueMin)};
+    }
+    svgDrawPath(points, "blue");
 }
 
 /*****************************************************************************
@@ -191,6 +213,7 @@ function uiRedrawStencil() {
     svgDrawText(   svgWidth / 2, 11, "3mm", name);
     svgDrawText(   svgWidth / 2, 23, "3mm", document.getElementById("fingerprint").value);
     svgDrawScale(  svgWidth / 2, 28, 40);
+    svgDrawSliders(svgWidth / 2 + 100, 8, 20.0);
     svgDrawOutline(svgWidth / 2, svgHeight);
     stencilSvg.innerHTML = svgContent;
 }
