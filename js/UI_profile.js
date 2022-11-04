@@ -25,7 +25,7 @@ function svgDrawPath(points) {
     svgContent += "  />\n";
 }
 
-function svgDrawText(text, x, y, size) {
+function svgDrawText(x, y, size, text) {
     svgContent += "  <text\n";
     svgContent += "    x=" + x + "\n";
     svgContent += "    y=" + y + "\n";
@@ -56,7 +56,7 @@ function svgDrawLine(x1, y1, x2, y2) {
 
 }
 
-function svgDrawOutline() {
+function svgDrawOutline(x, y) {
     /* Calculate stencil profile */
     calculateProfile();
 
@@ -73,7 +73,7 @@ function svgDrawOutline() {
     stencilPoints[index] = {x:5, y:20};
     index++;
     for (let i = 0; i < profilePoints.length; i++) {
-        stencilPoints[index] = {x:svgWidth / 2 + profilePoints[i].x, y:svgHeight - profilePoints[i].y};
+        stencilPoints[index] = {x:x + profilePoints[i].x, y:y - profilePoints[i].y};
         index++;
     }
     stencilPoints[index] = {x:395, y:20};
@@ -82,28 +82,28 @@ function svgDrawOutline() {
     svgDrawPath(stencilPoints);
 }
 
-function svgDrawScale() {
-    var baselineY = 28;
-    var axisLength = 40;
-    var tickLen = 0;
-    for (let x = 0; x < axisLength; x += 5) {
-        if (x == 0) {
+function svgDrawScale(x, y, length) {
+    /* Draw scale ticks */
+    for (let xValue = 0; xValue < length; xValue += 5) {
+        var tickLen = 0;
+        if (xValue == 0) {
             tickLen = 8;
         } else {
-            if (x % 10 == 0) {
+            if (xValue % 10 == 0) {
                 tickLen = 4;
             } else {
                 tickLen = 2;
             }
         }
-        svgDrawLine(svgWidth / 2 + x, baselineY, svgWidth / 2 + x, baselineY + tickLen);
-        if (x != 0) {
-            svgDrawLine(svgWidth / 2 - x, baselineY, svgWidth / 2 - x, baselineY + tickLen);
+        svgDrawLine(x + xValue, y, x + xValue, y + tickLen);
+        if (xValue != 0) {
+            svgDrawLine(x - xValue, y, x - xValue, y + tickLen);
         }
     }
 
-    svgDrawText("TOE", svgWidth / 2 - axisLength - 12, baselineY + 6, "2mm");
-    svgDrawText("HEEL", svgWidth / 2 + axisLength + 12, baselineY + 6, "2mm");
+    /* Draw skate directions */
+    svgDrawText(x - length - 12, y + 6, "2mm", "TOE");
+    svgDrawText(x + length + 12, y + 6, "2mm", "HEEL");
 }
 
 /*****************************************************************************
@@ -190,10 +190,10 @@ function uiRedrawStencil() {
     name = name.replace(/>/g, "&gt;");
     name = name.replace(/"/g, "&quot;");
     name = name.replace(/'/g, "&#39;");
-    svgDrawText(name, svgWidth / 2, 11, "3mm");
-    svgDrawText(document.getElementById("fingerprint").value, svgWidth / 2,  23, "3mm");
-    svgDrawScale();
-    svgDrawOutline();
+    svgDrawText(   svgWidth / 2, 11, "3mm", name);
+    svgDrawText(   svgWidth / 2, 23, "3mm", document.getElementById("fingerprint").value);
+    svgDrawScale(  svgWidth / 2, 28, 40);
+    svgDrawOutline(svgWidth / 2, svgHeight);
     stencilSvg.innerHTML = svgContent;
 }
 
