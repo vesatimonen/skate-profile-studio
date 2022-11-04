@@ -6,8 +6,6 @@ var profilePoints = [];
 const profileStep = 1.0;
 
 var svgContent = "";
-var svgWidth;
-var svgHeight;
 
 /*****************************************************************************
  * SVG helpers
@@ -178,8 +176,8 @@ function calculateProfile() {
  *****************************************************************************/
 function uiRedrawStencil() {
 
-    svgWidth  = parseFloat(stencilSvg.getAttribute("width")); /* mm */
-    svgHeight = parseFloat(stencilSvg.getAttribute("height")); /* mm */
+    var svgWidth  = parseFloat(stencilSvg.getAttribute("width")); /* mm */
+    var svgHeight = parseFloat(stencilSvg.getAttribute("height")); /* mm */
 
     var skateSize = skateBlades[skateBladeIndex].size;
 
