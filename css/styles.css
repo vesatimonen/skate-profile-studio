@@ -98,11 +98,11 @@
 }
 
 .button-selected {
-    background:     #FFFFFF;
+    background:     #CEEAFF;
 }
 
 .button:active:enabled {
-    background:     #B0DDFF;
+    background:     #CEEAFF;
     box-shadow:     none;
 }
 
@@ -120,7 +120,7 @@
     margin-right:   auto;
     width:          100%;
 
-    background:     #FFFFFF;
+    background:     #CEEAFF;
     border:         1px solid #202020;
     border-radius:  2px;
 
@@ -132,10 +132,17 @@
 }
 
 #stencil-svg {
-    margin-top: 20px;
-    margin-bottom: 20px;
-    height: 100%;
-    width: 100%;
+    box-sizing:     border-box;
+
+    margin-top:     20px;
+    margin-bottom:  20px;
+
+    height:         100%;
+    width:          100%;
+
+    background:     #FFFFFF;
+    border:         1px solid #202020;
+    border-radius:  2px;
 }
 
 #app-copyright {

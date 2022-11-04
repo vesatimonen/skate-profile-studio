@@ -266,6 +266,8 @@ controlContext.stroke();
 */
 }
 
+const okColor    = "#CEEAFF";
+const errorColor = "#FF8888";
 function uiRedrawFingerprint() {
     var fingerprint = "";
 
@@ -277,7 +279,7 @@ function uiRedrawFingerprint() {
     }
 
     document.getElementById("fingerprint").value = fingerprint;
-    document.getElementById("fingerprint").style.background = "#FFFFFF";
+    document.getElementById("fingerprint").style.background = okColor;
 }
 
 function uiRedrawControls() {
@@ -411,7 +413,6 @@ window.addEventListener("touchend",   uiControlEnd);
 /*****************************************************************************
  * Form events
  *****************************************************************************/
-const errorColor = "#FF8888";
 function uiFingerprintChange(event) {
     var fields = event.target.value.split("-");
 
@@ -461,7 +462,7 @@ function uiFingerprintChange(event) {
         sliderValues[fieldIndex - 1] = parseFloat(fields[fieldIndex]);
     }
 
-    event.target.style.background = "#FFFFFF";
+    event.target.style.background = okColor;
 
     calculateCanvasScale();
     uiRedrawSizeButtons();
