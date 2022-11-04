@@ -73,13 +73,13 @@ function svgDrawOutline(x, y) {
     index++;
 
     /* Right slot */
-    stencilPoints[index] = {x: x + stencilSlotPosition, y: y};
+    stencilPoints[index] = {x: x + stencilSlotPosition + stencilSlotWidth, y: y};
+    index++;
+    stencilPoints[index] = {x: x + stencilSlotPosition + stencilSlotWidth, y: y + stencilSlotHeight};
     index++;
     stencilPoints[index] = {x: x + stencilSlotPosition, y: y + stencilSlotHeight};
     index++;
-    stencilPoints[index] = {x: x + stencilSlotPosition - stencilSlotWidth, y: y + stencilSlotHeight};
-    index++;
-    stencilPoints[index] = {x: x + stencilSlotPosition - stencilSlotWidth, y: y};
+    stencilPoints[index] = {x: x + stencilSlotPosition, y: y};
     index++;
 
     /* Left slot */
@@ -135,6 +135,12 @@ function svgDrawScale(x, y, length) {
     /* Draw skate directions */
     svgDrawText(x - length - 12, y + 6, "2mm", "TOE");
     svgDrawText(x + length + 12, y + 6, "2mm", "HEEL");
+
+
+    svgDrawLine(x + skateBlades[skateBladeIndex].effectiveLength, y - 20,
+                x + skateBlades[skateBladeIndex].effectiveLength, y + 1);
+    svgDrawLine(x - skateBlades[skateBladeIndex].effectiveLength, y - 20,
+                x - skateBlades[skateBladeIndex].effectiveLength, y + 1);
 }
 
 function svgDrawSliders(x, y, scale) {
