@@ -53,13 +53,13 @@ function svgDrawLine(x1, y1, x2, y2) {
 }
 
 const stencilWidth  = 400;
-const stencilHeight = 50;
+const stencilHeight = 45;
 const stencilSlotPosition = 100;
 const stencilSlotWidth    = 10;
 const stencilSlotHeight   = 10;
 function svgDrawOutline(x, y) {
     /* Calculate stencil profile */
-    calculateProfile(5.0);
+    calculateProfile(1.0);
 
     /* Create stencil */
     stencilPoints = [];
@@ -191,13 +191,12 @@ function calculateRadius(x) {
 
 //    console.log(x + " / " + sliderLeft + " / " + sliderT);
 
-    return y;
+    return y * 1000; /* mm */
 }
 
 
 function calculateProfile(profileStep) {
     var skateSize = skateBlades[skateBladeIndex].size;
-    var index;
 
     profilePoints = [];
 
@@ -213,33 +212,33 @@ function calculateProfile(profileStep) {
     }
 
     /* Calculate right profile */
-    circle = {x: 0.0, y: calculateRadius(0.0), radius: calculateRadius(0.0)}; /* Pivot point circle */
+    var circle = {x: 0.0, y: calculateRadius(0.0), radius: calculateRadius(0.0)}; /* Pivot point circle */
     for (let i = pivotIndex + 1; i < profilePoints.length; i++) {
+        profilePoints[i].y = circle.y - Math.sqrt(Math.pow(circle.radius, 2) - Math.pow(profilePoints[i].x - circle.x, 2));
 
-/*
-console.log(circle);
-        profilePoints[i].y = circle.y + Math.sqrt(Math.pow(circle.radius, 2) - Math.pow(profilePoints[i].x - circle.x, 2));
-console.log(circle.y);
-console.log(circle.radius);
-console.log(profilePoints[i].x);
-
-break;
         var radiusRatio = profilePoints[i].radius / circle.radius;
         circle = {
             x:      profilePoints[i].x + (circle.x - profilePoints[i].x) * radiusRatio,
             y:      profilePoints[i].y + (circle.y - profilePoints[i].y) * radiusRatio,
             radius: profilePoints[i].radius
         };
-*/
 
-        profilePoints[i].y = profilePoints[i - 1].y + profilePoints[i].radius * 0.1;
-        index++;
+//        profilePoints[i].y = profilePoints[i - 1].y + profilePoints[i].radius * 0.0001;
     }
 
     /* Calculate left profile */
+    var circle = {x: 0.0, y: calculateRadius(0.0), radius: calculateRadius(0.0)}; /* Pivot point circle */
     for (let i = pivotIndex - 1; i >= 0; i--) {
-        profilePoints[i].y = profilePoints[i + 1].y + profilePoints[i].radius * 0.1;
-        index++;
+        profilePoints[i].y = circle.y - Math.sqrt(Math.pow(circle.radius, 2) - Math.pow(circle.x - profilePoints[i].x, 2));
+
+        var radiusRatio = profilePoints[i].radius / circle.radius;
+        circle = {
+            x:      profilePoints[i].x + (circle.x - profilePoints[i].x) * radiusRatio,
+            y:      profilePoints[i].y + (circle.y - profilePoints[i].y) * radiusRatio,
+            radius: profilePoints[i].radius
+        };
+
+//        profilePoints[i].y = profilePoints[i + 1].y + profilePoints[i].radius * 0.0001;
     }
 }
 
