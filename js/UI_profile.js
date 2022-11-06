@@ -51,11 +51,14 @@ function svgDrawLine(x1, y1, x2, y2) {
     svgContent += "  />\n";
 }
 
-const stencilWidth  = 400;
-const stencilHeight = 33;
+const stencilWidth     = 400;
+const stencilHeightMin = 20;
+const stencilHeightMax = 33;
+
 const stencilSlotPosition = 120;
 const stencilSlotWidth    = 8;
 const stencilSlotHeight   = 13;
+
 function svgDrawOutline(x, y) {
     /* Calculate stencil profile */
     calculateProfile(1.0);
@@ -65,7 +68,7 @@ function svgDrawOutline(x, y) {
     var index = 0;
 
     /* Lower right */
-    stencilPoints[index] = {x: x + stencilWidth / 2, y: y + 20};
+    stencilPoints[index] = {x: x + stencilWidth / 2, y: y + stencilHeightMin};
     index++;
 
     /* Upper right */
@@ -97,17 +100,17 @@ function svgDrawOutline(x, y) {
     index++;
 
     /* Lower left */
-    stencilPoints[index] = {x: x - stencilWidth / 2, y: y + 20};
+    stencilPoints[index] = {x: x - stencilWidth / 2, y: y + stencilHeightMin};
     index++;
 
     /* Profile */
     for (let i = 0; i < profilePoints.length; i++) {
-        stencilPoints[index] = {x: x + profilePoints[i].x, y: y + stencilHeight - profilePoints[i].y};
+        stencilPoints[index] = {x: x + profilePoints[i].x, y: y + stencilHeightMax - profilePoints[i].y};
         index++;
     }
 
     /* Lower right */
-    stencilPoints[index] = {x: x + stencilWidth / 2, y: y + 20};
+    stencilPoints[index] = {x: x + stencilWidth / 2, y: y + stencilHeightMin};
     index++;
 
     svgDrawPath(stencilPoints, "black");
@@ -245,6 +248,14 @@ function calculateProfile(profileStep) {
 
 //        profilePoints[i].y = profilePoints[i + 1].y + profilePoints[i].radius * 0.0001;
     }
+
+
+    for (let i = 0; i < profilePoints.length; i++) {
+        if (profilePoints[i].y > stencilHeightMax - stencilHeightMin) {
+            profilePoints[i].y = stencilHeightMax - stencilHeightMin;
+        }
+    }
+
 }
 
 /*****************************************************************************
@@ -267,8 +278,8 @@ function uiRedrawStencil() {
     svgDrawText(   svgWidth / 2,       15, "3mm", name);
     svgDrawText(   svgWidth / 2,       26, "3mm", document.getElementById("fingerprint").value);
     svgDrawScale(  svgWidth / 2,       28, 40);
-    svgDrawSliders(svgWidth / 2 + 160, 7, 25.0);
-    svgDrawSliders(svgWidth / 2 - 160, 7, 25.0);
+    svgDrawSliders(svgWidth / 2 + 170, 6.5, 25.0);
+    svgDrawSliders(svgWidth / 2 - 170, 6.5, 25.0);
     svgDrawOutline(svgWidth / 2,       5);
     stencilSvg.innerHTML = svgContent;
 }
