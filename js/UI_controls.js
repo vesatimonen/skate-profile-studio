@@ -275,7 +275,16 @@ function uiRedrawFingerprint() {
 
     for (let slider = 0; slider < sliderCount; slider++) {
         fingerprint += "-";
-        fingerprint += sliderValues[slider].toFixed(1);
+        if (Math.floor(sliderValues[slider]) == sliderValues[slider]) {
+            var decimals = 0;
+        } else {
+            var decimals = sliderValues[slider].toString().split(".")[1].length;
+        }
+        if (decimals > 1) {
+           fingerprint += sliderValues[slider].toFixed(decimals);
+        } else {
+           fingerprint += sliderValues[slider].toFixed(1);
+        }
     }
 
     document.getElementById("fingerprint").value = fingerprint;
