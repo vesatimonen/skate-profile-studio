@@ -155,13 +155,16 @@ function uiRedrawSliders() {
 function uiRedrawXLegend() {
     /* Draw legends */
     var baselineY = 25 + Math.floor(controlCanvasHeight - controlCanvasMargin.bottom) + 0.5;
+    var legendLength = skateBlades[skateBladeIndex].effectiveLength;
+
     controlContext.beginPath();
-    controlContext.moveTo( sliderPositions[1].x, baselineY);
-    controlContext.lineTo( sliderPositions[sliderCount - 2].x, baselineY);
+    controlContext.moveTo( convertValueToX(-legendLength), baselineY);
+    controlContext.lineTo( convertValueToX(+legendLength), baselineY);
     controlContext.stroke();
 
     controlContext.beginPath();
-    for (let xValue = 0; xValue <= ((sliderCount - 1) / 2 - 1) * sliderDistance; xValue += 5) {
+
+    for (let xValue = 0; xValue <= legendLength; xValue += 5) {
         if (xValue == 0) {
             tickLen = 8;
         } else {
@@ -200,8 +203,9 @@ function uiRedrawXLegend() {
     controlContext.textBaseline = "middle";
     controlContext.textAlign    = "center";
     controlContext.fillStyle    = "#303030";
-    controlContext.fillText("TOE",  convertValueToX(-((sliderCount - 1) / 2 - 0.5) * sliderDistance), baselineY);
-    controlContext.fillText("HEEL", convertValueToX( ((sliderCount - 1) / 2 - 0.5) * sliderDistance), baselineY);
+
+    controlContext.fillText("TOE",  sliderPositions[0].x               + 40, baselineY);
+    controlContext.fillText("HEEL", sliderPositions[sliderCount - 1].x - 40, baselineY);
 }
 
 const skateZones = [

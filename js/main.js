@@ -11,7 +11,7 @@ const skateBlades = [
     {size: 296, effectiveLength: 110},
     {size: 306, effectiveLength: 115},
 ];
-var skateBladeIndex = 9;
+var skateBladeIndex = 6;
 
 
 uiInitControls();
