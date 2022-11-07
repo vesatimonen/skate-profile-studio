@@ -104,8 +104,6 @@ function uiRedrawSliders() {
         } else {
             tickLen = 2;
         }
-        controlContext.moveTo(sliderPositions[0].x - tickLen, yOrigo - yScale * y + 0.5);
-        controlContext.lineTo(sliderPositions[0].x + tickLen, yOrigo - yScale * y + 0.5);
     }
     controlContext.lineWidth   = 1.0;
     controlContext.lineCap     = "round";
@@ -141,7 +139,7 @@ function uiRedrawSliders() {
         } else {
             tickLen = 2;
         }
-        for (let slider = 1; slider < sliderCount; slider++) {
+        for (let slider = 0; slider < sliderCount; slider++) {
             controlContext.moveTo(sliderPositions[slider].x - tickLen, convertValueToY(y));
             controlContext.lineTo(sliderPositions[slider].x + tickLen, convertValueToY(y));
         }
