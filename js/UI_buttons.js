@@ -1,13 +1,4 @@
 
-function save(data, filename, type) {
-    var fileData = new Blob([data], {type: type});
-    var fileBlob = document.getElementById("file-save");
-
-    fileBlob.href     = URL.createObjectURL(fileData);
-    fileBlob.download = filename;
-    fileBlob.click();
-}
-
 
 /*****************************************************************************
  * Size button functions
@@ -41,12 +32,6 @@ function uiInitSizeButtons() {
 /*****************************************************************************
  * Button handlers
  *****************************************************************************/
-function uiExport(event) {
-    save(stencilSvg.outerHTML, document.getElementById("profile-name").value + ".svg", "text/plain");
-
-    return false;
-}
-
 function uiSizeButton(event) {
     skateBladeIndex = event.target.sizeIndex;
     uiRedrawSizeButtons();
@@ -54,8 +39,17 @@ function uiSizeButton(event) {
     uiRedrawStencil();
 }
 
+function uiExport() {
+    var fileData = new Blob([stencilSvg.outerHTML], {type: "text/plain"});
+    var fileBlob = document.getElementById("export-svg");
+
+    fileBlob.href     = URL.createObjectURL(fileData);
+    fileBlob.download = document.getElementById("profile-name").value + ".svg";
+}
+
+
 /*****************************************************************************
  * Register button event handlers
  *****************************************************************************/
-document.getElementById("button-export").addEventListener("click", uiExport);
 document.getElementById("size-buttons").addEventListener("click",  uiSizeButton);
+document.getElementById("export-svg").addEventListener("click",  uiExport);
