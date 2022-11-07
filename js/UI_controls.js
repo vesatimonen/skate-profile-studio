@@ -3,7 +3,7 @@ const controlCanvas  = document.getElementById("control-canvas");
 const controlContext = controlCanvas.getContext("2d");
 const controlCanvasWidth  = document.getElementById("app-screen").getBoundingClientRect().width;
 const controlCanvasHeight = 420;
-const controlCanvasMargin = {left: 50, right: 50, top: 20, bottom: 100};
+const controlCanvasMargin = {left: 50, right: 50, top: 5, bottom: 100};
 
 /* Slider configurations */
 const sliderValueMin  = 0.5;
@@ -135,6 +135,7 @@ function uiRedrawSliders() {
             controlContext.textBaseline = "middle";
             controlContext.textAlign    = "center";
             controlContext.fillStyle    = "#303030";
+            controlContext.fillStyle    = "#0000FF";
             controlContext.fillText(y.toFixed(1) + "m", sliderPositions[sliderCount - 1].x + 30, convertValueToY(y));
             tickLen = 4;
         } else {
