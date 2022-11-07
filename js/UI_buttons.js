@@ -42,7 +42,7 @@ function uiInitSizeButtons() {
  * Button handlers
  *****************************************************************************/
 function uiExport(event) {
-    save(stencilSvg.outerHTML, "testi.svg", "text/plain");
+    save(stencilSvg.outerHTML, document.getElementById("profile-name").value + ".svg", "text/plain");
 
     return false;
 }
