@@ -273,10 +273,10 @@ function uiRedrawStencil() {
     name = name.replace(/"/g, "&quot;");
     name = name.replace(/'/g, "&#39;");
     svgDrawText(   svgWidth / 2,       15, "3mm", name);
-    svgDrawText(   svgWidth / 2,       26, "3mm", document.getElementById("fingerprint").value);
+    svgDrawText(   svgWidth / 2,       25, "2.4mm", document.getElementById("fingerprint").value);
     svgDrawScale(  svgWidth / 2,       28, 40);
-    svgDrawSliders(svgWidth / 2 + 170, 6.5, 25.0);
-    svgDrawSliders(svgWidth / 2 - 170, 6.5, 25.0);
+    svgDrawSliders(svgWidth / 2 + 180, 6.5, 25.0);
+    svgDrawSliders(svgWidth / 2 - 180, 6.5, 25.0);
     svgDrawOutline(svgWidth / 2,       5);
     stencilSvg.innerHTML = svgContent;
 }

@@ -515,8 +515,7 @@ function uiFingerprintChange(event) {
             return;
         }
 
-        if (parseFloat(fields[fieldIndex]) < sliderValueMin ||
-            parseFloat(fields[fieldIndex]) > sliderValueMax) {
+        if (parseFloat(fields[fieldIndex]) < 0.01) {
             event.target.style.background = errorColor;
             return;
         }
