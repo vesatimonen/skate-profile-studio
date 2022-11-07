@@ -72,8 +72,10 @@ function uiRedrawSliders() {
     var height = controlCanvasHeight - (controlCanvasMargin.top + controlCanvasMargin.bottom);
     var xOrigo = controlCanvasMargin.left + width/2.0;
     var yOrigo = controlCanvasHeight - controlCanvasMargin.bottom;
+//    var yMax   = (stencilHeightMax - stencilHeightMin); /* mm */
+    var yMax   = 5; /* mm */
     var xScale = width / skateBlades[skateBladeIndex].size;
-    var yScale = height / (stencilHeightMax - stencilHeightMin); /* mm */
+    var yScale = height / yMax;
 
     controlContext.moveTo(xOrigo + xScale * profilePoints[0].x, yOrigo - yScale * profilePoints[0].y);
     for (let i = 1; i < profilePoints.length; i++) {
@@ -82,6 +84,30 @@ function uiRedrawSliders() {
 
     controlContext.fillStyle   = "none";
     controlContext.lineWidth   = 0.2;
+    controlContext.lineCap     = "round";
+    controlContext.strokeStyle = "#303030";
+    controlContext.stroke();
+
+
+    /* Draw profile ticks and legends */
+    controlContext.beginPath();
+    var yDelta = 0.5;
+    var tickLen = 5;
+    for (let y = 0; y <= yMax; y += yDelta) {
+        if (y == Math.floor(y)) {
+            controlContext.font         = "12px monospace";
+            controlContext.textBaseline = "middle";
+            controlContext.textAlign    = "center";
+            controlContext.fillStyle    = "#303030";
+            controlContext.fillText(y.toFixed(1) + "mm", sliderPositions[0].x - 30, yOrigo - yScale * y + 0.5);
+            tickLen = 4;
+        } else {
+            tickLen = 2;
+        }
+        controlContext.moveTo(sliderPositions[0].x - tickLen, yOrigo - yScale * y + 0.5);
+        controlContext.lineTo(sliderPositions[0].x + tickLen, yOrigo - yScale * y + 0.5);
+    }
+    controlContext.lineWidth   = 1.0;
     controlContext.lineCap     = "round";
     controlContext.strokeStyle = "#303030";
     controlContext.stroke();
@@ -110,12 +136,11 @@ function uiRedrawSliders() {
             controlContext.textAlign    = "center";
             controlContext.fillStyle    = "#303030";
             controlContext.fillText(y.toFixed(1) + "m", sliderPositions[sliderCount - 1].x + 30, convertValueToY(y));
-            controlContext.fillText(y.toFixed(1) + "m", sliderPositions[0].x - 30, convertValueToY(y));
             tickLen = 4;
         } else {
             tickLen = 2;
         }
-        for (let slider = 0; slider < sliderCount; slider++) {
+        for (let slider = 1; slider < sliderCount; slider++) {
             controlContext.moveTo(sliderPositions[slider].x - tickLen, convertValueToY(y));
             controlContext.lineTo(sliderPositions[slider].x + tickLen, convertValueToY(y));
         }
