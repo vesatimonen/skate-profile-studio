@@ -60,9 +60,6 @@ const stencilSlotWidth    = 8;
 const stencilSlotHeight   = 13;
 
 function svgDrawOutline(x, y) {
-    /* Calculate stencil profile */
-    calculateProfile(1.0);
-
     /* Create stencil */
     stencilPoints = [];
     var index = 0;

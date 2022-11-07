@@ -65,14 +65,42 @@ function convertYToValue(y) {
  * Redraw control canvas
  *****************************************************************************/
 function uiRedrawSliders() {
+
+    /* Draw profile under sliders */
+    controlContext.beginPath();
+    var width  = controlCanvasWidth - (controlCanvasMargin.left + controlCanvasMargin.right);
+    var height = controlCanvasHeight - (controlCanvasMargin.top + controlCanvasMargin.bottom);
+    var xOrigo = controlCanvasMargin.left + width/2.0;
+    var yOrigo = controlCanvasHeight - controlCanvasMargin.bottom;
+    var xScale = width / skateBlades[skateBladeIndex].size;
+    var yScale = height / (stencilHeightMax - stencilHeightMin); /* mm */
+
+    controlContext.moveTo(xOrigo + xScale * profilePoints[0].x, yOrigo - yScale * profilePoints[0].y);
+    for (let i = 1; i < profilePoints.length; i++) {
+        controlContext.lineTo(xOrigo + xScale * profilePoints[i].x, yOrigo - yScale * profilePoints[i].y);
+    }
+
+    controlContext.fillStyle   = "none";
+    controlContext.lineWidth   = 0.2;
+    controlContext.lineCap     = "round";
+    controlContext.strokeStyle = "#303030";
+    controlContext.stroke();
+
+
     /* Draw slider tracks */
     controlContext.beginPath();
     for (let slider = 0; slider < sliderCount; slider++) {
         controlContext.moveTo(sliderPositions[slider].x, convertValueToY(sliderValueMin));
         controlContext.lineTo(sliderPositions[slider].x, convertValueToY(sliderValueMax));
     }
+    controlContext.lineWidth   = 1.0;
+    controlContext.lineCap     = "round";
+    controlContext.strokeStyle = "#303030";
+    controlContext.stroke();
+
 
     /* Draw slider ticks and legends */
+    controlContext.beginPath();
     var yDelta = 0.5;
     var tickLen = 5;
     for (let y = sliderValueMin; y <= sliderValueMax; y += yDelta) {
@@ -92,10 +120,12 @@ function uiRedrawSliders() {
             controlContext.lineTo(sliderPositions[slider].x + tickLen, convertValueToY(y));
         }
     }
-    controlContext.lineWidth = 1.0;
-    controlContext.lineCap = "round";
+    controlContext.lineWidth   = 1.0;
+    controlContext.lineCap     = "round";
     controlContext.strokeStyle = "#303030";
     controlContext.stroke();
+
+
 }
 
 function uiRedrawXLegend() {
@@ -303,6 +333,8 @@ function uiRedrawControls() {
             x: convertSliderToX(slider),
             y: convertValueToY(sliderValues[slider]) };
     }
+
+    calculateProfile(1.0);
 
     uiRedrawSliders();
     uiRedrawXLegend();
