@@ -150,17 +150,20 @@ function svgDrawSliders(x, y, scale) {
     height = controlCanvasHeight / scale;
 
     /* Border */
-    points[0] = {x: x - width/2 ,         y: y};
+    points[0] = {x: x - width/2, y: y};
     points[1] = {x: x + width/2, y: y};
     points[2] = {x: x + width/2, y: y + height};
-    points[3] = {x: x - width/2,         y: y + height};
-    points[4] = {x: x - width/2,         y: y};
+    points[3] = {x: x - width/2, y: y + height};
+    points[4] = {x: x - width/2, y: y};
     svgDrawPath(points, "blue");
+
+    svgDrawLine(x, y + 3 * height / 4,
+                x, y + height);
 
     /* Slider curve */
     points = [];
     for (let slider = 0; slider < sliderCount; slider++) {
-        points[slider] = {x: x + slider * width / (sliderCount - 1) - width/2, y: y + height - height * (sliderValues[slider]  - sliderValueMin) / (sliderValueMax - sliderValueMin)};
+        points[slider] = {x: x + slider * width / (sliderCount - 1) - width/2, y: y + height - height * sliderValues[slider] / sliderValueMax};
     }
     svgDrawPath(points, "blue");
 }
