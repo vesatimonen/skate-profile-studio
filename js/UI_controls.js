@@ -73,7 +73,7 @@ function uiRedrawSliders() {
     var xOrigo = controlCanvasMargin.left + width/2.0;
     var yOrigo = controlCanvasHeight - controlCanvasMargin.bottom;
 //    var yMax   = (stencilHeightMax - stencilHeightMin); /* mm */
-    var yMax   = 5; /* mm */
+    var yMax   = 10; /* mm */
     var xScale = width / skateBlades[skateBladeIndex].size;
     var yScale = height / yMax;
 

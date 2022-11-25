@@ -249,13 +249,12 @@ function calculateProfile(profileStep) {
 //        profilePoints[i].y = profilePoints[i + 1].y + profilePoints[i].radius * 0.0001;
     }
 
-
+    /* Limit Y values */
     for (let i = 0; i < profilePoints.length; i++) {
-        if (profilePoints[i].y > stencilHeightMax - stencilHeightMin) {
+        if (isNaN(profilePoints[i].y) || profilePoints[i].y > stencilHeightMax - stencilHeightMin) {
             profilePoints[i].y = stencilHeightMax - stencilHeightMin;
         }
     }
-
 }
 
 /*****************************************************************************
