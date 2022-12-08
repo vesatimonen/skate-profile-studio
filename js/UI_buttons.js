@@ -4,6 +4,7 @@
  * Size button functions
  *****************************************************************************/
 const sizeButtons = document.getElementById("size-buttons");
+
 function uiRedrawSizeButtons() {
     for (let blade = 0; blade < skateBlades.length; blade++) {
         var button = document.getElementById("button-" + blade);
@@ -16,6 +17,11 @@ function uiRedrawSizeButtons() {
 }
 
 function uiInitSizeButtons() {
+    /* Delete existing buttons */
+    while (sizeButtons.firstChild) {
+        sizeButtons.removeChild(sizeButtons.firstChild);
+    }
+
     /* Create size buttons */
     for (let blade = 0; blade < skateBlades.length; blade++) {
         let newButton = document.createElement("button");
