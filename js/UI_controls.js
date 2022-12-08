@@ -66,6 +66,13 @@ function convertYToValue(y) {
  *****************************************************************************/
 function uiRedrawSliders() {
 
+    /* Draw background */
+    controlContext.clearRect(0, 0, controlCanvas.width, controlCanvas.height);
+    controlContext.beginPath();
+    controlContext.fillStyle   = "#B0DDFF";
+    controlContext.rect(0, 0, controlCanvas.width, controlCanvas.height);
+    controlContext.fill();
+
     /* Draw profile under sliders */
     controlContext.beginPath();
     var width  = controlCanvasWidth - (controlCanvasMargin.left + controlCanvasMargin.right);
