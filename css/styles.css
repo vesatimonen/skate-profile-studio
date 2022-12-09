@@ -49,6 +49,25 @@
     text-align:     center;
 }
 
+#skate-image {
+    display: none;
+}
+
+#image-canvas {
+    margin-top:     0px;
+    margin-left:    auto;
+    margin-right:   auto;
+    margin-bottom:  0px;
+
+    display:        block;
+    display: none;
+
+    background:     none;
+
+    max-height:     420px;
+    object-fit:     contain;
+}
+
 #control-canvas {
     margin-top:     10px;
     margin-left:    auto;
