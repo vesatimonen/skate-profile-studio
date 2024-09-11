@@ -11,7 +11,7 @@ const skateBlades = [
     {size: 296},
     {size: 306},
 ];
-var skateBladeIndex = 6;
+//var skateBladeIndex = 6;
 var skateEffectiveLength = 0.35;
 var skateBladeSize = 272;
 

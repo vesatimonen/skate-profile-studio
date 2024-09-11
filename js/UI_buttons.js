@@ -39,7 +39,7 @@ function uiInitSizeButtons() {
  * Button handlers
  *****************************************************************************/
 function uiSizeButton(event) {
-    skateBladeIndex = event.target.sizeIndex;
+//    skateBladeIndex = event.target.sizeIndex;
 //    uiRedrawSizeButtons();
     uiRedrawControls();
     uiRedrawStencil();
