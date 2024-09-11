@@ -6,7 +6,7 @@ const controlCanvasHeight = 420;
 const controlCanvasMargin = {left: 50, right: 50, top: 5, bottom: 60};
 
 /* Slider configurations */
-const sliderValueMin  = 0.5;
+const sliderValueMin  = 0.0;
 const sliderValueMax  = 10.0;
 var   sliderCount     = 7;
 var   sliderDistance  = 50; /* mm */
@@ -460,6 +460,11 @@ function uiControlContinue(event) {
         position = uiEventPosition(event);
         if (position != undefined) {
             sliderValues[sliderToMove] = convertYToValue(position.y);
+
+            if (sliderValues[sliderToMove] <= 0.01) {
+                sliderValues[sliderToMove] = 0.03;
+            }
+
             uiRedrawControls();
             uiRedrawStencil();
         }
