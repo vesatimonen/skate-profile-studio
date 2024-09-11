@@ -8,7 +8,7 @@ const sizeButtons = document.getElementById("size-buttons");
 function uiRedrawSizeButtons() {
     for (let blade = 0; blade < skateBlades.length; blade++) {
         var button = document.getElementById("button-" + blade);
-        if (skateBlades[skateBladeIndex].size == skateBlades[blade].size) {
+        if (skateBladeSize == skateBlades[blade].size) {
             button.className = "button button-selected";
         } else {
             button.className = "button";

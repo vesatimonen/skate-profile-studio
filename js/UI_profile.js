@@ -169,7 +169,7 @@ function svgDrawSliders(x, y, scale) {
 function calculateRadius(x) {
     var y;
 
-    var skateSize = skateBlades[skateBladeIndex].size;
+    var skateSize = skateBladeSize;
 
     var sliderLeft;
     var sliderRight;
@@ -198,7 +198,7 @@ function calculateRadius(x) {
 
 
 function calculateProfile(profileStep) {
-    var skateSize = skateBlades[skateBladeIndex].size;
+    var skateSize = skateBladeSize;
 
     profilePoints = [];
 
@@ -259,7 +259,7 @@ function uiRedrawStencil() {
     var svgWidth  = parseFloat(stencilSvg.getAttribute("width")); /* mm */
     var svgHeight = parseFloat(stencilSvg.getAttribute("height")); /* mm */
 
-    var skateSize = skateBlades[skateBladeIndex].size;
+    var skateSize = skateBladeSize;
 
     /* Draw stencil path */
     svgContent = "";

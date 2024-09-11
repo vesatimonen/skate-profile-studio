@@ -81,7 +81,7 @@ function uiRedrawSliders() {
     var yOrigo = controlCanvasHeight - controlCanvasMargin.bottom;
 //    var yMax   = (stencilHeightMax - stencilHeightMin); /* mm */
     var yMax   = 10; /* mm */
-    var xScale = width / skateBlades[skateBladeIndex].size;
+    var xScale = width / skateBladeSize;
     var yScale = height / yMax;
 
     controlContext.moveTo(xOrigo + xScale * profilePoints[0].x, yOrigo - yScale * profilePoints[0].y);
@@ -162,7 +162,7 @@ function uiRedrawSliders() {
 function uiRedrawXLegend() {
     /* Draw legends */
     var baselineY = 25 + Math.floor(controlCanvasHeight - controlCanvasMargin.bottom) + 0.5;
-    var legendLength = skateBlades[skateBladeIndex].size * skateEffectiveLength;
+    var legendLength = skateBladeSize * skateEffectiveLength;
 
     controlContext.beginPath();
     controlContext.moveTo( convertValueToX(-legendLength), baselineY);
@@ -231,8 +231,8 @@ function uiRedrawZones() {
         lengthSum = lengthSum + skateZones[zone].length;
     }
 
-    var zoneStart = -skateBlades[skateBladeIndex].size * skateEffectiveLength;
-    var zoneScale = skateBlades[skateBladeIndex].size * skateEffectiveLength * 2 / lengthSum;
+    var zoneStart = -skateBladeSize * skateEffectiveLength;
+    var zoneScale =  skateBladeSize * skateEffectiveLength * 2 / lengthSum;
 
     var zoneCurrent = 0;
     for (let zone = 0; zone < skateZones.length; zone++) {
@@ -336,7 +336,7 @@ const errorColor = "#FF8888";
 function uiRedrawFingerprint() {
     var fingerprint = "";
 
-    fingerprint += skateBlades[skateBladeIndex].size;
+    fingerprint += skateBladeSize;
 
     for (let slider = 0; slider < sliderCount; slider++) {
         fingerprint += "-";
@@ -357,7 +357,7 @@ function uiRedrawFingerprint() {
 }
 
 function uiRedrawControls() {
-    sliderDistance = skateBlades[skateBladeIndex].size / (sliderCount - 1);
+    sliderDistance = skateBladeSize / (sliderCount - 1);
 
     /* Clear canvas */
     controlContext.clearRect(0, 0, controlCanvas.width, controlCanvas.height);
@@ -492,6 +492,7 @@ window.addEventListener("touchend",   uiControlEnd);
 function uiFingerprintChange(event) {
     var fields = event.target.value.split("-");
 
+/*
     var index = -1;
     for (let blade = 0; blade < skateBlades.length; blade++) {
         if (fields[0] == skateBlades[blade].size) {
@@ -500,11 +501,11 @@ function uiFingerprintChange(event) {
         }
     }
 
-    /* Check that blade size found */
     if (index < 0) {
         event.target.style.background = errorColor;
         return;
     }
+*/
 
     /* Check amount of fields */
     if (fields.length < 1 + 2) {
@@ -531,7 +532,9 @@ function uiFingerprintChange(event) {
     }
 
     /* Set skate index and slider values */
-    skateBladeIndex = index;
+//    skateBladeIndex = index;
+    skateBladeSize  = fields[0];
+
     sliderCount = fields.length - 1;
     for (let fieldIndex = 1; fieldIndex < fields.length; fieldIndex++) {
         sliderValues[fieldIndex - 1] = parseFloat(fields[fieldIndex]);

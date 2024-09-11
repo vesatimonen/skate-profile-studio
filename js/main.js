@@ -13,7 +13,7 @@ const skateBlades = [
 ];
 var skateBladeIndex = 6;
 var skateEffectiveLength = 0.35;
-
+var skateBladeSize = 272;
 
 uiInitControls();
 //uiInitSizeButtons();
