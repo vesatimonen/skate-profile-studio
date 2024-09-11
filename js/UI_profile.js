@@ -137,9 +137,9 @@ function svgDrawScale(x, y, length) {
     svgDrawText(x + length + 12, y + 6, "2mm", "TOE");
 
     svgDrawLine(x + skateBlades[skateBladeIndex].effectiveLength, y - 20,
-                x + skateBlades[skateBladeIndex].effectiveLength, y + 1);
+                x + skateBlades[skateBladeIndex].effectiveLength, y - 12);
     svgDrawLine(x - skateBlades[skateBladeIndex].effectiveLength, y - 20,
-                x - skateBlades[skateBladeIndex].effectiveLength, y + 1);
+                x - skateBlades[skateBladeIndex].effectiveLength, y - 12);
 }
 
 function svgDrawSliders(x, y, scale) {
@@ -273,8 +273,8 @@ function uiRedrawStencil() {
     name = name.replace(/>/g, "&gt;");
     name = name.replace(/"/g, "&quot;");
     name = name.replace(/'/g, "&#39;");
-    svgDrawText(   svgWidth / 2,       13, "2.0mm", name);
-    svgDrawText(   svgWidth / 2,       22, "2.0mm", document.getElementById("fingerprint").value);
+    svgDrawText(   svgWidth / 2,       13, "1.8mm", name);
+    svgDrawText(   svgWidth / 2,       22, "1.8mm", document.getElementById("fingerprint").value);
     svgDrawScale(  svgWidth / 2,       26, 40);
     svgDrawSliders(svgWidth / 2 + 180, 6.5, 25.0);
     svgDrawSliders(svgWidth / 2 - 180, 6.5, 25.0);
