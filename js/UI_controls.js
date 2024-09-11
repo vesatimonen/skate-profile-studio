@@ -3,7 +3,7 @@ const controlCanvas  = document.getElementById("control-canvas");
 const controlContext = controlCanvas.getContext("2d");
 const controlCanvasWidth  = document.getElementById("app-screen").getBoundingClientRect().width;
 const controlCanvasHeight = 420;
-const controlCanvasMargin = {left: 50, right: 50, top: 5, bottom: 100};
+const controlCanvasMargin = {left: 50, right: 50, top: 5, bottom: 60};
 
 /* Slider configurations */
 const sliderValueMin  = 0.5;
@@ -90,7 +90,7 @@ function uiRedrawSliders() {
     }
 
     controlContext.fillStyle   = "none";
-    controlContext.lineWidth   = 0.2;
+    controlContext.lineWidth   = 0.5;
     controlContext.lineCap     = "round";
     controlContext.strokeStyle = "#303030";
     controlContext.stroke();
@@ -211,8 +211,8 @@ function uiRedrawXLegend() {
     controlContext.textAlign    = "center";
     controlContext.fillStyle    = "#303030";
 
-    controlContext.fillText("TOE",  sliderPositions[0].x               + 40, baselineY);
-    controlContext.fillText("HEEL", sliderPositions[sliderCount - 1].x - 40, baselineY);
+    controlContext.fillText("HEEL",  sliderPositions[0].x               + 40, baselineY);
+    controlContext.fillText("TOE", sliderPositions[sliderCount - 1].x - 40, baselineY);
 }
 
 const skateZones = [
@@ -373,7 +373,7 @@ function uiRedrawControls() {
 
     uiRedrawSliders();
     uiRedrawXLegend();
-    uiRedrawZones();
+/*    uiRedrawZones(); */
     uiRedrawControlCurve();
     uiRedrawFingerprint();
 }

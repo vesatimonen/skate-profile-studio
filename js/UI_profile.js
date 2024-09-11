@@ -133,9 +133,8 @@ function svgDrawScale(x, y, length) {
     }
 
     /* Draw skate directions */
-    svgDrawText(x - length - 12, y + 6, "2mm", "TOE");
-    svgDrawText(x + length + 12, y + 6, "2mm", "HEEL");
-
+    svgDrawText(x - length - 12, y + 6, "2mm", "HEEL");
+    svgDrawText(x + length + 12, y + 6, "2mm", "TOE");
 
     svgDrawLine(x + skateBlades[skateBladeIndex].effectiveLength, y - 20,
                 x + skateBlades[skateBladeIndex].effectiveLength, y + 1);
