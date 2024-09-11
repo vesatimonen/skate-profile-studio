@@ -338,7 +338,7 @@ function uiRedrawFingerprint() {
 
     fingerprint += skateBladeSize;
 
-    for (let slider = 0; slider < sliderCount; slider++) {
+    for (let slider = sliderCount - 1; slider >= 0; slider--) {
         fingerprint += "-";
         if (Math.floor(sliderValues[slider]) == sliderValues[slider]) {
             var decimals = 0;
@@ -537,7 +537,9 @@ function uiFingerprintChange(event) {
 
     sliderCount = fields.length - 1;
     for (let fieldIndex = 1; fieldIndex < fields.length; fieldIndex++) {
-        sliderValues[fieldIndex - 1] = parseFloat(fields[fieldIndex]);
+        /* Reverse slider values */
+        sliderValues[fieldIndex - 1] = parseFloat(fields[fields.length - fieldIndex]);
+//        sliderValues[fieldIndex - 1] = parseFloat(fields[fieldIndex]);
     }
 
     event.target.style.background = okColor;
