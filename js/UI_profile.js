@@ -276,8 +276,8 @@ function uiRedrawStencil() {
     svgDrawText(   svgWidth / 2,       13, "1.8mm", name);
     svgDrawText(   svgWidth / 2,       22, "1.8mm", document.getElementById("fingerprint").value);
     svgDrawScale(  svgWidth / 2,       26, 40);
-    svgDrawSliders(svgWidth / 2 + 180, 6.5, 25.0);
-    svgDrawSliders(svgWidth / 2 - 180, 6.5, 25.0);
+    svgDrawSliders(svgWidth / 2 + 145, 6.5, 25.0);
+    svgDrawSliders(svgWidth / 2 - 145, 6.5, 25.0);
     svgDrawOutline(svgWidth / 2,       5);
     stencilSvg.innerHTML = svgContent;
 }
