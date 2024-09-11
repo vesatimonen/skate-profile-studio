@@ -540,7 +540,7 @@ function uiFingerprintChange(event) {
     event.target.style.background = okColor;
 
     calculateCanvasScale();
-    uiRedrawSizeButtons();
+//    uiRedrawSizeButtons();
     uiRedrawControls();
     uiRedrawStencil();
 }

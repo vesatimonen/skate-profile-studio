@@ -15,9 +15,7 @@ var skateBladeIndex = 6;
 
 
 uiInitControls();
-uiInitSizeButtons();
-
-
+//uiInitSizeButtons();
 
 
 const skateImage   = document.getElementById('skate-image');

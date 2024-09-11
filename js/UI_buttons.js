@@ -32,7 +32,7 @@ function uiInitSizeButtons() {
         sizeButtons.appendChild(newButton);
     }
 
-    uiRedrawSizeButtons();
+//    uiRedrawSizeButtons();
 }
 
 /*****************************************************************************
@@ -40,7 +40,7 @@ function uiInitSizeButtons() {
  *****************************************************************************/
 function uiSizeButton(event) {
     skateBladeIndex = event.target.sizeIndex;
-    uiRedrawSizeButtons();
+//    uiRedrawSizeButtons();
     uiRedrawControls();
     uiRedrawStencil();
 }
