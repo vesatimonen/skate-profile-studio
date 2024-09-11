@@ -162,7 +162,7 @@ function uiRedrawSliders() {
 function uiRedrawXLegend() {
     /* Draw legends */
     var baselineY = 25 + Math.floor(controlCanvasHeight - controlCanvasMargin.bottom) + 0.5;
-    var legendLength = skateBlades[skateBladeIndex].effectiveLength;
+    var legendLength = skateBlades[skateBladeIndex].size * skateEffectiveLength;
 
     controlContext.beginPath();
     controlContext.moveTo( convertValueToX(-legendLength), baselineY);
@@ -231,8 +231,8 @@ function uiRedrawZones() {
         lengthSum = lengthSum + skateZones[zone].length;
     }
 
-    var zoneStart = -skateBlades[skateBladeIndex].effectiveLength;
-    var zoneScale = skateBlades[skateBladeIndex].effectiveLength * 2 / lengthSum;
+    var zoneStart = -skateBlades[skateBladeIndex].size * skateEffectiveLength;
+    var zoneScale = skateBlades[skateBladeIndex].size * skateEffectiveLength * 2 / lengthSum;
 
     var zoneCurrent = 0;
     for (let zone = 0; zone < skateZones.length; zone++) {
