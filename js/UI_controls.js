@@ -5,6 +5,8 @@ const controlCanvasWidth  = document.getElementById("app-screen").getBoundingCli
 const controlCanvasHeight = 420;
 const controlCanvasMargin = {left: 50, right: 50, top: 5, bottom: 60};
 
+const fingerprintBox = document.getElementById("fingerprint");
+
 /* Slider configurations */
 const sliderValueMin  = 0.0;
 const sliderValueMax  = 10.0;
@@ -494,8 +496,11 @@ window.addEventListener("touchend",   uiControlEnd);
 /*****************************************************************************
  * Form events
  *****************************************************************************/
+
 function uiFingerprintChange(event) {
-    var fields = event.target.value.split("-");
+document.getElementById("fingerprint")
+
+    var fields = fingerprintBox.value.split("-");
 
 /*
     var index = -1;
@@ -507,31 +512,31 @@ function uiFingerprintChange(event) {
     }
 
     if (index < 0) {
-        event.target.style.background = errorColor;
+        fingerprintBox.style.background = errorColor;
         return;
     }
 */
 
     /* Check amount of fields */
     if (fields.length < 1 + 2) {
-        event.target.style.background = errorColor;
+        fingerprintBox.style.background = errorColor;
         return;
     }
 
     /* Check slider values */
     for (let fieldIndex = 1; fieldIndex < fields.length; fieldIndex++) {
         if (isNaN(fields[fieldIndex]) == true) {
-            event.target.style.background = errorColor;
+            fingerprintBox.style.background = errorColor;
             return;
         }
 
         if (isNaN(parseFloat(fields[fieldIndex])) == true) {
-            event.target.style.background = errorColor;
+            fingerprintBox.style.background = errorColor;
             return;
         }
 
         if (parseFloat(fields[fieldIndex]) < 0.01) {
-            event.target.style.background = errorColor;
+            fingerprintBox.style.background = errorColor;
             return;
         }
     }
@@ -546,7 +551,7 @@ function uiFingerprintChange(event) {
         sliderValues[fieldIndex - 1] = parseFloat(fields[fieldIndex]);
     }
 
-    event.target.style.background = okColor;
+    fingerprintBox.style.background = okColor;
 
     calculateCanvasScale();
 //    uiRedrawSizeButtons();

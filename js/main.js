@@ -77,6 +77,22 @@ skateImage.onload = function () {
 };
 
 
+function parseOptions() {
+    /* Get URL */
+    const url = new URL(window.location.href);
+
+    /* Parse fingerprint argument */
+    const fingerprint = url.searchParams.get("fingerprint");
+    if (fingerprint != null) {
+         document.getElementById("fingerprint").value = fingerprint;
+         uiFingerprintChange();
+    }
+}
+
+window.onload = function () {
+    /* Parse options */
+    parseOptions();
+}
 
 
 
