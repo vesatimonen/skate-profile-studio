@@ -272,19 +272,19 @@ function uiRedrawControlCurve() {
             controlContext.lineTo(sliderPositions[slider].x, sliderPositions[slider].y);
         }
     }
-    controlContext.lineWidth = 3;
+    controlContext.lineWidth = 1.5;
     controlContext.strokeStyle = "#0000ff";
     controlContext.stroke();
 
-    /* Draw slider controls */
+    /* Draw slider control circles */
     for (let slider = 0; slider < sliderCount; slider++) {
         /* Draw slider position */
         controlContext.beginPath();
-        controlContext.arc(sliderPositions[slider].x, sliderPositions[slider].y, 8, 0, 2 * Math.PI, false);
+        controlContext.arc(sliderPositions[slider].x, sliderPositions[slider].y, 5, 0, 2 * Math.PI, false);
         controlContext.fillStyle = "#ffffff";
         controlContext.fill();
 
-        controlContext.lineWidth = 3;
+        controlContext.lineWidth = 1.5;
         controlContext.strokeStyle = "#0000ff";
         controlContext.stroke();
     }
@@ -445,7 +445,7 @@ function uiControlStart(event) {
             sliderX = convertSliderToX(slider);
             sliderY = convertValueToY(sliderValues[slider]);
 
-            if (Math.abs(sliderX - position.x) + Math.abs(sliderY - position.y) < 20) {
+            if (Math.abs(sliderX - position.x) + Math.abs(sliderY - position.y) < 10) {
                 sliderToMove = slider;
             }
         }
