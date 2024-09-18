@@ -483,14 +483,14 @@ function uiControlEnd(event) {
     return false;
 }
 
-window.addEventListener("mousedown",  uiControlStart);
-window.addEventListener("mousemove",  uiControlContinue);
-window.addEventListener("mouseup",    uiControlEnd);
-window.addEventListener("mouseleave", uiControlEnd);
+controlCanvas.addEventListener("mousedown",  uiControlStart);
+controlCanvas.addEventListener("mousemove",  uiControlContinue);
+controlCanvas.addEventListener("mouseup",    uiControlEnd);
+controlCanvas.addEventListener("mouseleave", uiControlEnd);
 
-window.addEventListener("touchstart", uiControlStart, {passive: true});
-window.addEventListener("touchmove",  uiControlContinue, {passive: true});
-window.addEventListener("touchend",   uiControlEnd);
+controlCanvas.addEventListener("touchstart", uiControlStart, {passive: true});
+controlCanvas.addEventListener("touchmove",  uiControlContinue, {passive: true});
+controlCanvas.addEventListener("touchend",   uiControlEnd);
 
 
 /*****************************************************************************
