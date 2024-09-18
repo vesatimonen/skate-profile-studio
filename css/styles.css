@@ -78,6 +78,8 @@
 
     display:        block;
 
+    touch-action:   none;
+
     background:     none;
 }
 

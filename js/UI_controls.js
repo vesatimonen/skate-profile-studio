@@ -447,7 +447,7 @@ function uiControlStart(event) {
             sliderX = convertSliderToX(slider);
             sliderY = convertValueToY(sliderValues[slider]);
 
-            if (Math.abs(sliderX - position.x) + Math.abs(sliderY - position.y) < 10) {
+            if (Math.abs(sliderX - position.x) + Math.abs(sliderY - position.y) < 20) {
                 sliderToMove = slider;
             }
         }
