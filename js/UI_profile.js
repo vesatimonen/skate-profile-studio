@@ -53,7 +53,7 @@ function svgDrawLine(x1, y1, x2, y2) {
 
 const stencilWidth     = 400;
 const stencilHeightMin = 20;
-const stencilHeightMax = 33;
+const stencilHeightMax = 35;
 
 const stencilSlotPosition = 120;
 const stencilSlotWidth    = 8;
