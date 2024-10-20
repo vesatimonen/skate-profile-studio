@@ -59,7 +59,7 @@ const stencilSlotPosition = 120;
 const stencilSlotWidth    = 8;
 const stencilSlotHeight   = 13;
 
-function svgDrawOutline(x, y) {
+function svgDrawOutlinePROSHARP(x, y) {
     /* Create stencil */
     stencilPoints = [];
     var index = 0;
@@ -263,12 +263,12 @@ function uiRedrawStencilPROSHARP(xCenter, yCenter) {
     name = name.replace(/>/g, "&gt;");
     name = name.replace(/"/g, "&quot;");
     name = name.replace(/'/g, "&#39;");
-    svgDrawText(   xCenter,       15, "2mm", name);
-    svgDrawText(   xCenter,       24, "1.5mm", document.getElementById("fingerprint").value);
-    svgDrawScale(  xCenter,       28, 40);
-    svgDrawSliders(xCenter + 105, 6.5, 35.0);
-    svgDrawSliders(xCenter - 105, 6.5, 35.0);
-    svgDrawOutline(xCenter,       5);
+    svgDrawText(   xCenter,         15, "2mm", name);
+    svgDrawText(   xCenter,         24, "1.5mm", document.getElementById("fingerprint").value);
+    svgDrawScale(  xCenter,         28, 40);
+    svgDrawSliders(xCenter + 105,   6.5, 35.0);
+    svgDrawSliders(xCenter - 105,   6.5, 35.0);
+    svgDrawOutlinePROSHARP(xCenter, 5.0);
     stencilSvg.innerHTML = svgContent;
 }
 
@@ -280,12 +280,12 @@ function uiRedrawStencilRIKU(xCenter, yCenter) {
     name = name.replace(/>/g, "&gt;");
     name = name.replace(/"/g, "&quot;");
     name = name.replace(/'/g, "&#39;");
-    svgDrawText(   xCenter,       15, "2mm", name);
-    svgDrawText(   xCenter,       24, "1.5mm", document.getElementById("fingerprint").value);
-    svgDrawScale(  xCenter,       28, 40);
-    svgDrawSliders(xCenter + 105, 6.5, 35.0);
-    svgDrawSliders(xCenter - 105, 6.5, 35.0);
-    svgDrawOutline(xCenter,       5);
+    svgDrawText(   xCenter,         15, "2mm", name);
+    svgDrawText(   xCenter,         24, "1.5mm", document.getElementById("fingerprint").value);
+    svgDrawScale(  xCenter,         28, 40);
+    svgDrawSliders(xCenter + 105,   6.5, 35.0);
+    svgDrawSliders(xCenter - 105,   6.5, 35.0);
+    svgDrawOutlinePROSHARP(xCenter, 5.0);
     stencilSvg.innerHTML = svgContent;
 }
 
