@@ -255,12 +255,7 @@ function calculateProfile(profileStep) {
 /*****************************************************************************
  * Stencil draw
  *****************************************************************************/
-function uiRedrawStencilPROSHARP() {
-    var svgWidth  = parseFloat(stencilSvg.getAttribute("width")); /* mm */
-    var svgHeight = parseFloat(stencilSvg.getAttribute("height")); /* mm */
-
-    var skateSize = skateBladeSize;
-
+function uiRedrawStencilPROSHARP(xCenter, yCenter) {
     /* Draw stencil path */
     svgContent = "";
     var name = document.getElementById("profile-name").value;
@@ -268,21 +263,16 @@ function uiRedrawStencilPROSHARP() {
     name = name.replace(/>/g, "&gt;");
     name = name.replace(/"/g, "&quot;");
     name = name.replace(/'/g, "&#39;");
-    svgDrawText(   svgWidth / 2,       15, "2mm", name);
-    svgDrawText(   svgWidth / 2,       24, "1.5mm", document.getElementById("fingerprint").value);
-    svgDrawScale(  svgWidth / 2,       28, 40);
-    svgDrawSliders(svgWidth / 2 + 105, 6.5, 35.0);
-    svgDrawSliders(svgWidth / 2 - 105, 6.5, 35.0);
-    svgDrawOutline(svgWidth / 2,       5);
+    svgDrawText(   xCenter,       15, "2mm", name);
+    svgDrawText(   xCenter,       24, "1.5mm", document.getElementById("fingerprint").value);
+    svgDrawScale(  xCenter,       28, 40);
+    svgDrawSliders(xCenter + 105, 6.5, 35.0);
+    svgDrawSliders(xCenter - 105, 6.5, 35.0);
+    svgDrawOutline(xCenter,       5);
     stencilSvg.innerHTML = svgContent;
 }
 
-function uiRedrawStencilRIKU() {
-    var svgWidth  = parseFloat(stencilSvg.getAttribute("width")); /* mm */
-    var svgHeight = parseFloat(stencilSvg.getAttribute("height")); /* mm */
-
-    var skateSize = skateBladeSize;
-
+function uiRedrawStencilRIKU(xCenter, yCenter) {
     /* Draw stencil path */
     svgContent = "";
     var name = document.getElementById("profile-name").value;
@@ -290,17 +280,20 @@ function uiRedrawStencilRIKU() {
     name = name.replace(/>/g, "&gt;");
     name = name.replace(/"/g, "&quot;");
     name = name.replace(/'/g, "&#39;");
-    svgDrawText(   svgWidth / 2,       15, "2mm", name);
-    svgDrawText(   svgWidth / 2,       24, "1.5mm", document.getElementById("fingerprint").value);
-    svgDrawScale(  svgWidth / 2,       28, 40);
-    svgDrawSliders(svgWidth / 2 + 105, 6.5, 35.0);
-    svgDrawSliders(svgWidth / 2 - 105, 6.5, 35.0);
-    svgDrawOutline(svgWidth / 2,       5);
+    svgDrawText(   xCenter,       15, "2mm", name);
+    svgDrawText(   xCenter,       24, "1.5mm", document.getElementById("fingerprint").value);
+    svgDrawScale(  xCenter,       28, 40);
+    svgDrawSliders(xCenter + 105, 6.5, 35.0);
+    svgDrawSliders(xCenter - 105, 6.5, 35.0);
+    svgDrawOutline(xCenter,       5);
     stencilSvg.innerHTML = svgContent;
 }
 
 function uiRedrawStencil() {
-//    uiRedrawStencilPROSHARP();
-    uiRedrawStencilRIKU();
+    var svgWidth  = parseFloat(stencilSvg.getAttribute("width")); /* mm */
+    var svgHeight = parseFloat(stencilSvg.getAttribute("height")); /* mm */
+
+//    uiRedrawStencilPROSHARP(svgWidth / 2, svgHeight / 2);
+    uiRedrawStencilRIKU(svgWidth / 2, svgHeight / 2);
 }
 
