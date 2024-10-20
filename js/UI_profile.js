@@ -113,6 +113,72 @@ function svgDrawOutlinePROSHARP(x, y) {
     svgDrawPath(stencilPoints, "black");
 }
 
+
+function svgDrawOutlineRIKU(x, y) {
+    var stencilHeightRIKU = 40.0;
+    var profileHeightRIKU = 15.0;
+
+    /* Create stencil */
+    stencilPoints = [];
+    var index = 0;
+
+    /* Upper right */
+    stencilPoints[index] = {x: x + stencilWidth / 2, y: y};
+    index++;
+
+    /* Lower right */
+    stencilPoints[index] = {x: x + stencilWidth / 2, y: y + stencilHeightRIKU};
+    index++;
+
+
+    /* Right slot */
+/*
+    stencilPoints[index] = {x: x + stencilSlotPosition + stencilSlotWidth, y: y};
+    index++;
+    stencilPoints[index] = {x: x + stencilSlotPosition + stencilSlotWidth, y: y + stencilSlotHeight};
+    index++;
+    stencilPoints[index] = {x: x + stencilSlotPosition, y: y + stencilSlotHeight};
+    index++;
+    stencilPoints[index] = {x: x + stencilSlotPosition, y: y};
+    index++;
+*/
+
+    /* Left slot */
+/*
+    stencilPoints[index] = {x: x - stencilSlotPosition, y: y};
+    index++;
+    stencilPoints[index] = {x: x - stencilSlotPosition, y: y + stencilSlotHeight};
+    index++;
+    stencilPoints[index] = {x: x - stencilSlotPosition - stencilSlotWidth, y: y + stencilSlotHeight};
+    index++;
+    stencilPoints[index] = {x: x - stencilSlotPosition - stencilSlotWidth, y: y};
+    index++;
+*/
+
+    /* Lower left */
+    stencilPoints[index] = {x: x - stencilWidth / 2, y: y + stencilHeightRIKU};
+    index++;
+
+    /* Upper left */
+    stencilPoints[index] = {x: x - stencilWidth / 2, y: y};
+    index++;
+
+    /* Profile */
+    for (let i = 0; i < profilePoints.length; i++) {
+        stencilPoints[index] = {x: x + profilePoints[i].x,
+                                y: y + profileHeightRIKU - profilePoints[i].y};
+        index++;
+    }
+
+    /* Lower right */
+    stencilPoints[index] = {x: x + stencilWidth / 2, y: y};
+    index++;
+
+    svgDrawPath(stencilPoints, "black");
+}
+
+
+
 function svgDrawScale(x, y, length) {
     /* Draw scale ticks */
     for (let xValue = 0; xValue < length; xValue += 5) {
@@ -280,12 +346,12 @@ function uiRedrawStencilRIKU(xCenter, yCenter) {
     name = name.replace(/>/g, "&gt;");
     name = name.replace(/"/g, "&quot;");
     name = name.replace(/'/g, "&#39;");
-    svgDrawText(   xCenter,         15, "2mm", name);
-    svgDrawText(   xCenter,         24, "1.5mm", document.getElementById("fingerprint").value);
-    svgDrawScale(  xCenter,         28, 40);
-    svgDrawSliders(xCenter + 105,   6.5, 35.0);
-    svgDrawSliders(xCenter - 105,   6.5, 35.0);
-    svgDrawOutlinePROSHARP(xCenter, 5.0);
+//    svgDrawText(   xCenter,         15, "2mm", name);
+//    svgDrawText(   xCenter,         24, "1.5mm", document.getElementById("fingerprint").value);
+    svgDrawScale(  xCenter,         23, 40);
+//    svgDrawSliders(xCenter + 105,   6.5, 35.0);
+//    svgDrawSliders(xCenter - 105,   6.5, 35.0);
+    svgDrawOutlineRIKU(xCenter, 5.0);
     stencilSvg.innerHTML = svgContent;
 }
 
