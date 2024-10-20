@@ -346,11 +346,11 @@ function uiRedrawStencilELITE(xCenter, yCenter) {
     name = name.replace(/>/g, "&gt;");
     name = name.replace(/"/g, "&quot;");
     name = name.replace(/'/g, "&#39;");
+    svgDrawScale(  xCenter,         16, 40);
+    svgDrawText(   xCenter,         29, "1.5mm", document.getElementById("fingerprint").value);
+    svgDrawSliders(xCenter + 75,    32, 40.0);
+    svgDrawSliders(xCenter - 75,    32, 40.0);
     svgDrawText(   xCenter,         40, "2mm", name);
-    svgDrawText(   xCenter,         31, "1.5mm", document.getElementById("fingerprint").value);
-    svgDrawScale(  xCenter,         19, 40);
-    svgDrawSliders(xCenter + 75,    33, 40.0);
-    svgDrawSliders(xCenter - 75,    33, 40.0);
     svgDrawOutlineELITE(xCenter, 5.0);
     stencilSvg.innerHTML = svgContent;
 }
