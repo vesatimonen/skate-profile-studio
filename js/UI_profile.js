@@ -63,7 +63,7 @@ function svgDrawCircle(x, y, r, color) {
 
 const stencilWidth     = 400;
 const stencilHeightMin = 20;
-const stencilHeightMax = 35;
+const stencilHeightMax = 32;
 
 const stencilSlotPosition = 120;
 const stencilSlotWidth    = 8;
@@ -126,7 +126,7 @@ function svgDrawOutlinePROSHARP(x, y) {
 
 function svgDrawOutlineRIKU(x, y) {
     var stencilHeightRIKU = 40.0;
-    var profileHeightRIKU = 15.0;
+    var profileHeightRIKU = stencilHeightMax - stencilHeightMin;
 
     /* Create stencil */
     stencilPoints = [];
@@ -139,31 +139,6 @@ function svgDrawOutlineRIKU(x, y) {
     /* Lower right */
     stencilPoints[index] = {x: x + stencilWidth / 2, y: y + stencilHeightRIKU};
     index++;
-
-
-    /* Right slot */
-/*
-    stencilPoints[index] = {x: x + stencilSlotPosition + stencilSlotWidth, y: y};
-    index++;
-    stencilPoints[index] = {x: x + stencilSlotPosition + stencilSlotWidth, y: y + stencilSlotHeight};
-    index++;
-    stencilPoints[index] = {x: x + stencilSlotPosition, y: y + stencilSlotHeight};
-    index++;
-    stencilPoints[index] = {x: x + stencilSlotPosition, y: y};
-    index++;
-*/
-
-    /* Left slot */
-/*
-    stencilPoints[index] = {x: x - stencilSlotPosition, y: y};
-    index++;
-    stencilPoints[index] = {x: x - stencilSlotPosition, y: y + stencilSlotHeight};
-    index++;
-    stencilPoints[index] = {x: x - stencilSlotPosition - stencilSlotWidth, y: y + stencilSlotHeight};
-    index++;
-    stencilPoints[index] = {x: x - stencilSlotPosition - stencilSlotWidth, y: y};
-    index++;
-*/
 
     /* Lower left */
     stencilPoints[index] = {x: x - stencilWidth / 2, y: y + stencilHeightRIKU};
@@ -364,11 +339,11 @@ function uiRedrawStencilRIKU(xCenter, yCenter) {
     name = name.replace(/>/g, "&gt;");
     name = name.replace(/"/g, "&quot;");
     name = name.replace(/'/g, "&#39;");
-    svgDrawText(   xCenter,         42, "2mm", name);
-    svgDrawText(   xCenter,         34, "1.5mm", document.getElementById("fingerprint").value);
-    svgDrawScale(  xCenter,         22, 40);
-//    svgDrawSliders(xCenter + 105,   6.5, 35.0);
-//    svgDrawSliders(xCenter - 105,   6.5, 35.0);
+    svgDrawText(   xCenter,         40, "2mm", name);
+    svgDrawText(   xCenter,         31, "1.5mm", document.getElementById("fingerprint").value);
+    svgDrawScale(  xCenter,         19, 40);
+    svgDrawSliders(xCenter + 75,    33, 40.0);
+    svgDrawSliders(xCenter - 75,    33, 40.0);
     svgDrawOutlineRIKU(xCenter, 5.0);
     stencilSvg.innerHTML = svgContent;
 }
