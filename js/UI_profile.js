@@ -255,8 +255,7 @@ function calculateProfile(profileStep) {
 /*****************************************************************************
  * Stencil draw
  *****************************************************************************/
-function uiRedrawStencil() {
-
+function uiRedrawStencilPROSHARP() {
     var svgWidth  = parseFloat(stencilSvg.getAttribute("width")); /* mm */
     var svgHeight = parseFloat(stencilSvg.getAttribute("height")); /* mm */
 
@@ -276,5 +275,32 @@ function uiRedrawStencil() {
     svgDrawSliders(svgWidth / 2 - 105, 6.5, 35.0);
     svgDrawOutline(svgWidth / 2,       5);
     stencilSvg.innerHTML = svgContent;
+}
+
+function uiRedrawStencilRIKU() {
+    var svgWidth  = parseFloat(stencilSvg.getAttribute("width")); /* mm */
+    var svgHeight = parseFloat(stencilSvg.getAttribute("height")); /* mm */
+
+    var skateSize = skateBladeSize;
+
+    /* Draw stencil path */
+    svgContent = "";
+    var name = document.getElementById("profile-name").value;
+    name = name.replace(/</g, "&lt;");
+    name = name.replace(/>/g, "&gt;");
+    name = name.replace(/"/g, "&quot;");
+    name = name.replace(/'/g, "&#39;");
+    svgDrawText(   svgWidth / 2,       15, "2mm", name);
+    svgDrawText(   svgWidth / 2,       24, "1.5mm", document.getElementById("fingerprint").value);
+    svgDrawScale(  svgWidth / 2,       28, 40);
+    svgDrawSliders(svgWidth / 2 + 105, 6.5, 35.0);
+    svgDrawSliders(svgWidth / 2 - 105, 6.5, 35.0);
+    svgDrawOutline(svgWidth / 2,       5);
+    stencilSvg.innerHTML = svgContent;
+}
+
+function uiRedrawStencil() {
+//    uiRedrawStencilPROSHARP();
+    uiRedrawStencilRIKU();
 }
 
