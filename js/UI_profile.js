@@ -126,7 +126,7 @@ function svgDrawOutlinePROSHARP(x, y) {
 
 function svgDrawOutlineELITE(x, y) {
     var stencilHeightELITE = 40.0;
-    var profileHeightELITE = 7.0;
+    var profileHeightELITE = 6.0;
 
     /* Create stencil */
     stencilPoints = [];
@@ -347,7 +347,7 @@ function uiRedrawStencilELITE(xCenter, yCenter) {
     name = name.replace(/"/g, "&quot;");
     name = name.replace(/'/g, "&#39;");
     svgDrawScale(  xCenter,         16, 40);
-    svgDrawText(   xCenter,         29, "1.5mm", document.getElementById("fingerprint").value);
+    svgDrawText(   xCenter,         28, "1.5mm", document.getElementById("fingerprint").value);
     svgDrawSliders(xCenter + 75,    32, 40.0);
     svgDrawSliders(xCenter - 75,    32, 40.0);
     svgDrawText(   xCenter,         40, "2mm", name);
