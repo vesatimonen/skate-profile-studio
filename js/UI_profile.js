@@ -51,6 +51,16 @@ function svgDrawLine(x1, y1, x2, y2) {
     svgContent += "  />\n";
 }
 
+function svgDrawCircle(x, y, r, color) {
+    svgContent += "  <circle\n";
+    svgContent += "    cx=" + x + "\n";
+    svgContent += "    cy=" + y + "\n";
+    svgContent += "    r="  + r + "\n";
+    svgContent += "    \n";
+    svgContent += "    stroke='" + color + "' stroke-width='0.2' fill='none'\n";
+    svgContent += "  />\n";
+}
+
 const stencilWidth     = 400;
 const stencilHeightMin = 20;
 const stencilHeightMax = 35;
@@ -174,6 +184,14 @@ function svgDrawOutlineRIKU(x, y) {
     stencilPoints[index] = {x: x + stencilWidth / 2, y: y};
     index++;
 
+    /* Draw holes */
+    var holeRadiusMm = 12.7 / 2.0;
+    svgDrawCircle(x - 95, y + stencilHeightRIKU - 3.0 - holeRadiusMm, holeRadiusMm, "black");
+    svgDrawCircle(x + 95, y + stencilHeightRIKU - 3.0 - holeRadiusMm, holeRadiusMm, "black");
+    svgDrawCircle(x + 95 + 15, y + stencilHeightRIKU - 3.0 - holeRadiusMm, holeRadiusMm, "black");
+    svgDrawCircle(x + 95 + 30, y + stencilHeightRIKU - 3.0 - holeRadiusMm, holeRadiusMm, "black");
+    svgDrawCircle(x + 95 + 45, y + stencilHeightRIKU - 3.0 - holeRadiusMm, holeRadiusMm, "black");
+
     svgDrawPath(stencilPoints, "black");
 }
 
@@ -184,10 +202,10 @@ function svgDrawScale(x, y, length) {
     for (let xValue = 0; xValue < length; xValue += 5) {
         var tickLen = 0;
         if (xValue == 0) {
-            tickLen = 8;
+            tickLen = 6;
         } else {
             if (xValue % 10 == 0) {
-                tickLen = 4;
+                tickLen = 3;
             } else {
                 tickLen = 2;
             }
@@ -346,9 +364,9 @@ function uiRedrawStencilRIKU(xCenter, yCenter) {
     name = name.replace(/>/g, "&gt;");
     name = name.replace(/"/g, "&quot;");
     name = name.replace(/'/g, "&#39;");
-//    svgDrawText(   xCenter,         15, "2mm", name);
-//    svgDrawText(   xCenter,         24, "1.5mm", document.getElementById("fingerprint").value);
-    svgDrawScale(  xCenter,         23, 40);
+    svgDrawText(   xCenter,         42, "2mm", name);
+    svgDrawText(   xCenter,         34, "1.5mm", document.getElementById("fingerprint").value);
+    svgDrawScale(  xCenter,         22, 40);
 //    svgDrawSliders(xCenter + 105,   6.5, 35.0);
 //    svgDrawSliders(xCenter - 105,   6.5, 35.0);
     svgDrawOutlineRIKU(xCenter, 5.0);
