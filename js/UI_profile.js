@@ -133,8 +133,8 @@ function svgDrawScale(x, y, length) {
     }
 
     /* Draw skate directions */
-    svgDrawText(x - length - 12, y + 6, "2mm", "HEEL");
-    svgDrawText(x + length + 12, y + 6, "2mm", "TOE");
+    svgDrawText(x - length - 12, y + 4, "1.5mm", "HEEL");
+    svgDrawText(x + length + 12, y + 4, "1.5mm", "TOE");
 }
 
 function svgDrawSliders(x, y, scale) {
@@ -157,7 +157,8 @@ function svgDrawSliders(x, y, scale) {
     /* Slider curve */
     points = [];
     for (let slider = 0; slider < sliderCount; slider++) {
-        points[slider] = {x: x + slider * width / (sliderCount - 1) - width/2, y: y + height - height * sliderValues[slider] / sliderValueMax};
+        points[slider] = {x: x + slider * width / (sliderCount - 1) - width/2,
+                          y: y + height - height * sliderValues[slider] / sliderValueMax};
     }
     svgDrawPath(points, "blue");
 }
@@ -268,11 +269,11 @@ function uiRedrawStencil() {
     name = name.replace(/>/g, "&gt;");
     name = name.replace(/"/g, "&quot;");
     name = name.replace(/'/g, "&#39;");
-    svgDrawText(   svgWidth / 2,       13, "1.8mm", name);
-    svgDrawText(   svgWidth / 2,       22, "1.8mm", document.getElementById("fingerprint").value);
-    svgDrawScale(  svgWidth / 2,       26, 40);
-    svgDrawSliders(svgWidth / 2 + 145, 6.5, 25.0);
-    svgDrawSliders(svgWidth / 2 - 145, 6.5, 25.0);
+    svgDrawText(   svgWidth / 2,       15, "2mm", name);
+    svgDrawText(   svgWidth / 2,       24, "1.5mm", document.getElementById("fingerprint").value);
+    svgDrawScale(  svgWidth / 2,       28, 40);
+    svgDrawSliders(svgWidth / 2 + 105, 6.5, 35.0);
+    svgDrawSliders(svgWidth / 2 - 105, 6.5, 35.0);
     svgDrawOutline(svgWidth / 2,       5);
     stencilSvg.innerHTML = svgContent;
 }
