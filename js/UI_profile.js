@@ -126,7 +126,7 @@ function svgDrawOutlinePROSHARP(x, y) {
 
 function svgDrawOutlineELITE(x, y) {
     var stencilHeightELITE = 40.0;
-    var profileHeightELITE = 6.0;
+    var profileHeightELITE = 7.0;
 
     /* Create stencil */
     stencilPoints = [];
@@ -166,8 +166,8 @@ function svgDrawOutlineELITE(x, y) {
 
     /* Draw holes */
     var holeRadiusMm = 12.7 / 2.0;
-    svgDrawCircle(x - 95, y + stencilHeightELITE - 3.0 - holeRadiusMm, holeRadiusMm, "black");
-    svgDrawCircle(x + 95, y + stencilHeightELITE - 3.0 - holeRadiusMm, holeRadiusMm, "black");
+    svgDrawCircle(x - 95 - holeRadiusMm, y + stencilHeightELITE - 3.0 - holeRadiusMm, holeRadiusMm, "black");
+    svgDrawCircle(x + 95 + holeRadiusMm, y + stencilHeightELITE - 3.0 - holeRadiusMm, holeRadiusMm, "black");
 /*
     svgDrawCircle(x + 95 + 15, y + stencilHeightELITE - 3.0 - holeRadiusMm, holeRadiusMm, "black");
     svgDrawCircle(x + 95 + 30, y + stencilHeightELITE - 3.0 - holeRadiusMm, holeRadiusMm, "black");
