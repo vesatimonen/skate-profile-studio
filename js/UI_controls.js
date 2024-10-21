@@ -501,12 +501,12 @@ function uiFingerprintChange(event) {
 document.getElementById("fingerprint")
 
     var variables = fingerprintBox.value.split("/");
-    var fields = variables[0].split("-");
+    var radiuses = variables[0].split("-");
 
 /*
     var index = -1;
     for (let blade = 0; blade < skateBlades.length; blade++) {
-        if (fields[0] == skateBlades[blade].size) {
+        if (radiuses[0] == skateBlades[blade].size) {
             index = blade;
             break;
         }
@@ -518,25 +518,25 @@ document.getElementById("fingerprint")
     }
 */
 
-    /* Check amount of fields */
-    if (fields.length < 1 + 2) {
+    /* Check amount of radiuses */
+    if (radiuses.length < 1 + 2) {
         fingerprintBox.style.background = errorColor;
         return;
     }
 
     /* Check slider values */
-    for (let fieldIndex = 1; fieldIndex < fields.length; fieldIndex++) {
-        if (isNaN(fields[fieldIndex]) == true) {
+    for (let fieldIndex = 1; fieldIndex < radiuses.length; fieldIndex++) {
+        if (isNaN(radiuses[fieldIndex]) == true) {
             fingerprintBox.style.background = errorColor;
             return;
         }
 
-        if (isNaN(parseFloat(fields[fieldIndex])) == true) {
+        if (isNaN(parseFloat(radiuses[fieldIndex])) == true) {
             fingerprintBox.style.background = errorColor;
             return;
         }
 
-        if (parseFloat(fields[fieldIndex]) < 0.01) {
+        if (parseFloat(radiuses[fieldIndex]) < 0.01) {
             fingerprintBox.style.background = errorColor;
             return;
         }
@@ -544,12 +544,12 @@ document.getElementById("fingerprint")
 
     /* Set skate index and slider values */
 //    skateBladeIndex = index;
-    skateBladeSize  = fields[0];
+    skateBladeSize  = radiuses[0];
 
-    sliderCount = fields.length - 1;
-    for (let fieldIndex = 1; fieldIndex < fields.length; fieldIndex++) {
+    sliderCount = radiuses.length - 1;
+    for (let fieldIndex = 1; fieldIndex < radiuses.length; fieldIndex++) {
         /* Reverse slider values */
-        sliderValues[fieldIndex - 1] = parseFloat(fields[fieldIndex]);
+        sliderValues[fieldIndex - 1] = parseFloat(radiuses[fieldIndex]);
     }
 
     fingerprintBox.style.background = okColor;
