@@ -500,7 +500,8 @@ controlCanvas.addEventListener("touchend",   uiControlEnd);
 function uiFingerprintChange(event) {
 document.getElementById("fingerprint")
 
-    var fields = fingerprintBox.value.split("-");
+    var variables = fingerprintBox.value.split("/");
+    var fields = variables[0].split("-");
 
 /*
     var index = -1;
