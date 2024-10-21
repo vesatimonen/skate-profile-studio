@@ -15,6 +15,7 @@ var   sliderDistance  = 50; /* mm */
 var   sliderValues    = [];
 var   sliderPositions = [];
 
+var   skateOrigoX = 0.0; /* The lowest point of the profile */
 
 /*****************************************************************************
  * Scaling conversion functions
@@ -338,8 +339,10 @@ const errorColor = "#FF8888";
 function uiRedrawFingerprint() {
     var fingerprint = "";
 
+    /* Skate size */
     fingerprint += skateBladeSize;
 
+    /* Radiuses */
     for (let slider = 0; slider < sliderCount; slider++) {
         fingerprint += "-";
         if (Math.floor(sliderValues[slider]) == sliderValues[slider]) {
@@ -352,6 +355,13 @@ function uiRedrawFingerprint() {
         } else {
            fingerprint += sliderValues[slider].toFixed(1);
         }
+    }
+
+    /* Skate origo (lowest point of origo) */
+    if (skateOrigoX < 0.0) {
+        fingerprint += "/" + skateOrigoX;
+    } else {
+        fingerprint += "/+" + skateOrigoX;
     }
 
     document.getElementById("fingerprint").value = fingerprint;
@@ -502,6 +512,14 @@ document.getElementById("fingerprint")
 
     var variables = fingerprintBox.value.split("/");
     var radiuses = variables[0].split("-");
+    var origo = variables[1];
+
+    /* Skate origo */
+    if (origo == undefined || isNaN(parseFloat(origo)) == true) {
+//        skateOrigoX = 0.0;
+    } else {
+        skateOrigoX = parseFloat(origo);
+    }
 
 /*
     var index = -1;
