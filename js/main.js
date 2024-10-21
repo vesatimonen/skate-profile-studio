@@ -53,14 +53,13 @@ skateImage.onload = function () {
     imageContext.strokeStyle = "#FF0000";
     imageContext.stroke();
 
+/*
     let surface = imageContext.getImageData(0, 0, imageCanvas.width, imageCanvas.height);
 
     for (let y = 0; y != surface.height; y++) {
       for (let x = 0; x != surface.width / 2; x++) {
-        /* Calculate index */
         let i = (y * surface.width + x) * 4;
 
-        /* Average of RGB value */
         let intensity = (surface.data[i + 0] + surface.data[i + 1] + surface.data[i + 2]) / 3;
 
         surface.data[i + 0] = 255 - intensity;
@@ -70,6 +69,7 @@ skateImage.onload = function () {
     }
 
     imageContext.putImageData(surface, 0, 0);
+*/
 
 //    let url = imageCanvas.toDataURL();
 //    skateImage.src = url;
