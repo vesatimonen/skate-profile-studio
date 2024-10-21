@@ -192,7 +192,7 @@ function uiRedrawXLegend() {
             controlContext.lineTo(convertValueToX(-xValue), baselineY + tickLen);
         }
 
-        if (xValue % 20 == 0) {
+        if (xValue % 10 == 0) {
             controlContext.font         = "12px monospace";
             controlContext.textBaseline = "middle";
             controlContext.textAlign    = "center";
