@@ -15,7 +15,7 @@ var   sliderDistance  = 50; /* mm */
 var   sliderValues    = [];
 var   sliderPositions = [];
 
-var   skateOrigoX = 0.0; /* The lowest point of the profile */
+var   skateOrigoX = 0; /* The lowest point of the profile */
 
 /*****************************************************************************
  * Scaling conversion functions
@@ -518,7 +518,7 @@ document.getElementById("fingerprint")
     if (origo == undefined || isNaN(parseFloat(origo)) == true) {
 //        skateOrigoX = 0.0;
     } else {
-        skateOrigoX = parseFloat(origo);
+        skateOrigoX = Math.round(parseFloat(origo));
     }
 
 /*

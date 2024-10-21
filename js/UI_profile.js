@@ -280,9 +280,15 @@ function calculateProfile(profileStep) {
         profilePoints[pivotIndex - index] = {x: -index * profileStep, y: 0, radius: calculateRadius(-index * profileStep)};
     }
 
+    /* Calculate origo position */
+    var origoIndex = Math.floor(pivotIndex + skateOrigoX / profileStep);
+    var origoX = profilePoints[origoIndex].x;
+
     /* Calculate right profile */
-    var circle = {x: 0.0, y: calculateRadius(0.0), radius: calculateRadius(0.0)}; /* Pivot point circle */
-    for (let i = pivotIndex + 1; i < profilePoints.length; i++) {
+    var circle = {x: origoX,
+                  y: calculateRadius(origoX),
+                  radius: calculateRadius(origoX)}; /* Pivot point circle */
+    for (let i = origoIndex + 1; i < profilePoints.length; i++) {
         profilePoints[i].y = circle.y - Math.sqrt(Math.pow(circle.radius, 2) - Math.pow(profilePoints[i].x - circle.x, 2));
 
         var radiusRatio = profilePoints[i].radius / circle.radius;
@@ -296,8 +302,10 @@ function calculateProfile(profileStep) {
     }
 
     /* Calculate left profile */
-    var circle = {x: 0.0, y: calculateRadius(0.0), radius: calculateRadius(0.0)}; /* Pivot point circle */
-    for (let i = pivotIndex - 1; i >= 0; i--) {
+    var circle = {x: origoX,
+                  y: calculateRadius(origoX),
+                  radius: calculateRadius(origoX)}; /* Pivot point circle */
+    for (let i = origoIndex - 1; i >= 0; i--) {
         profilePoints[i].y = circle.y - Math.sqrt(Math.pow(circle.radius, 2) - Math.pow(circle.x - profilePoints[i].x, 2));
 
         var radiusRatio = profilePoints[i].radius / circle.radius;
