@@ -125,27 +125,28 @@ function svgDrawOutlinePROSHARP(x, y) {
 
 
 function svgDrawOutlineELITE(x, y) {
-    var stencilHeightELITE = 40.0;
-    var profileHeightELITE = 5.5;
+    const stencilHeightELITE = 40.0;
+    const stencilWidthELITE  = 431.8;
+    const profileHeightELITE = 5.5;
 
     /* Create stencil */
     stencilPoints = [];
     var index = 0;
 
     /* Upper right */
-    stencilPoints[index] = {x: x + stencilWidth / 2, y: y};
+    stencilPoints[index] = {x: x + stencilWidthELITE / 2, y: y};
     index++;
 
     /* Lower right */
-    stencilPoints[index] = {x: x + stencilWidth / 2, y: y + stencilHeightELITE};
+    stencilPoints[index] = {x: x + stencilWidthELITE / 2, y: y + stencilHeightELITE};
     index++;
 
     /* Lower left */
-    stencilPoints[index] = {x: x - stencilWidth / 2, y: y + stencilHeightELITE};
+    stencilPoints[index] = {x: x - stencilWidthELITE / 2, y: y + stencilHeightELITE};
     index++;
 
     /* Upper left */
-    stencilPoints[index] = {x: x - stencilWidth / 2, y: y};
+    stencilPoints[index] = {x: x - stencilWidthELITE / 2, y: y};
     index++;
 
     /* Profile */
@@ -161,7 +162,7 @@ function svgDrawOutlineELITE(x, y) {
     }
 
     /* Lower right */
-    stencilPoints[index] = {x: x + stencilWidth / 2, y: y};
+    stencilPoints[index] = {x: x + stencilWidthELITE / 2, y: y};
     index++;
 
     /* Draw holes */
