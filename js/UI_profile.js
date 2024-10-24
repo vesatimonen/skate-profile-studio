@@ -64,6 +64,7 @@ function svgDrawCircle(x, y, r, color) {
 const stencilWidth     = 400;
 const stencilHeightMin = 20;
 const stencilHeightMax = 32;
+const profileHeightMax = 50;
 
 const stencilSlotPosition = 120;
 const stencilSlotWidth    = 8;
@@ -290,7 +291,13 @@ function calculateProfile(profileStep) {
                   y: calculateRadius(origoX),
                   radius: calculateRadius(origoX)}; /* Pivot point circle */
     for (let i = origoIndex + 1; i < profilePoints.length; i++) {
-        profilePoints[i].y = circle.y - Math.sqrt(Math.pow(circle.radius, 2) - Math.pow(profilePoints[i].x - circle.x, 2));
+        var squareDelta = Math.pow(circle.radius, 2) - Math.pow(profilePoints[i].x - circle.x, 2);
+        if (squareDelta > 0) {
+            profilePoints[i].y = circle.y - Math.sqrt(squareDelta);
+        } else {
+            profilePoints[i].y = 2 * profilePoints[i - 1].y - profilePoints[i - 2].y;
+        }
+
 
         var radiusRatio = profilePoints[i].radius / circle.radius;
         circle = {
@@ -307,7 +314,12 @@ function calculateProfile(profileStep) {
                   y: calculateRadius(origoX),
                   radius: calculateRadius(origoX)}; /* Pivot point circle */
     for (let i = origoIndex - 1; i >= 0; i--) {
-        profilePoints[i].y = circle.y - Math.sqrt(Math.pow(circle.radius, 2) - Math.pow(circle.x - profilePoints[i].x, 2));
+        var squareDelta = Math.pow(circle.radius, 2) - Math.pow(circle.x - profilePoints[i].x, 2);
+        if (squareDelta > 0) {
+            profilePoints[i].y = circle.y - Math.sqrt(squareDelta);
+        } else {
+            profilePoints[i].y = 2 * profilePoints[i + 1].y - profilePoints[i + 2].y;
+        }
 
         var radiusRatio = profilePoints[i].radius / circle.radius;
         circle = {
@@ -321,8 +333,8 @@ function calculateProfile(profileStep) {
 
     /* Limit Y values */
     for (let i = 0; i < profilePoints.length; i++) {
-        if (isNaN(profilePoints[i].y) || profilePoints[i].y > stencilHeightMax - stencilHeightMin) {
-            profilePoints[i].y = stencilHeightMax - stencilHeightMin;
+        if (isNaN(profilePoints[i].y) || profilePoints[i].y > profileHeightMax) {
+            profilePoints[i].y = profileHeightMax;
         }
     }
 }
