@@ -353,7 +353,6 @@ function uiRedrawStencilPROSHARP(xCenter, yCenter) {
     svgDrawText(   xCenter,         15, "2mm", name);
     svgDrawText(   xCenter,         24, "1.5mm", document.getElementById("fingerprint").value);
     svgDrawScale(  xCenter,         28, 40);
-    svgDrawSliders(xCenter + 105,   6.5, 35.0);
     svgDrawSliders(xCenter - 105,   6.5, 35.0);
     svgDrawOutlinePROSHARP(xCenter, 5.0);
     stencilSvg.innerHTML = svgContent;
@@ -369,8 +368,7 @@ function uiRedrawStencilELITE(xCenter, yCenter) {
     name = name.replace(/'/g, "&#39;");
     svgDrawScale(  xCenter,         16, 40);
     svgDrawText(   xCenter,         28, "1.5mm", document.getElementById("fingerprint").value);
-    svgDrawSliders(xCenter + 75,    32, 40.0);
-    svgDrawSliders(xCenter - 75,    32, 40.0);
+    svgDrawSliders(xCenter - 80,    32, 40.0);
     svgDrawText(   xCenter,         40, "2mm", name);
     svgDrawOutlineELITE(xCenter, 5.0);
     stencilSvg.innerHTML = svgContent;
