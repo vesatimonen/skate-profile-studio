@@ -380,7 +380,14 @@ function uiRedrawStencil() {
     var svgWidth  = parseFloat(stencilSvg.getAttribute("width")); /* mm */
     var svgHeight = parseFloat(stencilSvg.getAttribute("height")); /* mm */
 
-//    uiRedrawStencilPROSHARP(svgWidth / 2, svgHeight / 2);
-    uiRedrawStencilELITE(svgWidth / 2, svgHeight / 2);
+    var bladeType = document.getElementById("blade-type").value;
+    switch (bladeType) {
+        case "prosharp":
+            uiRedrawStencilPROSHARP(svgWidth / 2, svgHeight / 2);
+            break;
+        case "elite":
+            uiRedrawStencilELITE(svgWidth / 2, svgHeight / 2);
+            break;
+    }
 }
 
