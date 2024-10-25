@@ -141,6 +141,7 @@
     margin-top:     10px;
     margin-left:    auto;
     margin-right:   auto;
+    margin-bottom:  10px;
     width:          100%;
 
     background:     #CEEAFF;
@@ -157,7 +158,7 @@
 #stencil-svg {
     box-sizing:     border-box;
 
-    margin-top:     25px;
+    margin-top:     10px;
     margin-bottom:  0px;
 
     height:         100%;
