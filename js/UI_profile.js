@@ -71,6 +71,8 @@ const stencilSlotWidth    = 8;
 const stencilSlotHeight   = 13;
 
 function svgDrawOutlinePROSHARP(x, y) {
+    const profileHeightPROSHARP = stencilHeightMax - stencilHeightMin;
+
     /* Create stencil */
     stencilPoints = [];
     var index = 0;
@@ -113,6 +115,11 @@ function svgDrawOutlinePROSHARP(x, y) {
 
     /* Profile */
     for (let i = 0; i < profilePoints.length; i++) {
+        /* Limit Y */
+        if (isNaN(profilePoints[i].y) || profilePoints[i].y > profileHeightPROSHARP) {
+            profilePoints[i].y = profileHeightPROSHARP;
+        }
+
         stencilPoints[index] = {x: x + profilePoints[i].x, y: y + stencilHeightMax - profilePoints[i].y};
         index++;
     }
