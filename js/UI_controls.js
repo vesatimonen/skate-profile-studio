@@ -582,10 +582,12 @@ document.getElementById("fingerprint")
 }
 
 function uiNameChange(event) {
+    uiRedrawControls();
     uiRedrawStencil();
 }
 
 function uiBladeTypeChange(event) {
+    uiRedrawControls();
     uiRedrawStencil();
 }
 
