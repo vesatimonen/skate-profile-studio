@@ -283,7 +283,7 @@ function uiRedrawControlCurve() {
     for (let slider = 0; slider < sliderCount; slider++) {
         /* Draw slider position */
         controlContext.beginPath();
-        controlContext.arc(sliderPositions[slider].x, sliderPositions[slider].y, 5, 0, 2 * Math.PI, false);
+        controlContext.arc(sliderPositions[slider].x, sliderPositions[slider].y, 10, 0, 2 * Math.PI, false);
         controlContext.fillStyle = "#ffffff";
         controlContext.fill();
 
@@ -453,11 +453,14 @@ function uiControlStart(event) {
     position = uiEventPosition(event);
     if (position != undefined) {
         /* Find out if slider selected */
+        var minDistance = 100.0;
         for (let slider = 0; slider < sliderCount; slider++) {
             sliderX = convertSliderToX(slider);
             sliderY = convertValueToY(sliderValues[slider]);
 
-            if (Math.abs(sliderX - position.x) + Math.abs(sliderY - position.y) < 20) {
+            var distance = Math.abs(sliderX - position.x) + Math.abs(sliderY - position.y);
+            if (distance < minDistance && distance < 20) {
+                minDistance = distance;
                 sliderToMove = slider;
             }
         }
