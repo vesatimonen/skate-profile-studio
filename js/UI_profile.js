@@ -247,13 +247,6 @@ function svgDrawOutlineBlade(x, y, bladeString) {
     stencilPoints = [];
     var index = 0;
 
-    /* Add blade upper part points */
-    for (let i = 0; i < bladePath.length; i++) {
-        stencilPoints[index] = {x: bladePath[i].x, y: bladePath[i].y};
-
-        index++;
-    }
-
     /* Add profile points */
     for (let i = 0; i < profilePoints.length; i++) {
         /* Limit Y */
@@ -271,13 +264,14 @@ function svgDrawOutlineBlade(x, y, bladeString) {
         var kLeft  = (leftPoint.y - stencilPoints[index].y)  / (leftPoint.x - stencilPoints[index].x);
         var kRight = (stencilPoints[index].y - rightPoint.y) / (stencilPoints[index].x - rightPoint.x);
 var kCurrent = undefined; // ???
-        if (i > 0) {
+        if (index > 0) {
             kCurrent = (stencilPoints[index - 1].y - stencilPoints[index].y) / (stencilPoints[index - 1].x - stencilPoints[index].x);
         }
 
         if (kCurrent != undefined && kCurrent < kRight) {
+
             /* Remove added item from table */
-console.log("rgiht");
+console.log("right:", kRight, "index:", index, kCurrent);
             stencilPoints.pop();
             break;
         }
@@ -285,17 +279,16 @@ console.log("rgiht");
         if (kCurrent != undefined && kCurrent > kLeft) {
             /* Remove added item from table */
 console.log("left");
-            stencilPoints.pop();
+            stencilPoints.shift();
             continue;
         }
 
-        /* Check left curvature */
+        index++;
+    }
 
-
-        /* Right -> break */
-
-
-
+    /* Add blade upper part points */
+    for (let i = 0; i < bladePath.length; i++) {
+        stencilPoints[index] = {x: bladePath[i].x, y: bladePath[i].y};
 
         index++;
     }
