@@ -10,7 +10,8 @@ const fingerprintBox = document.getElementById("fingerprint");
 /* Slider configurations */
 const sliderValueMin  = 0.0;
 const sliderValueMax  = 10.0;
-var   sliderCount     = 7;
+var   sliderDefault   = [0.03, 0.03, 0.5, 1.0, 3.0, 4.5, 5.0, 4.5, 3.0, 1.0, 0.5, 0.03, 0.03];
+var   sliderCount     = sliderDefault.length;
 var   sliderDistance  = 50; /* mm */
 var   sliderValues    = [];
 var   sliderPositions = [];
@@ -51,7 +52,11 @@ function convertYToValue(y) {
     if (value > 5.0) {
         value = Math.round(value * 2.0) / 2.0;
     } else {
-        value = Math.round(value * 10.0) / 10.0;
+        if (value > 0.1) {
+            value = Math.round(value * 10.0) / 10.0;
+        } else {
+            value = Math.round(value * 100.0) / 100.0;
+        }
     }
 
     if (value < sliderValueMin) {
@@ -398,9 +403,7 @@ function uiInitControls() {
     /* Initialize canvas area */
     uiInitCanvas(controlCanvas, controlCanvasWidth, controlCanvasHeight);
 
-    for (let slider = 0; slider < sliderCount; slider++) {
-        sliderValues[slider] = 1.0;
-    }
+    sliderValues = sliderDefault;
 
     calculateCanvasScale();
 
