@@ -194,9 +194,60 @@ function svgDrawOutlineBlade(x, y, bladeString) {
     const stencilWidthELITE  = 431.8;
     const profileHeightELITE = 5.5;
 
+    /* Parse blade path string */
+    var bladePath = [];
+    var bladePathIndex = 0;
+    const parts = bladeString.split(" ");
+    let i = 0;
+    while (i < parts.length) {
+        const command = parts[i];
+        switch (command) {
+            case "M":
+            case "L":
+                bladePath[bladePathIndex] = {x: parseFloat(parts[i + 1]), y: parseFloat(parts[i + 2])};
+                bladePathIndex++;
+                i += 3;
+                break;
+            default:
+                i++;
+        }
+    }
+
+    /* Find minimum and maximum value */
+    var minX = +1000000.0;
+    var minY = +1000000.0;
+    var maxX = -1000000.0;
+    var maxY = -1000000.0;
+    for (let i = 0; i < bladePath.length; i++) {
+        if (bladePath[i].x < minX) {
+            minX = bladePath[i].x;
+        }
+        if (bladePath[i].y < minY) {
+            minY = bladePath[i].y;
+        }
+        if (bladePath[i].x > maxX) {
+            maxX = bladePath[i].x;
+        }
+        if (bladePath[i].y > maxY) {
+            maxY = bladePath[i].y;
+        }
+    }
+
+    var xShift = x - (minX + maxX) / 2.0;
+    var yShift = y - minY;
+    for (let i = 0; i < bladePath.length; i++) {
+        bladePath[i].x += xShift;
+        bladePath[i].y += yShift;
+    }
+
     /* Create stencil */
     stencilPoints = [];
     var index = 0;
+
+    for (let i = 0; i < bladePath.length; i++) {
+        stencilPoints[index] = {x: bladePath[i].x, y: bladePath[i].y};;
+        index++;
+    }
 
     /* Upper right */
     stencilPoints[index] = {x: x + stencilWidthELITE / 2, y: y};
@@ -227,8 +278,8 @@ function svgDrawOutlineBlade(x, y, bladeString) {
     }
 
     /* Lower right */
-    stencilPoints[index] = {x: x + stencilWidthELITE / 2, y: y};
-    index++;
+//    stencilPoints[index] = {x: x + stencilWidthELITE / 2, y: y};
+//    index++;
 
     svgDrawPath(stencilPoints, "black");
 }
