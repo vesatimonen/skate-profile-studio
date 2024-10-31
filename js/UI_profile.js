@@ -190,9 +190,7 @@ function svgDrawOutlineELITE(x, y) {
 var bauer272String = "M 249.374 130.044 L 249.087 126.989 L 248.853 126.266 L 248.39 125.641 L 248.39 125.641 L 247.427 125.04 L 246.884 124.923 L 246.331 125.034 L 239.035 128.17 L 233.668 130.274 L 228.24 132.216 L 222.757 133.997 L 217.225 135.617 L 207.91 137.947 L 203.206 138.899 L 198.468 139.649 L 197.834 139.708 L 197.147 139.655 L 196.524 139.369 L 196.083 138.727 L 195.975 138.084 L 196.102 137.535 L 196.725 136.547 L 198.012 134.797 L 198.857 133.659 L 199.57 132.44 L 199.608 131.821 L 199.401 131.233 L 198.987 130.78 L 198.406 130.564 L 197.784 130.584 L 197.218 130.821 L 196.186 131.536 L 183.454 140.17 L 181.799 141.175 L 180.913 141.552 L 179.968 141.751 L 177.805 141.883 L 175.637 141.969 L 161.369 142.389 L 147.096 142.618 L 120.75 142.921 L 115.768 142.929 L 101.094 142.903 L 87.5863 142.888 L 80.8715 142.871 L 71.5789 142.633 L 57.3615 142.403 L 51.9376 142.225 L 50.8758 142.239 L 50.3639 142.142 L 49.9079 141.875 L 48.7612 140.433 L 48.0982 139.801 L 47.3215 139.308 L 46.7446 138.983 L 46.0768 138.897 L 45.4448 139.074 L 44.9755 139.54 L 44.7437 140.465 L 44.7211 141.417 L 44.7429 142.377 L 44.6446 143.322 L 44.423 143.814 L 44.0637 144.22 L 43.599 144.48 L 43.0615 144.534 L 29.4918 144.352 L 28.7296 144.09 L 28.0741 143.625 L 26.7767 142.653 L 25.2405 141.835 L 24.4062 141.6 L 23.5375 141.54 L 17.4065 141.158 L 16.7344 140.617 L 16.1666 139.968 L 15.0681 138.63 L 8.8856 131.203 L 8.15196 130.414 L 7.26943 129.792 L 5.60194 128.779 L 3.79365 128.043 L 0.9837 127.195 L 0.29347 127.329 L -0.336261 127.634 L -1.54977 128.36 L -2.80549 129.086 L -3.36888 129.529 L -3.79484 130.109 L -3.85038 130.682 L -3.67513 131.232 L -3.31459 131.685 L -2.81431 131.971 L 3.71271 135.344 L 4.14748 135.921 L 4.32134 136.613 L 4.28676 137.345 L 4.09622 138.042 L 3.7869 138.696 L 3.25657 139.18 L 2.58858 139.462 L 1.86631 139.51 L -1.16689 139.045 L -7.75338 137.852 L -14.3005 136.459 L -20.8072 134.886 L -27.2724 133.152 L -34.7553 130.847 L -42.1542 128.518 L -43.6559 128.309 L -44.4039 128.406 L -45.0856 128.679 L -45.4901 129.018 L -45.7996 129.464 L -46.2203 130.484 L -46.6294 132.238 L -46.788 134.039 L -46.7469 137.743";
 
 function svgDrawOutlineBlade(x, y, bladeString) {
-    const stencilHeightELITE = 40.0;
-    const stencilWidthELITE  = 431.8;
-    const profileHeightELITE = 5.5;
+    const profileHeightBlade = 40.0;
 
     /* Parse blade path string */
     var bladePath = [];
@@ -245,47 +243,31 @@ function svgDrawOutlineBlade(x, y, bladeString) {
     var index = 0;
 
     for (let i = 0; i < bladePath.length; i++) {
-        stencilPoints[index] = {x: bladePath[i].x, y: bladePath[i].y};;
+        stencilPoints[index] = {x: bladePath[i].x, y: bladePath[i].y};
+
         index++;
     }
-
-    /* Upper right */
-    stencilPoints[index] = {x: x + stencilWidthELITE / 2, y: y};
-    index++;
-
-    /* Lower right */
-    stencilPoints[index] = {x: x + stencilWidthELITE / 2, y: y + stencilHeightELITE};
-    index++;
-
-    /* Lower left */
-    stencilPoints[index] = {x: x - stencilWidthELITE / 2, y: y + stencilHeightELITE};
-    index++;
-
-    /* Upper left */
-    stencilPoints[index] = {x: x - stencilWidthELITE / 2, y: y};
-    index++;
 
     /* Profile */
     for (let i = 0; i < profilePoints.length; i++) {
         /* Limit Y */
-        if (isNaN(profilePoints[i].y) || profilePoints[i].y > profileHeightELITE) {
-            profilePoints[i].y = profileHeightELITE;
+        if (isNaN(profilePoints[i].y) || profilePoints[i].y > profileHeightBlade) {
+            profilePoints[i].y = profileHeightBlade;
         }
 
         stencilPoints[index] = {x: x + profilePoints[i].x,
-                                y: y + profileHeightELITE - profilePoints[i].y};
+                                y: y + profileHeightBlade - profilePoints[i].y};
         index++;
     }
 
-    /* Lower right */
-//    stencilPoints[index] = {x: x + stencilWidthELITE / 2, y: y};
-//    index++;
+    stencilPoints[index] = stencilPoints[0];
+
 
     svgDrawPath(stencilPoints, "black");
 }
 
 
-function svgDrawScale(x, y, length) {
+function svgDrawScale(x, y, length, printText) {
     /* Draw scale ticks */
     for (let xValue = 0; xValue < length; xValue += 5) {
         var tickLen = 0;
@@ -305,9 +287,13 @@ function svgDrawScale(x, y, length) {
     }
 
     /* Draw skate directions */
-    svgDrawText(x - length - 12, y + 4, "1.5mm", "HEEL");
-    svgDrawText(x + length + 12, y + 4, "1.5mm", "TOE");
+    if (printText) {
+        svgDrawText(x - length - 12, y + 4, "1.5mm", "HEEL");
+        svgDrawText(x + length + 12, y + 4, "1.5mm", "TOE");
+    }
 }
+
+
 
 function svgDrawSliders(x, y, scale) {
     var points = [];
@@ -456,7 +442,7 @@ function uiRedrawStencilPROSHARP(xCenter, yCenter) {
     name = name.replace(/'/g, "&#39;");
     svgDrawText(   xCenter,         15, "2mm", name);
     svgDrawText(   xCenter,         24, "1.5mm", document.getElementById("fingerprint").value);
-    svgDrawScale(  xCenter,         28, 40);
+    svgDrawScale(  xCenter,         28, 40, true);
     svgDrawSliders(xCenter - 105,   6.5, 35.0);
     svgDrawOutlinePROSHARP(xCenter, 5.0);
     stencilSvg.innerHTML = svgContent;
@@ -470,7 +456,7 @@ function uiRedrawStencilELITE(xCenter, yCenter) {
     name = name.replace(/>/g, "&gt;");
     name = name.replace(/"/g, "&quot;");
     name = name.replace(/'/g, "&#39;");
-    svgDrawScale(  xCenter,         16, 40);
+    svgDrawScale(  xCenter,         16, 40, true);
     svgDrawText(   xCenter,         28, "1.5mm", document.getElementById("fingerprint").value);
     svgDrawSliders(xCenter - 80,    32, 40.0);
     svgDrawText(   xCenter,         40, "2mm", name);
@@ -486,10 +472,10 @@ function uiRedrawStencilBlade(xCenter, yCenter, bladeString) {
     name = name.replace(/>/g, "&gt;");
     name = name.replace(/"/g, "&quot;");
     name = name.replace(/'/g, "&#39;");
-    svgDrawScale(  xCenter,         16, 40);
-    svgDrawText(   xCenter,         28, "1.5mm", document.getElementById("fingerprint").value);
-    svgDrawSliders(xCenter - 80,    32, 40.0);
-    svgDrawText(   xCenter,         40, "2mm", name);
+    svgDrawSliders(xCenter - 100,   24, 40.0);
+    svgDrawScale(  xCenter,         25, 40, false);
+//    svgDrawText(   xCenter,         28, "1.5mm", document.getElementById("fingerprint").value);
+    svgDrawText(   xCenter,         37, "2mm", name);
     svgDrawOutlineBlade(xCenter, 5.0, bladeString);
     stencilSvg.innerHTML = svgContent;
 }
