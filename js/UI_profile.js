@@ -270,18 +270,21 @@ function svgDrawOutlineBlade(x, y, bladeString) {
 
         var kLeft  = (leftPoint.y - stencilPoints[index].y)  / (leftPoint.x - stencilPoints[index].x);
         var kRight = (stencilPoints[index].y - rightPoint.y) / (stencilPoints[index].x - rightPoint.x);
-var kCurrent = 0.0; // ???
+var kCurrent = undefined; // ???
         if (i > 0) {
             kCurrent = (stencilPoints[index - 1].y - stencilPoints[index].y) / (stencilPoints[index - 1].x - stencilPoints[index].x);
         }
 
-        if (kCurrent < kRight) {
+        if (kCurrent != undefined && kCurrent < kRight) {
             /* Remove added item from table */
+console.log("rgiht");
             stencilPoints.pop();
-            continue;
+            break;
         }
 
-        if (kCurrent > kLeft) {
+        if (kCurrent != undefined && kCurrent > kLeft) {
+            /* Remove added item from table */
+console.log("left");
             stencilPoints.pop();
             continue;
         }
