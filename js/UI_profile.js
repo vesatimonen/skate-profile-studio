@@ -231,32 +231,69 @@ function svgDrawOutlineBlade(x, y, bladeString) {
         }
     }
 
-    var xShift = x - (minX + maxX) / 2.0;
-    var yShift = y - minY;
+    /* Shift blade to middle */
+    const xShift = x - (minX + maxX) / 2.0;
+    const yShift = y - minY;
     for (let i = 0; i < bladePath.length; i++) {
         bladePath[i].x += xShift;
         bladePath[i].y += yShift;
     }
 
+    /* Find start and end points */
+    const rightPoint = bladePath[0];
+    const leftPoint   = bladePath[bladePath.length - 1];
+
     /* Create stencil */
     stencilPoints = [];
     var index = 0;
 
+    /* Add blade upper part points */
     for (let i = 0; i < bladePath.length; i++) {
         stencilPoints[index] = {x: bladePath[i].x, y: bladePath[i].y};
 
         index++;
     }
 
-    /* Profile */
+    /* Add profile points */
     for (let i = 0; i < profilePoints.length; i++) {
         /* Limit Y */
         if (isNaN(profilePoints[i].y) || profilePoints[i].y > profileHeightBlade) {
-            profilePoints[i].y = profileHeightBlade;
+//            profilePoints[i].y = profileHeightBlade;
         }
 
+        /* Shift profile to right position */
         stencilPoints[index] = {x: x + profilePoints[i].x,
                                 y: y + profileHeightBlade - profilePoints[i].y};
+
+        /* Calculate slopes */
+// Check divided by zero ???
+
+        var kLeft  = (leftPoint.y - stencilPoints[index].y)  / (leftPoint.x - stencilPoints[index].x);
+        var kRight = (stencilPoints[index].y - rightPoint.y) / (stencilPoints[index].x - rightPoint.x);
+var kCurrent = 0.0; // ???
+        if (i > 0) {
+            kCurrent = (stencilPoints[index - 1].y - stencilPoints[index].y) / (stencilPoints[index - 1].x - stencilPoints[index].x);
+        }
+
+        if (kCurrent < kRight) {
+            /* Remove added item from table */
+            stencilPoints.pop();
+            continue;
+        }
+
+        if (kCurrent > kLeft) {
+            stencilPoints.pop();
+            continue;
+        }
+
+        /* Check left curvature */
+
+
+        /* Right -> break */
+
+
+
+
         index++;
     }
 
