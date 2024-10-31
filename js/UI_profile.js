@@ -249,38 +249,28 @@ function svgDrawOutlineBlade(x, y, bladeString) {
 
     /* Add profile points */
     for (let i = 0; i < profilePoints.length; i++) {
-        /* Limit Y */
-        if (isNaN(profilePoints[i].y) || profilePoints[i].y > profileHeightBlade) {
-//            profilePoints[i].y = profileHeightBlade;
-        }
-
         /* Shift profile to right position */
         stencilPoints[index] = {x: x + profilePoints[i].x,
                                 y: y + profileHeightBlade - profilePoints[i].y};
 
         /* Calculate slopes */
-// Check divided by zero ???
-
         var kLeft  = (leftPoint.y - stencilPoints[index].y)  / (leftPoint.x - stencilPoints[index].x);
         var kRight = (stencilPoints[index].y - rightPoint.y) / (stencilPoints[index].x - rightPoint.x);
-var kCurrent = undefined; // ???
+        var kCurrent = undefined;
         if (index > 0) {
             kCurrent = (stencilPoints[index - 1].y - stencilPoints[index].y) / (stencilPoints[index - 1].x - stencilPoints[index].x);
-        }
 
-        if (kCurrent != undefined && kCurrent < kRight) {
+            if (kCurrent < kRight) {
+                /* Remove added item from table */
+                stencilPoints.pop();
+                break;
+            }
 
-            /* Remove added item from table */
-console.log("right:", kRight, "index:", index, kCurrent);
-            stencilPoints.pop();
-            break;
-        }
-
-        if (kCurrent != undefined && kCurrent > kLeft) {
-            /* Remove added item from table */
-console.log("left");
-            stencilPoints.shift();
-            continue;
+            if (kCurrent > kLeft) {
+                /* Remove first item from table */
+                stencilPoints.shift();
+                continue;
+            }
         }
 
         index++;
@@ -457,7 +447,7 @@ function calculateProfile(profileStep) {
     /* Limit Y values */
     for (let i = 0; i < profilePoints.length; i++) {
         if (isNaN(profilePoints[i].y) || profilePoints[i].y > profileHeightMax) {
-            profilePoints[i].y = profileHeightMax;
+//            profilePoints[i].y = profileHeightMax;
         }
     }
 }
