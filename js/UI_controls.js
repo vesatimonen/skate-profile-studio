@@ -10,7 +10,7 @@ const fingerprintBox = document.getElementById("fingerprint");
 /* Slider configurations */
 const sliderValueMin  = 0.0;
 const sliderValueMax  = 10.0;
-var   sliderDefault   = [0.03, 0.03, 0.5, 1.0, 3.0, 4.5, 5.0, 4.5, 3.0, 1.0, 0.5, 0.03, 0.03];
+var   sliderDefault   = [0.03, 0.04, 0.5, 1.0, 3.0, 4.5, 5.0, 4.5, 3.0, 1.0, 0.5, 0.04, 0.03];
 var   sliderCount     = sliderDefault.length;
 var   sliderDistance  = 50; /* mm */
 var   sliderValues    = [];
