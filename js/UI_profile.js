@@ -240,8 +240,8 @@ function svgDrawOutlineBlade(x, y, bladeString) {
     }
 
     /* Find start and end points */
-    const rightPoint = bladePath[0];
-    const leftPoint   = bladePath[bladePath.length - 1];
+    const rightPoints = [bladePath[0], bladePath[1]];
+    const leftPoints  = [bladePath[bladePath.length - 1], bladePath[bladePath.length - 2]];
 
     /* Create stencil */
     stencilPoints = [];
@@ -254,8 +254,8 @@ function svgDrawOutlineBlade(x, y, bladeString) {
                                 y: y + profileHeightBlade - profilePoints[i].y};
 
         /* Calculate slopes */
-        var kLeft  = (leftPoint.y - stencilPoints[index].y)  / (leftPoint.x - stencilPoints[index].x);
-        var kRight = (stencilPoints[index].y - rightPoint.y) / (stencilPoints[index].x - rightPoint.x);
+        var kLeft  = (leftPoints[0].y - stencilPoints[index].y)  / (leftPoints[0].x - stencilPoints[index].x);
+        var kRight = (stencilPoints[index].y - rightPoints[0].y) / (stencilPoints[index].x - rightPoints[0].x);
         var kCurrent = undefined;
         if (index > 0) {
             kCurrent = (stencilPoints[index - 1].y - stencilPoints[index].y) / (stencilPoints[index - 1].x - stencilPoints[index].x);
