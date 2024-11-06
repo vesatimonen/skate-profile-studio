@@ -254,19 +254,23 @@ function svgDrawOutlineBlade(x, y, bladeString) {
                                 y: y + profileHeightBlade - profilePoints[i].y};
 
         /* Calculate slopes */
-        var kLeft  = (leftPoints[0].y - stencilPoints[index].y)  / (leftPoints[0].x - stencilPoints[index].x);
-        var kRight = (stencilPoints[index].y - rightPoints[0].y) / (stencilPoints[index].x - rightPoints[0].x);
-        var kCurrent = undefined;
+        var kLeft         = (leftPoints[1].y - leftPoints[0].y)  / (leftPoints[1].x - leftPoints[0].x);
+        var kRight        = (rightPoints[1].y - rightPoints[0].y) / (rightPoints[1].x - rightPoints[0].x);
+        var kCurrentLeft  = (stencilPoints[index].y - leftPoints[0].y)  / (stencilPoints[index].x - leftPoints[0].x);
+        var kCurrentRight = (stencilPoints[index].y - rightPoints[0].y) / (stencilPoints[index].x - rightPoints[0].x);
+        var kCurrent      = undefined;
         if (index > 0) {
             kCurrent = (stencilPoints[index - 1].y - stencilPoints[index].y) / (stencilPoints[index - 1].x - stencilPoints[index].x);
 
-            if (kCurrent < kRight) {
+            if (kCurrent < kCurrentRight
+             || kCurrentRight < kRight) {
                 /* Remove added item from table */
                 stencilPoints.pop();
                 break;
             }
 
-            if (kCurrent > kLeft) {
+            if (kCurrent > kCurrentLeft
+             || kCurrentLeft > kLeft) {
                 /* Remove first item from table */
                 stencilPoints.shift();
                 continue;
