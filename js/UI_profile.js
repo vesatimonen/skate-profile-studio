@@ -62,14 +62,14 @@ function svgDrawCircle(x, y, r, color) {
 }
 
 
-const templateHeightMin     = 20;
-const templateHeightMax     = 32;
 
 const templateSlotPosition  = 120;
 const templateSlotWidth     = 8;
 const templateSlotHeight    = 13;
 
 function svgDrawOutlinePROSHARP3D(x, y) {
+    const templateHeightMin     = 20;
+    const templateHeightMax     = 32;
     const profileHeightPROSHARP = templateHeightMax - templateHeightMin;
     const templateWidthPROSHARP = 400;
 
@@ -132,6 +132,8 @@ function svgDrawOutlinePROSHARP3D(x, y) {
 }
 
 function svgDrawOutlinePROSHARP(x, y) {
+    const templateHeightMin     = 20;
+    const templateHeightMax     = 32;
     const profileHeightPROSHARP = templateHeightMax - templateHeightMin;
     const templateWidthPROSHARP = 400;
 
