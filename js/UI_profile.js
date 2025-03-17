@@ -70,7 +70,7 @@ const stencilSlotPosition = 120;
 const stencilSlotWidth    = 8;
 const stencilSlotHeight   = 13;
 
-function svgDrawOutlinePROSHARP(x, y) {
+function svgDrawOutlinePROSHARP3D(x, y) {
     const profileHeightPROSHARP = stencilHeightMax - stencilHeightMin;
 
     /* Create stencil */
@@ -131,6 +131,66 @@ function svgDrawOutlinePROSHARP(x, y) {
     svgDrawPath(stencilPoints, "black");
 }
 
+function svgDrawOutlinePROSHARP(x, y) {
+    const profileHeightPROSHARP = stencilHeightMax - stencilHeightMin;
+
+    /* Create stencil */
+    stencilPoints = [];
+    var index = 0;
+
+    /* Lower right */
+    stencilPoints[index] = {x: x + stencilWidth / 2, y: y + stencilHeightMin};
+    index++;
+
+    /* Upper right */
+    stencilPoints[index] = {x: x + stencilWidth / 2, y: y};
+    index++;
+
+    /* Right slot */
+    stencilPoints[index] = {x: x + stencilSlotPosition + stencilSlotWidth, y: y};
+    index++;
+    stencilPoints[index] = {x: x + stencilSlotPosition + stencilSlotWidth, y: y + stencilSlotHeight};
+    index++;
+    stencilPoints[index] = {x: x + stencilSlotPosition, y: y + stencilSlotHeight};
+    index++;
+    stencilPoints[index] = {x: x + stencilSlotPosition, y: y};
+    index++;
+
+    /* Left slot */
+    stencilPoints[index] = {x: x - stencilSlotPosition, y: y};
+    index++;
+    stencilPoints[index] = {x: x - stencilSlotPosition, y: y + stencilSlotHeight};
+    index++;
+    stencilPoints[index] = {x: x - stencilSlotPosition - stencilSlotWidth, y: y + stencilSlotHeight};
+    index++;
+    stencilPoints[index] = {x: x - stencilSlotPosition - stencilSlotWidth, y: y};
+    index++;
+
+    /* Upper left */
+    stencilPoints[index] = {x: x - stencilWidth / 2, y: y};
+    index++;
+
+    /* Lower left */
+    stencilPoints[index] = {x: x - stencilWidth / 2, y: y + stencilHeightMin};
+    index++;
+
+    /* Profile */
+    for (let i = 0; i < profilePoints.length; i++) {
+        /* Limit Y */
+        if (isNaN(profilePoints[i].y) || profilePoints[i].y > profileHeightPROSHARP) {
+            profilePoints[i].y = profileHeightPROSHARP;
+        }
+
+        stencilPoints[index] = {x: x + profilePoints[i].x, y: y + stencilHeightMax - profilePoints[i].y};
+        index++;
+    }
+
+    /* Lower right */
+    stencilPoints[index] = {x: x + stencilWidth / 2, y: y + stencilHeightMin};
+    index++;
+
+    svgDrawPath(stencilPoints, "black");
+}
 
 function svgDrawOutlineELITE(x, y) {
     const stencilHeightELITE = 40.0;
@@ -459,6 +519,22 @@ function calculateProfile(profileStep) {
 /*****************************************************************************
  * Stencil draw
  *****************************************************************************/
+function uiRedrawStencilPROSHARP3D(xCenter, yCenter) {
+    /* Draw stencil path */
+    svgContent = "";
+    var name = document.getElementById("profile-name").value;
+    name = name.replace(/</g, "&lt;");
+    name = name.replace(/>/g, "&gt;");
+    name = name.replace(/"/g, "&quot;");
+    name = name.replace(/'/g, "&#39;");
+    svgDrawText(   xCenter,         15, "2mm", name);
+    svgDrawText(   xCenter,         24, "1.5mm", document.getElementById("fingerprint").value);
+    svgDrawScale(  xCenter,         28, 40, true);
+    svgDrawSliders(xCenter - 105,   6.5, 35.0);
+    svgDrawOutlinePROSHARP3D(xCenter, 5.0);
+    stencilSvg.innerHTML = svgContent;
+}
+
 function uiRedrawStencilPROSHARP(xCenter, yCenter) {
     /* Draw stencil path */
     svgContent = "";
@@ -513,6 +589,9 @@ function uiRedrawStencil() {
 
     var bladeType = document.getElementById("blade-type").value;
     switch (bladeType) {
+        case "prosharp-3D":
+            uiRedrawStencilPROSHARP(svgWidth / 2, svgHeight / 2);
+            break;
         case "prosharp":
             uiRedrawStencilPROSHARP(svgWidth / 2, svgHeight / 2);
             break;
