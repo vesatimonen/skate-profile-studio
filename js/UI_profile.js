@@ -65,13 +65,13 @@ function svgDrawCircle(x, y, r, color) {
 
 function svgDrawOutlinePROSHARP3D(x, y) {
     /* Template dimensions */
-    const templateWidth         = 400;
-    const templateHeightMin     = 20;
-    const templateHeightMax     = 32;
+    const templateWidth         = 320; // ??? From printer
+    const templateHeightMin     = 25;
+    const templateHeightMax     = 30;
 
     /* Template holes */
-    const templateSlotPosition  = 120;
-    const templateSlotWidth     = 8;
+    const templateSlotDistance  = 245;
+    const templateSlotWidth     = 7;
     const templateSlotHeight    = 13;
 
     /* Create template */
@@ -87,23 +87,23 @@ function svgDrawOutlinePROSHARP3D(x, y) {
     index++;
 
     /* Right slot */
-    templatePoints[index] = {x: x + templateSlotPosition + templateSlotWidth, y: y};
+    templatePoints[index] = {x: x + templateSlotDistance / 2.0 + templateSlotWidth / 2.0, y: y};
     index++;
-    templatePoints[index] = {x: x + templateSlotPosition + templateSlotWidth, y: y + templateSlotHeight};
+    templatePoints[index] = {x: x + templateSlotDistance / 2.0 + templateSlotWidth / 2.0, y: y + templateSlotHeight};
     index++;
-    templatePoints[index] = {x: x + templateSlotPosition, y: y + templateSlotHeight};
+    templatePoints[index] = {x: x + templateSlotDistance / 2.0 - templateSlotWidth / 2.0, y: y + templateSlotHeight};
     index++;
-    templatePoints[index] = {x: x + templateSlotPosition, y: y};
+    templatePoints[index] = {x: x + templateSlotDistance / 2.0 - templateSlotWidth / 2.0, y: y};
     index++;
 
     /* Left slot */
-    templatePoints[index] = {x: x - templateSlotPosition, y: y};
+    templatePoints[index] = {x: x - templateSlotDistance / 2.0 + templateSlotWidth / 2.0, y: y};
     index++;
-    templatePoints[index] = {x: x - templateSlotPosition, y: y + templateSlotHeight};
+    templatePoints[index] = {x: x - templateSlotDistance / 2.0 + templateSlotWidth / 2.0, y: y + templateSlotHeight};
     index++;
-    templatePoints[index] = {x: x - templateSlotPosition - templateSlotWidth, y: y + templateSlotHeight};
+    templatePoints[index] = {x: x - templateSlotDistance / 2.0 - templateSlotWidth / 2.0, y: y + templateSlotHeight};
     index++;
-    templatePoints[index] = {x: x - templateSlotPosition - templateSlotWidth, y: y};
+    templatePoints[index] = {x: x - templateSlotDistance / 2.0 - templateSlotWidth / 2.0, y: y};
     index++;
 
     /* Upper left */
