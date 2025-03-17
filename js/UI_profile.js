@@ -74,16 +74,21 @@ function svgDrawOutlinePROSHARP3D(x, y) {
     const templateSlotWidth     = 7;
     const templateSlotHeight    = 13;
 
+    /* Template corner chamfer */
+    const templateChamfer       = 6;
+
     /* Create template */
     templatePoints = [];
     var index = 0;
 
     /* Lower right */
-    templatePoints[index] = {x: x + templateWidth / 2, y: y + templateHeightMin};
+    templatePoints[index] = {x: x + templateWidth / 2,                   y: y + templateHeightMin - templateChamfer};
     index++;
 
     /* Upper right */
-    templatePoints[index] = {x: x + templateWidth / 2, y: y};
+    templatePoints[index] = {x: x + templateWidth / 2,                   y: y + templateChamfer};
+    index++;
+    templatePoints[index] = {x: x + templateWidth / 2 - templateChamfer, y: y};
     index++;
 
     /* Right slot */
@@ -107,11 +112,15 @@ function svgDrawOutlinePROSHARP3D(x, y) {
     index++;
 
     /* Upper left */
-    templatePoints[index] = {x: x - templateWidth / 2, y: y};
+    templatePoints[index] = {x: x - templateWidth / 2 + templateChamfer, y: y};
+    index++;
+    templatePoints[index] = {x: x - templateWidth / 2,                   y: y + templateChamfer};
     index++;
 
     /* Lower left */
-    templatePoints[index] = {x: x - templateWidth / 2, y: y + templateHeightMin};
+    templatePoints[index] = {x: x - templateWidth / 2,                   y: y + templateHeightMin - templateChamfer};
+    index++;
+    templatePoints[index] = {x: x - templateWidth / 2 + templateChamfer, y: y + templateHeightMin};
     index++;
 
     /* Profile */
@@ -127,7 +136,9 @@ function svgDrawOutlinePROSHARP3D(x, y) {
     }
 
     /* Lower right */
-    templatePoints[index] = {x: x + templateWidth / 2, y: y + templateHeightMin};
+    templatePoints[index] = {x: x + templateWidth / 2 - templateChamfer, y: y + templateHeightMin};
+    index++;
+    templatePoints[index] = {x: x + templateWidth / 2,                   y: y + templateHeightMin - templateChamfer};
     index++;
 
     svgDrawPath(templatePoints, "black");
@@ -540,10 +551,10 @@ function uiRedrawTemplatePROSHARP3D(xCenter, yCenter) {
     name = name.replace(/>/g, "&gt;");
     name = name.replace(/"/g, "&quot;");
     name = name.replace(/'/g, "&#39;");
-    svgDrawText(   xCenter,         15, "2mm", name);
-    svgDrawText(   xCenter,         24, "1.5mm", document.getElementById("fingerprint").value);
-    svgDrawScale(  xCenter,         28, 40, true);
-    svgDrawSliders(xCenter - 105,   6.5, 35.0);
+    svgDrawText(   xCenter,         14, "2mm", name);
+    svgDrawText(   xCenter,         22, "1.5mm", document.getElementById("fingerprint").value);
+    svgDrawScale(  xCenter,         26, 40, true);
+    svgDrawSliders(xCenter - 143,   11.5, 35.0);
     svgDrawOutlinePROSHARP3D(xCenter, 5.0);
     templateSvg.innerHTML = svgContent;
 }
