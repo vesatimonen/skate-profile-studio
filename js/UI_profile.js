@@ -1,4 +1,4 @@
-const stencilSvg = document.getElementById("stencil-svg");
+const stencilSvg = document.getElementById("template-svg");
 
 var templatePoints = [];
 var profilePoints = [];
