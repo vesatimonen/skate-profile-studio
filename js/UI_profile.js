@@ -66,23 +66,23 @@ function svgDrawCircle(x, y, r, color) {
 function svgDrawOutlinePROSHARP3D(x, y) {
     const templateHeightMin     = 20;
     const templateHeightMax     = 32;
-    const templateWidthPROSHARP = 400;
+    const templateWidth         = 400;
     const templateSlotPosition  = 120;
     const templateSlotWidth     = 8;
     const templateSlotHeight    = 13;
 
-    const profileHeightPROSHARP = templateHeightMax - templateHeightMin;
+    const profileHeight = templateHeightMax - templateHeightMin;
 
     /* Create template */
     templatePoints = [];
     var index = 0;
 
     /* Lower right */
-    templatePoints[index] = {x: x + templateWidthPROSHARP / 2, y: y + templateHeightMin};
+    templatePoints[index] = {x: x + templateWidth / 2, y: y + templateHeightMin};
     index++;
 
     /* Upper right */
-    templatePoints[index] = {x: x + templateWidthPROSHARP / 2, y: y};
+    templatePoints[index] = {x: x + templateWidth / 2, y: y};
     index++;
 
     /* Right slot */
@@ -106,18 +106,18 @@ function svgDrawOutlinePROSHARP3D(x, y) {
     index++;
 
     /* Upper left */
-    templatePoints[index] = {x: x - templateWidthPROSHARP / 2, y: y};
+    templatePoints[index] = {x: x - templateWidth / 2, y: y};
     index++;
 
     /* Lower left */
-    templatePoints[index] = {x: x - templateWidthPROSHARP / 2, y: y + templateHeightMin};
+    templatePoints[index] = {x: x - templateWidth / 2, y: y + templateHeightMin};
     index++;
 
     /* Profile */
     for (let i = 0; i < profilePoints.length; i++) {
         /* Limit Y */
-        if (isNaN(profilePoints[i].y) || profilePoints[i].y > profileHeightPROSHARP) {
-            profilePoints[i].y = profileHeightPROSHARP;
+        if (isNaN(profilePoints[i].y) || profilePoints[i].y > profileHeight) {
+            profilePoints[i].y = profileHeight;
         }
 
         templatePoints[index] = {x: x + profilePoints[i].x, y: y + templateHeightMax - profilePoints[i].y};
@@ -125,7 +125,7 @@ function svgDrawOutlinePROSHARP3D(x, y) {
     }
 
     /* Lower right */
-    templatePoints[index] = {x: x + templateWidthPROSHARP / 2, y: y + templateHeightMin};
+    templatePoints[index] = {x: x + templateWidth / 2, y: y + templateHeightMin};
     index++;
 
     svgDrawPath(templatePoints, "black");
@@ -134,23 +134,23 @@ function svgDrawOutlinePROSHARP3D(x, y) {
 function svgDrawOutlinePROSHARP(x, y) {
     const templateHeightMin     = 20;
     const templateHeightMax     = 32;
-    const templateWidthPROSHARP = 400;
+    const templateWidth         = 400;
     const templateSlotPosition  = 120;
     const templateSlotWidth     = 8;
     const templateSlotHeight    = 13;
 
-    const profileHeightPROSHARP = templateHeightMax - templateHeightMin;
+    const profileHeight = templateHeightMax - templateHeightMin;
 
     /* Create template */
     templatePoints = [];
     var index = 0;
 
     /* Lower right */
-    templatePoints[index] = {x: x + templateWidthPROSHARP / 2, y: y + templateHeightMin};
+    templatePoints[index] = {x: x + templateWidth / 2, y: y + templateHeightMin};
     index++;
 
     /* Upper right */
-    templatePoints[index] = {x: x + templateWidthPROSHARP / 2, y: y};
+    templatePoints[index] = {x: x + templateWidth / 2, y: y};
     index++;
 
     /* Right slot */
@@ -174,18 +174,18 @@ function svgDrawOutlinePROSHARP(x, y) {
     index++;
 
     /* Upper left */
-    templatePoints[index] = {x: x - templateWidthPROSHARP / 2, y: y};
+    templatePoints[index] = {x: x - templateWidth / 2, y: y};
     index++;
 
     /* Lower left */
-    templatePoints[index] = {x: x - templateWidthPROSHARP / 2, y: y + templateHeightMin};
+    templatePoints[index] = {x: x - templateWidth / 2, y: y + templateHeightMin};
     index++;
 
     /* Profile */
     for (let i = 0; i < profilePoints.length; i++) {
         /* Limit Y */
-        if (isNaN(profilePoints[i].y) || profilePoints[i].y > profileHeightPROSHARP) {
-            profilePoints[i].y = profileHeightPROSHARP;
+        if (isNaN(profilePoints[i].y) || profilePoints[i].y > profileHeight) {
+            profilePoints[i].y = profileHeight;
         }
 
         templatePoints[index] = {x: x + profilePoints[i].x, y: y + templateHeightMax - profilePoints[i].y};
@@ -193,61 +193,61 @@ function svgDrawOutlinePROSHARP(x, y) {
     }
 
     /* Lower right */
-    templatePoints[index] = {x: x + templateWidthPROSHARP / 2, y: y + templateHeightMin};
+    templatePoints[index] = {x: x + templateWidth / 2, y: y + templateHeightMin};
     index++;
 
     svgDrawPath(templatePoints, "black");
 }
 
 function svgDrawOutlineELITE(x, y) {
-    const templateHeightELITE = 40.0;
-    const templateWidthELITE  = 431.8;
-    const profileHeightELITE = 5.5;
+    const templateHeight = 40.0;
+    const templateWidth  = 431.8;
+    const profileHeight  = 5.5;
 
     /* Create template */
     templatePoints = [];
     var index = 0;
 
     /* Upper right */
-    templatePoints[index] = {x: x + templateWidthELITE / 2, y: y};
+    templatePoints[index] = {x: x + templateWidth / 2, y: y};
     index++;
 
     /* Lower right */
-    templatePoints[index] = {x: x + templateWidthELITE / 2, y: y + templateHeightELITE};
+    templatePoints[index] = {x: x + templateWidth / 2, y: y + templateHeight};
     index++;
 
     /* Lower left */
-    templatePoints[index] = {x: x - templateWidthELITE / 2, y: y + templateHeightELITE};
+    templatePoints[index] = {x: x - templateWidth / 2, y: y + templateHeight};
     index++;
 
     /* Upper left */
-    templatePoints[index] = {x: x - templateWidthELITE / 2, y: y};
+    templatePoints[index] = {x: x - templateWidth / 2, y: y};
     index++;
 
     /* Profile */
     for (let i = 0; i < profilePoints.length; i++) {
         /* Limit Y */
-        if (isNaN(profilePoints[i].y) || profilePoints[i].y > profileHeightELITE) {
-            profilePoints[i].y = profileHeightELITE;
+        if (isNaN(profilePoints[i].y) || profilePoints[i].y > profileHeight) {
+            profilePoints[i].y = profileHeight;
         }
 
         templatePoints[index] = {x: x + profilePoints[i].x,
-                                y: y + profileHeightELITE - profilePoints[i].y};
+                                y: y + profileHeight - profilePoints[i].y};
         index++;
     }
 
     /* Lower right */
-    templatePoints[index] = {x: x + templateWidthELITE / 2, y: y};
+    templatePoints[index] = {x: x + templateWidth / 2, y: y};
     index++;
 
     /* Draw holes */
     var holeRadiusMm = 12.7 / 2.0;
-    svgDrawCircle(x - 8 * 25.4 / 2, y + templateHeightELITE - 3.0 - holeRadiusMm, holeRadiusMm, "black");
-    svgDrawCircle(x + 8 * 25.4 / 2, y + templateHeightELITE - 3.0 - holeRadiusMm, holeRadiusMm, "black");
+    svgDrawCircle(x - 8 * 25.4 / 2, y + templateHeight - 3.0 - holeRadiusMm, holeRadiusMm, "black");
+    svgDrawCircle(x + 8 * 25.4 / 2, y + templateHeight - 3.0 - holeRadiusMm, holeRadiusMm, "black");
 /*
-    svgDrawCircle(x + 95 + 15, y + templateHeightELITE - 3.0 - holeRadiusMm, holeRadiusMm, "black");
-    svgDrawCircle(x + 95 + 30, y + templateHeightELITE - 3.0 - holeRadiusMm, holeRadiusMm, "black");
-    svgDrawCircle(x + 95 + 45, y + templateHeightELITE - 3.0 - holeRadiusMm, holeRadiusMm, "black");
+    svgDrawCircle(x + 95 + 15, y + templateHeight - 3.0 - holeRadiusMm, holeRadiusMm, "black");
+    svgDrawCircle(x + 95 + 30, y + templateHeight - 3.0 - holeRadiusMm, holeRadiusMm, "black");
+    svgDrawCircle(x + 95 + 45, y + templateHeight - 3.0 - holeRadiusMm, holeRadiusMm, "black");
 */
 
     svgDrawPath(templatePoints, "black");
