@@ -1,4 +1,4 @@
-const stencilSvg = document.getElementById("template-svg");
+const templateSvg = document.getElementById("template-svg");
 
 var templatePoints = [];
 var profilePoints = [];
@@ -61,56 +61,56 @@ function svgDrawCircle(x, y, r, color) {
     svgContent += "  />\n";
 }
 
-const stencilWidth     = 400;
-const stencilHeightMin = 20;
-const stencilHeightMax = 32;
-const profileHeightMax = 50;
+const templateWidthPROSHARP = 400;
+const templateHeightMin     = 20;
+const templateHeightMax     = 32;
+const profileHeightMax      = 50;
 
-const stencilSlotPosition = 120;
-const stencilSlotWidth    = 8;
-const stencilSlotHeight   = 13;
+const templateSlotPosition  = 120;
+const templateSlotWidth     = 8;
+const templateSlotHeight    = 13;
 
 function svgDrawOutlinePROSHARP3D(x, y) {
-    const profileHeightPROSHARP = stencilHeightMax - stencilHeightMin;
+    const profileHeightPROSHARP = templateHeightMax - templateHeightMin;
 
-    /* Create stencil */
+    /* Create template */
     templatePoints = [];
     var index = 0;
 
     /* Lower right */
-    templatePoints[index] = {x: x + stencilWidth / 2, y: y + stencilHeightMin};
+    templatePoints[index] = {x: x + templateWidthPROSHARP / 2, y: y + templateHeightMin};
     index++;
 
     /* Upper right */
-    templatePoints[index] = {x: x + stencilWidth / 2, y: y};
+    templatePoints[index] = {x: x + templateWidthPROSHARP / 2, y: y};
     index++;
 
     /* Right slot */
-    templatePoints[index] = {x: x + stencilSlotPosition + stencilSlotWidth, y: y};
+    templatePoints[index] = {x: x + templateSlotPosition + templateSlotWidth, y: y};
     index++;
-    templatePoints[index] = {x: x + stencilSlotPosition + stencilSlotWidth, y: y + stencilSlotHeight};
+    templatePoints[index] = {x: x + templateSlotPosition + templateSlotWidth, y: y + templateSlotHeight};
     index++;
-    templatePoints[index] = {x: x + stencilSlotPosition, y: y + stencilSlotHeight};
+    templatePoints[index] = {x: x + templateSlotPosition, y: y + templateSlotHeight};
     index++;
-    templatePoints[index] = {x: x + stencilSlotPosition, y: y};
+    templatePoints[index] = {x: x + templateSlotPosition, y: y};
     index++;
 
     /* Left slot */
-    templatePoints[index] = {x: x - stencilSlotPosition, y: y};
+    templatePoints[index] = {x: x - templateSlotPosition, y: y};
     index++;
-    templatePoints[index] = {x: x - stencilSlotPosition, y: y + stencilSlotHeight};
+    templatePoints[index] = {x: x - templateSlotPosition, y: y + templateSlotHeight};
     index++;
-    templatePoints[index] = {x: x - stencilSlotPosition - stencilSlotWidth, y: y + stencilSlotHeight};
+    templatePoints[index] = {x: x - templateSlotPosition - templateSlotWidth, y: y + templateSlotHeight};
     index++;
-    templatePoints[index] = {x: x - stencilSlotPosition - stencilSlotWidth, y: y};
+    templatePoints[index] = {x: x - templateSlotPosition - templateSlotWidth, y: y};
     index++;
 
     /* Upper left */
-    templatePoints[index] = {x: x - stencilWidth / 2, y: y};
+    templatePoints[index] = {x: x - templateWidthPROSHARP / 2, y: y};
     index++;
 
     /* Lower left */
-    templatePoints[index] = {x: x - stencilWidth / 2, y: y + stencilHeightMin};
+    templatePoints[index] = {x: x - templateWidthPROSHARP / 2, y: y + templateHeightMin};
     index++;
 
     /* Profile */
@@ -120,58 +120,58 @@ function svgDrawOutlinePROSHARP3D(x, y) {
             profilePoints[i].y = profileHeightPROSHARP;
         }
 
-        templatePoints[index] = {x: x + profilePoints[i].x, y: y + stencilHeightMax - profilePoints[i].y};
+        templatePoints[index] = {x: x + profilePoints[i].x, y: y + templateHeightMax - profilePoints[i].y};
         index++;
     }
 
     /* Lower right */
-    templatePoints[index] = {x: x + stencilWidth / 2, y: y + stencilHeightMin};
+    templatePoints[index] = {x: x + templateWidthPROSHARP / 2, y: y + templateHeightMin};
     index++;
 
     svgDrawPath(templatePoints, "black");
 }
 
 function svgDrawOutlinePROSHARP(x, y) {
-    const profileHeightPROSHARP = stencilHeightMax - stencilHeightMin;
+    const profileHeightPROSHARP = templateHeightMax - templateHeightMin;
 
-    /* Create stencil */
+    /* Create template */
     templatePoints = [];
     var index = 0;
 
     /* Lower right */
-    templatePoints[index] = {x: x + stencilWidth / 2, y: y + stencilHeightMin};
+    templatePoints[index] = {x: x + templateWidthPROSHARP / 2, y: y + templateHeightMin};
     index++;
 
     /* Upper right */
-    templatePoints[index] = {x: x + stencilWidth / 2, y: y};
+    templatePoints[index] = {x: x + templateWidthPROSHARP / 2, y: y};
     index++;
 
     /* Right slot */
-    templatePoints[index] = {x: x + stencilSlotPosition + stencilSlotWidth, y: y};
+    templatePoints[index] = {x: x + templateSlotPosition + templateSlotWidth, y: y};
     index++;
-    templatePoints[index] = {x: x + stencilSlotPosition + stencilSlotWidth, y: y + stencilSlotHeight};
+    templatePoints[index] = {x: x + templateSlotPosition + templateSlotWidth, y: y + templateSlotHeight};
     index++;
-    templatePoints[index] = {x: x + stencilSlotPosition, y: y + stencilSlotHeight};
+    templatePoints[index] = {x: x + templateSlotPosition, y: y + templateSlotHeight};
     index++;
-    templatePoints[index] = {x: x + stencilSlotPosition, y: y};
+    templatePoints[index] = {x: x + templateSlotPosition, y: y};
     index++;
 
     /* Left slot */
-    templatePoints[index] = {x: x - stencilSlotPosition, y: y};
+    templatePoints[index] = {x: x - templateSlotPosition, y: y};
     index++;
-    templatePoints[index] = {x: x - stencilSlotPosition, y: y + stencilSlotHeight};
+    templatePoints[index] = {x: x - templateSlotPosition, y: y + templateSlotHeight};
     index++;
-    templatePoints[index] = {x: x - stencilSlotPosition - stencilSlotWidth, y: y + stencilSlotHeight};
+    templatePoints[index] = {x: x - templateSlotPosition - templateSlotWidth, y: y + templateSlotHeight};
     index++;
-    templatePoints[index] = {x: x - stencilSlotPosition - stencilSlotWidth, y: y};
+    templatePoints[index] = {x: x - templateSlotPosition - templateSlotWidth, y: y};
     index++;
 
     /* Upper left */
-    templatePoints[index] = {x: x - stencilWidth / 2, y: y};
+    templatePoints[index] = {x: x - templateWidthPROSHARP / 2, y: y};
     index++;
 
     /* Lower left */
-    templatePoints[index] = {x: x - stencilWidth / 2, y: y + stencilHeightMin};
+    templatePoints[index] = {x: x - templateWidthPROSHARP / 2, y: y + templateHeightMin};
     index++;
 
     /* Profile */
@@ -181,40 +181,40 @@ function svgDrawOutlinePROSHARP(x, y) {
             profilePoints[i].y = profileHeightPROSHARP;
         }
 
-        templatePoints[index] = {x: x + profilePoints[i].x, y: y + stencilHeightMax - profilePoints[i].y};
+        templatePoints[index] = {x: x + profilePoints[i].x, y: y + templateHeightMax - profilePoints[i].y};
         index++;
     }
 
     /* Lower right */
-    templatePoints[index] = {x: x + stencilWidth / 2, y: y + stencilHeightMin};
+    templatePoints[index] = {x: x + templateWidthPROSHARP / 2, y: y + templateHeightMin};
     index++;
 
     svgDrawPath(templatePoints, "black");
 }
 
 function svgDrawOutlineELITE(x, y) {
-    const stencilHeightELITE = 40.0;
-    const stencilWidthELITE  = 431.8;
+    const templateHeightELITE = 40.0;
+    const templateWidthELITE  = 431.8;
     const profileHeightELITE = 5.5;
 
-    /* Create stencil */
+    /* Create template */
     templatePoints = [];
     var index = 0;
 
     /* Upper right */
-    templatePoints[index] = {x: x + stencilWidthELITE / 2, y: y};
+    templatePoints[index] = {x: x + templateWidthELITE / 2, y: y};
     index++;
 
     /* Lower right */
-    templatePoints[index] = {x: x + stencilWidthELITE / 2, y: y + stencilHeightELITE};
+    templatePoints[index] = {x: x + templateWidthELITE / 2, y: y + templateHeightELITE};
     index++;
 
     /* Lower left */
-    templatePoints[index] = {x: x - stencilWidthELITE / 2, y: y + stencilHeightELITE};
+    templatePoints[index] = {x: x - templateWidthELITE / 2, y: y + templateHeightELITE};
     index++;
 
     /* Upper left */
-    templatePoints[index] = {x: x - stencilWidthELITE / 2, y: y};
+    templatePoints[index] = {x: x - templateWidthELITE / 2, y: y};
     index++;
 
     /* Profile */
@@ -230,17 +230,17 @@ function svgDrawOutlineELITE(x, y) {
     }
 
     /* Lower right */
-    templatePoints[index] = {x: x + stencilWidthELITE / 2, y: y};
+    templatePoints[index] = {x: x + templateWidthELITE / 2, y: y};
     index++;
 
     /* Draw holes */
     var holeRadiusMm = 12.7 / 2.0;
-    svgDrawCircle(x - 8 * 25.4 / 2, y + stencilHeightELITE - 3.0 - holeRadiusMm, holeRadiusMm, "black");
-    svgDrawCircle(x + 8 * 25.4 / 2, y + stencilHeightELITE - 3.0 - holeRadiusMm, holeRadiusMm, "black");
+    svgDrawCircle(x - 8 * 25.4 / 2, y + templateHeightELITE - 3.0 - holeRadiusMm, holeRadiusMm, "black");
+    svgDrawCircle(x + 8 * 25.4 / 2, y + templateHeightELITE - 3.0 - holeRadiusMm, holeRadiusMm, "black");
 /*
-    svgDrawCircle(x + 95 + 15, y + stencilHeightELITE - 3.0 - holeRadiusMm, holeRadiusMm, "black");
-    svgDrawCircle(x + 95 + 30, y + stencilHeightELITE - 3.0 - holeRadiusMm, holeRadiusMm, "black");
-    svgDrawCircle(x + 95 + 45, y + stencilHeightELITE - 3.0 - holeRadiusMm, holeRadiusMm, "black");
+    svgDrawCircle(x + 95 + 15, y + templateHeightELITE - 3.0 - holeRadiusMm, holeRadiusMm, "black");
+    svgDrawCircle(x + 95 + 30, y + templateHeightELITE - 3.0 - holeRadiusMm, holeRadiusMm, "black");
+    svgDrawCircle(x + 95 + 45, y + templateHeightELITE - 3.0 - holeRadiusMm, holeRadiusMm, "black");
 */
 
     svgDrawPath(templatePoints, "black");
@@ -303,7 +303,7 @@ function svgDrawOutlineBlade(x, y, bladeString) {
     const rightPoints = [bladePath[0], bladePath[1]];
     const leftPoints  = [bladePath[bladePath.length - 1], bladePath[bladePath.length - 2]];
 
-    /* Create stencil */
+    /* Create template */
     templatePoints = [];
     var index = 0;
 
@@ -517,10 +517,10 @@ function calculateProfile(profileStep) {
 }
 
 /*****************************************************************************
- * Stencil draw
+ * Template draw
  *****************************************************************************/
-function uiRedrawStencilPROSHARP3D(xCenter, yCenter) {
-    /* Draw stencil path */
+function uiRedrawTemplatePROSHARP3D(xCenter, yCenter) {
+    /* Draw template path */
     svgContent = "";
     var name = document.getElementById("profile-name").value;
     name = name.replace(/</g, "&lt;");
@@ -532,11 +532,11 @@ function uiRedrawStencilPROSHARP3D(xCenter, yCenter) {
     svgDrawScale(  xCenter,         28, 40, true);
     svgDrawSliders(xCenter - 105,   6.5, 35.0);
     svgDrawOutlinePROSHARP3D(xCenter, 5.0);
-    stencilSvg.innerHTML = svgContent;
+    templateSvg.innerHTML = svgContent;
 }
 
-function uiRedrawStencilPROSHARP(xCenter, yCenter) {
-    /* Draw stencil path */
+function uiRedrawTemplatePROSHARP(xCenter, yCenter) {
+    /* Draw template path */
     svgContent = "";
     var name = document.getElementById("profile-name").value;
     name = name.replace(/</g, "&lt;");
@@ -548,11 +548,11 @@ function uiRedrawStencilPROSHARP(xCenter, yCenter) {
     svgDrawScale(  xCenter,         28, 40, true);
     svgDrawSliders(xCenter - 105,   6.5, 35.0);
     svgDrawOutlinePROSHARP(xCenter, 5.0);
-    stencilSvg.innerHTML = svgContent;
+    templateSvg.innerHTML = svgContent;
 }
 
-function uiRedrawStencilELITE(xCenter, yCenter) {
-    /* Draw stencil path */
+function uiRedrawTemplateELITE(xCenter, yCenter) {
+    /* Draw template path */
     svgContent = "";
     var name = document.getElementById("profile-name").value;
     name = name.replace(/</g, "&lt;");
@@ -564,11 +564,11 @@ function uiRedrawStencilELITE(xCenter, yCenter) {
     svgDrawSliders(xCenter - 80,    32, 40.0);
     svgDrawText(   xCenter,         40, "2mm", name);
     svgDrawOutlineELITE(xCenter, 5.0);
-    stencilSvg.innerHTML = svgContent;
+    templateSvg.innerHTML = svgContent;
 }
 
-function uiRedrawStencilBlade(xCenter, yCenter, bladeString) {
-    /* Draw stencil path */
+function uiRedrawTemplateBlade(xCenter, yCenter, bladeString) {
+    /* Draw template path */
     svgContent = "";
     var name = document.getElementById("profile-name").value;
     name = name.replace(/</g, "&lt;");
@@ -580,26 +580,26 @@ function uiRedrawStencilBlade(xCenter, yCenter, bladeString) {
 //    svgDrawText(   xCenter,         28, "1.5mm", document.getElementById("fingerprint").value);
     svgDrawText(   xCenter,         37, "2mm", name);
     svgDrawOutlineBlade(xCenter, 5.0, bladeString);
-    stencilSvg.innerHTML = svgContent;
+    templateSvg.innerHTML = svgContent;
 }
 
-function uiRedrawStencil() {
-    var svgWidth  = parseFloat(stencilSvg.getAttribute("width")); /* mm */
-    var svgHeight = parseFloat(stencilSvg.getAttribute("height")); /* mm */
+function uiRedrawTemplate() {
+    var svgWidth  = parseFloat(templateSvg.getAttribute("width")); /* mm */
+    var svgHeight = parseFloat(templateSvg.getAttribute("height")); /* mm */
 
     var bladeType = document.getElementById("blade-type").value;
     switch (bladeType) {
         case "prosharp-3D":
-            uiRedrawStencilPROSHARP3D(svgWidth / 2, svgHeight / 2);
+            uiRedrawTemplatePROSHARP3D(svgWidth / 2, svgHeight / 2);
             break;
         case "prosharp":
-            uiRedrawStencilPROSHARP(svgWidth / 2, svgHeight / 2);
+            uiRedrawTemplatePROSHARP(svgWidth / 2, svgHeight / 2);
             break;
         case "elite":
-            uiRedrawStencilELITE(svgWidth / 2, svgHeight / 2);
+            uiRedrawTemplateELITE(svgWidth / 2, svgHeight / 2);
             break;
         case "bauer-272":
-            uiRedrawStencilBlade(svgWidth / 2, svgHeight / 2, bauer272String);
+            uiRedrawTemplateBlade(svgWidth / 2, svgHeight / 2, bauer272String);
             break;
     }
 }

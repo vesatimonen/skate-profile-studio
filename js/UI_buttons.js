@@ -42,11 +42,11 @@ function uiSizeButton(event) {
 //    skateBladeIndex = event.target.sizeIndex;
 //    uiRedrawSizeButtons();
     uiRedrawControls();
-    uiRedrawStencil();
+    uiRedrawTemplate();
 }
 
 function uiExport() {
-    var fileData = new Blob([stencilSvg.outerHTML], {type: "text/plain"});
+    var fileData = new Blob([templateSvg.outerHTML], {type: "text/plain"});
     var fileBlob = document.getElementById("export-svg");
 
     fileBlob.href     = URL.createObjectURL(fileData);

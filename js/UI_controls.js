@@ -87,7 +87,6 @@ function uiRedrawSliders() {
     var height = controlCanvasHeight - (controlCanvasMargin.top + controlCanvasMargin.bottom);
     var xOrigo = controlCanvasMargin.left + width/2.0;
     var yOrigo = controlCanvasHeight - controlCanvasMargin.bottom;
-//    var yMax   = (stencilHeightMax - stencilHeightMin); /* mm */
     var yMax   = 10; /* mm */
     var xScale = width / skateBladeSize;
     var yScale = height / yMax;
@@ -409,7 +408,7 @@ function uiInitControls() {
 
     /* Redraw controls and profile */
     uiRedrawControls();
-    uiRedrawStencil();
+    uiRedrawTemplate();
 }
 
 
@@ -484,7 +483,7 @@ function uiControlContinue(event) {
             }
 
             uiRedrawControls();
-            uiRedrawStencil();
+            uiRedrawTemplate();
         }
     }
 
@@ -581,17 +580,17 @@ document.getElementById("fingerprint")
     calculateCanvasScale();
 //    uiRedrawSizeButtons();
     uiRedrawControls();
-    uiRedrawStencil();
+    uiRedrawTemplate();
 }
 
 function uiNameChange(event) {
     uiRedrawControls();
-    uiRedrawStencil();
+    uiRedrawTemplate();
 }
 
 function uiBladeTypeChange(event) {
     uiRedrawControls();
-    uiRedrawStencil();
+    uiRedrawTemplate();
 }
 
 document.getElementById("profile-name").addEventListener("change", uiNameChange);
