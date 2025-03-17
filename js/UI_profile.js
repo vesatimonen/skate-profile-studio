@@ -61,10 +61,9 @@ function svgDrawCircle(x, y, r, color) {
     svgContent += "  />\n";
 }
 
-const templateWidthPROSHARP = 400;
+
 const templateHeightMin     = 20;
 const templateHeightMax     = 32;
-const profileHeightMax      = 50;
 
 const templateSlotPosition  = 120;
 const templateSlotWidth     = 8;
@@ -72,6 +71,7 @@ const templateSlotHeight    = 13;
 
 function svgDrawOutlinePROSHARP3D(x, y) {
     const profileHeightPROSHARP = templateHeightMax - templateHeightMin;
+    const templateWidthPROSHARP = 400;
 
     /* Create template */
     templatePoints = [];
@@ -133,6 +133,7 @@ function svgDrawOutlinePROSHARP3D(x, y) {
 
 function svgDrawOutlinePROSHARP(x, y) {
     const profileHeightPROSHARP = templateHeightMax - templateHeightMin;
+    const templateWidthPROSHARP = 400;
 
     /* Create template */
     templatePoints = [];
@@ -444,6 +445,8 @@ function calculateRadius(x) {
 
 
 function calculateProfile(profileStep) {
+    const profileHeightMax = 50;
+
     var skateSize = skateBladeSize;
 
     profilePoints = [];
