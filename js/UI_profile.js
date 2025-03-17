@@ -551,9 +551,9 @@ function uiRedrawTemplatePROSHARP3D(xCenter, yCenter) {
     name = name.replace(/>/g, "&gt;");
     name = name.replace(/"/g, "&quot;");
     name = name.replace(/'/g, "&#39;");
-    svgDrawText(   xCenter,         14, "2mm", name);
-    svgDrawText(   xCenter,         22, "1.5mm", document.getElementById("fingerprint").value);
-    svgDrawScale(  xCenter,         26, 40, true);
+    svgDrawText(   xCenter,         15, "2mm", name);
+    svgDrawText(   xCenter,         24, "1.5mm", document.getElementById("fingerprint").value);
+    svgDrawScale(  xCenter,         27, 40, true);
     svgDrawSliders(xCenter - 143,   11.5, 35.0);
     svgDrawOutlinePROSHARP3D(xCenter, 5.0);
     templateSvg.innerHTML = svgContent;
