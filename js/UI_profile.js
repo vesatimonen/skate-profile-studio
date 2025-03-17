@@ -64,14 +64,15 @@ function svgDrawCircle(x, y, r, color) {
 
 
 function svgDrawOutlinePROSHARP3D(x, y) {
+    /* Template dimensions */
+    const templateWidth         = 400;
     const templateHeightMin     = 20;
     const templateHeightMax     = 32;
-    const templateWidth         = 400;
+
+    /* Template holes */
     const templateSlotPosition  = 120;
     const templateSlotWidth     = 8;
     const templateSlotHeight    = 13;
-
-    const profileHeight = templateHeightMax - templateHeightMin;
 
     /* Create template */
     templatePoints = [];
@@ -114,6 +115,7 @@ function svgDrawOutlinePROSHARP3D(x, y) {
     index++;
 
     /* Profile */
+    const profileHeight = templateHeightMax - templateHeightMin;
     for (let i = 0; i < profilePoints.length; i++) {
         /* Limit Y */
         if (isNaN(profilePoints[i].y) || profilePoints[i].y > profileHeight) {
@@ -132,14 +134,15 @@ function svgDrawOutlinePROSHARP3D(x, y) {
 }
 
 function svgDrawOutlinePROSHARP(x, y) {
+    /* Template dimensions */
+    const templateWidth         = 400;
     const templateHeightMin     = 20;
     const templateHeightMax     = 32;
-    const templateWidth         = 400;
+
+    /* Template holes */
     const templateSlotPosition  = 120;
     const templateSlotWidth     = 8;
     const templateSlotHeight    = 13;
-
-    const profileHeight = templateHeightMax - templateHeightMin;
 
     /* Create template */
     templatePoints = [];
@@ -182,6 +185,7 @@ function svgDrawOutlinePROSHARP(x, y) {
     index++;
 
     /* Profile */
+    const profileHeight = templateHeightMax - templateHeightMin;
     for (let i = 0; i < profilePoints.length; i++) {
         /* Limit Y */
         if (isNaN(profilePoints[i].y) || profilePoints[i].y > profileHeight) {
@@ -202,7 +206,6 @@ function svgDrawOutlinePROSHARP(x, y) {
 function svgDrawOutlineELITE(x, y) {
     const templateHeight = 40.0;
     const templateWidth  = 431.8;
-    const profileHeight  = 5.5;
 
     /* Create template */
     templatePoints = [];
@@ -225,6 +228,7 @@ function svgDrawOutlineELITE(x, y) {
     index++;
 
     /* Profile */
+    const profileHeight  = 5.5;
     for (let i = 0; i < profilePoints.length; i++) {
         /* Limit Y */
         if (isNaN(profilePoints[i].y) || profilePoints[i].y > profileHeight) {
