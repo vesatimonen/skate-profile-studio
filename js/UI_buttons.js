@@ -47,7 +47,7 @@ function uiSizeButton(event) {
 
 function uiExport() {
     var fileData = new Blob([templateSvg.outerHTML], {type: "text/plain"});
-    var fileBlob = document.getElementById("export-svg");
+    var fileBlob = document.getElementById("export-profile");
 
     fileBlob.href     = URL.createObjectURL(fileData);
     fileBlob.download = document.getElementById("profile-name").value + ".svg";
@@ -58,4 +58,4 @@ function uiExport() {
  * Register button event handlers
  *****************************************************************************/
 document.getElementById("size-buttons").addEventListener("click",  uiSizeButton);
-document.getElementById("export-svg").addEventListener("click",  uiExport);
+document.getElementById("export-profile").addEventListener("click",  uiExport);
