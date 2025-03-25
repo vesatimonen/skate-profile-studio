@@ -1,3 +1,5 @@
+var userMode = undefined;
+
 const skateBlades = [
     {size: 221},
     {size: 230},
@@ -29,14 +31,17 @@ function parseOptions() {
     }
 
     /* Parse mode argument */
-//    const mode = url.searchParams.get("mode");
-//    if (mode != null) {
-//    }
+    userMode = url.searchParams.get("mode");
 }
 
 window.onload = function () {
     /* Parse options */
     parseOptions();
+
+    /* Hide elements */
+    if (userMode != "superuser") {
+        document.getElementById("export-profile").style.display = "none";
+    }
 }
 
 
