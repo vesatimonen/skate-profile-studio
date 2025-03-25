@@ -66,8 +66,8 @@ function svgDrawCircle(x, y, r, color) {
 function svgDrawDataPointsTxt(x, y) {
     /* Template dimensions */
     const templateWidth         = 400;
-    const templateHeightMin     = 20;
-    const templateHeightMax     = 32;
+    const templateHeightMin     = 25;
+    const templateHeightMax     = 30;
 
     /* Template holes */
     const templateSlotPosition  = 120;
