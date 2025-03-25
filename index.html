@@ -37,12 +37,15 @@
 
         <!-- TEMPLATE TYPE -->
         <div style="text-align:center">
-            <label for="blade-type">Blade type:</label>
+            <label for="blade-type">Profile type:</label>
             <select id="blade-type" name="blade-type">
-              <option value="prosharp-3D"> Prosharp 3D template</option>
-              <option value="prosharp">    Prosharp template</option>
-              <option value="elite">       Elite template   </option>
-              <option value="bauer-272">   Bauer-272(297) blade  </option>
+              <option value="profile-data-txt"> Data points (txt)</option>
+        <!--
+              <option value="prosharp-3D">      Prosharp 3D template</option>
+              <option value="prosharp">         Prosharp template</option>
+              <option value="elite">            Elite template   </option>
+              <option value="bauer-272">        Bauer-272(297) blade  </option>
+        -->
             </select>
         </div>
 
@@ -50,8 +53,8 @@
         <svg id="template-svg" xmlns="http://www.w3.org/2000/svg" width="440mm" height="50mm" viewBox="0 0 440 50"></svg>
 
         <!-- EXPORT style="display: none;"  -->
-        <div style="display: none; text-align:center">
-          <a id="export-svg" href="">Export SVG</a>
+        <div style="text-align:center">
+          <a id="export-svg" href="">Export profile</a>
         </div>
 
         <div id="debug-text"></div>
