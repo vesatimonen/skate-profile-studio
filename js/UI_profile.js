@@ -543,23 +543,7 @@ function calculateProfile(profileStep) {
 /*****************************************************************************
  * Template draw
  *****************************************************************************/
-function uiRedrawTemplatePROSHARP3D(xCenter, yCenter) {
-    /* Draw template path */
-    svgContent = "";
-    var name = document.getElementById("profile-name").value;
-    name = name.replace(/</g, "&lt;");
-    name = name.replace(/>/g, "&gt;");
-    name = name.replace(/"/g, "&quot;");
-    name = name.replace(/'/g, "&#39;");
-    svgDrawText(   xCenter,         15, "2mm", name);
-    svgDrawText(   xCenter,         24, "1.5mm", document.getElementById("fingerprint").value);
-    svgDrawScale(  xCenter,         27, 40, true);
-    svgDrawSliders(xCenter - 143,   11.5, 35.0);
-    svgDrawOutlinePROSHARP3D(xCenter, 5.0);
-    templateSvg.innerHTML = svgContent;
-}
-
-function uiRedrawTemplatePROSHARP(xCenter, yCenter) {
+function uiRedrawDataPointsTxt(xCenter, yCenter) {
     /* Draw template path */
     svgContent = "";
     var name = document.getElementById("profile-name").value;
@@ -575,7 +559,39 @@ function uiRedrawTemplatePROSHARP(xCenter, yCenter) {
     templateSvg.innerHTML = svgContent;
 }
 
-function uiRedrawTemplateELITE(xCenter, yCenter) {
+function uiRedrawProsharp3DTemplate(xCenter, yCenter) {
+    /* Draw template path */
+    svgContent = "";
+    var name = document.getElementById("profile-name").value;
+    name = name.replace(/</g, "&lt;");
+    name = name.replace(/>/g, "&gt;");
+    name = name.replace(/"/g, "&quot;");
+    name = name.replace(/'/g, "&#39;");
+    svgDrawText(   xCenter,         15, "2mm", name);
+    svgDrawText(   xCenter,         24, "1.5mm", document.getElementById("fingerprint").value);
+    svgDrawScale(  xCenter,         27, 40, true);
+    svgDrawSliders(xCenter - 143,   11.5, 35.0);
+    svgDrawOutlinePROSHARP3D(xCenter, 5.0);
+    templateSvg.innerHTML = svgContent;
+}
+
+function uiRedrawProsharpTemplate(xCenter, yCenter) {
+    /* Draw template path */
+    svgContent = "";
+    var name = document.getElementById("profile-name").value;
+    name = name.replace(/</g, "&lt;");
+    name = name.replace(/>/g, "&gt;");
+    name = name.replace(/"/g, "&quot;");
+    name = name.replace(/'/g, "&#39;");
+    svgDrawText(   xCenter,         15, "2mm", name);
+    svgDrawText(   xCenter,         24, "1.5mm", document.getElementById("fingerprint").value);
+    svgDrawScale(  xCenter,         28, 40, true);
+    svgDrawSliders(xCenter - 105,   6.5, 35.0);
+    svgDrawOutlinePROSHARP(xCenter, 5.0);
+    templateSvg.innerHTML = svgContent;
+}
+
+function uiRedrawEliteTemplate(xCenter, yCenter) {
     /* Draw template path */
     svgContent = "";
     var name = document.getElementById("profile-name").value;
@@ -591,7 +607,7 @@ function uiRedrawTemplateELITE(xCenter, yCenter) {
     templateSvg.innerHTML = svgContent;
 }
 
-function uiRedrawTemplateBlade(xCenter, yCenter, bladeString) {
+function uiRedrawBlade(xCenter, yCenter, bladeString) {
     /* Draw template path */
     svgContent = "";
     var name = document.getElementById("profile-name").value;
@@ -614,19 +630,19 @@ function uiRedrawTemplate() {
     var profileType = document.getElementById("profile-type").value;
     switch (profileType) {
         case "data-points-txt":
-            uiRedrawTemplatePROSHARP(svgWidth / 2, svgHeight / 2);
+            uiRedrawDataPointsTxt(svgWidth / 2, svgHeight / 2);
             break;
         case "prosharp-3D":
-            uiRedrawTemplatePROSHARP3D(svgWidth / 2, svgHeight / 2);
+            uiRedrawProsharp3DTemplate(svgWidth / 2, svgHeight / 2);
             break;
         case "prosharp":
-            uiRedrawTemplatePROSHARP(svgWidth / 2, svgHeight / 2);
+            uiRedrawProsharpTemplate(svgWidth / 2, svgHeight / 2);
             break;
         case "elite":
-            uiRedrawTemplateELITE(svgWidth / 2, svgHeight / 2);
+            uiRedrawEliteTemplate(svgWidth / 2, svgHeight / 2);
             break;
         case "bauer-272":
-            uiRedrawTemplateBlade(svgWidth / 2, svgHeight / 2, bauer272String);
+            uiRedrawBlade(svgWidth / 2, svgHeight / 2, bauer272String);
             break;
     }
 }
