@@ -20,15 +20,15 @@ function uiExportSVG() {
 
 function uiExportDataPointsTxt() {
 
-    let dataPoints = [
+    let profileDataPoints = [
         {x: 1.3, y: 2.0},
         {x: 2.0, y: 4.0},
         {x: 3.0, y: 6.0}
     ];
 
-    console.log(dataPoints);
+    console.log(profileDataPoints);
 
-    const csvContent = dataPoints.map(obj => Object.values(obj).join(" ")).join("\n");
+    const csvContent = profileDataPoints.map(obj => Object.values(obj).join(" ")).join("\n");
     console.log(csvContent);
 
 
