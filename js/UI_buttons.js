@@ -19,25 +19,19 @@ function uiExportSVG() {
 }
 
 function uiExportDataPointsTxt() {
+    /* Format data */
+    const points = dataPoints.map(obj =>
+        Object.values(obj).map(value => typeof value === 'number' ? value.toFixed(6) : value)
+                                 );
 
-    let profileDataPoints = [
-        {x: 1.3, y: 2.0},
-        {x: 2.0, y: 4.0},
-        {x: 3.0, y: 6.0}
-    ];
+    /* Create comma separated content */
+    const csvContent = points.map(obj => Object.values(obj).join(" ")).join("\n");
 
-    console.log(templatePoints);
-
-    const csvContent = profileDataPoints.map(obj => Object.values(obj).join(" ")).join("\n");
-    console.log(csvContent);
-
-
+    /* Download file */
     var fileData = new Blob([csvContent], {type: "text/plain"});
     var fileBlob = document.getElementById("export-profile");
-
     fileBlob.href     = URL.createObjectURL(fileData);
     fileBlob.download = document.getElementById("profile-name").value + ".txt";
-
 }
 
 function uiExport() {

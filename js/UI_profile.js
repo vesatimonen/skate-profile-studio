@@ -75,7 +75,57 @@ function svgDrawDataPointsTxt(x, y) {
     const templateSlotWidth     = 8;
     const templateSlotHeight    = 13;
 
-    /* Create template */
+    const profileHeight = templateHeightMax - templateHeightMin;
+
+    /* Create data points */
+    dataPoints = [];
+    var index = 0;
+
+    /* Lower left */
+    dataPoints[index] = {x: - templateWidth / 2, y: profileHeight};
+    index++;
+
+    /* Profile */
+    for (let i = 0; i < profilePoints.length; i++) {
+        /* Limit Y */
+        if (isNaN(profilePoints[i].y) || profilePoints[i].y > profileHeight) {
+            profilePoints[i].y = profileHeight;
+        }
+
+        dataPoints[index] = {x: profilePoints[i].x, y: profilePoints[i].y};
+        index++;
+    }
+
+    /* Lower right */
+    dataPoints[index] = {x: templateWidth / 2, y: profileHeight};
+    index++;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /* Create data points */
     templatePoints = [];
     var index = 0;
 
@@ -84,7 +134,6 @@ function svgDrawDataPointsTxt(x, y) {
     index++;
 
     /* Profile */
-    const profileHeight = templateHeightMax - templateHeightMin;
     for (let i = 0; i < profilePoints.length; i++) {
         /* Limit Y */
         if (isNaN(profilePoints[i].y) || profilePoints[i].y > profileHeight) {
@@ -98,6 +147,12 @@ function svgDrawDataPointsTxt(x, y) {
     /* Lower right */
     templatePoints[index] = {x: x + templateWidth / 2, y: y + templateHeightMin};
     index++;
+
+
+
+
+
+
 
     svgDrawPath(templatePoints, "black");
 }
