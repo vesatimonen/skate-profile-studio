@@ -78,38 +78,6 @@ function svgDrawDataPointsTxt(x, y) {
     templatePoints = [];
     var index = 0;
 
-    /* Lower right */
-    templatePoints[index] = {x: x + templateWidth / 2, y: y + templateHeightMin};
-    index++;
-
-    /* Upper right */
-    templatePoints[index] = {x: x + templateWidth / 2, y: y};
-    index++;
-
-    /* Right slot */
-    templatePoints[index] = {x: x + templateSlotPosition + templateSlotWidth, y: y};
-    index++;
-    templatePoints[index] = {x: x + templateSlotPosition + templateSlotWidth, y: y + templateSlotHeight};
-    index++;
-    templatePoints[index] = {x: x + templateSlotPosition, y: y + templateSlotHeight};
-    index++;
-    templatePoints[index] = {x: x + templateSlotPosition, y: y};
-    index++;
-
-    /* Left slot */
-    templatePoints[index] = {x: x - templateSlotPosition, y: y};
-    index++;
-    templatePoints[index] = {x: x - templateSlotPosition, y: y + templateSlotHeight};
-    index++;
-    templatePoints[index] = {x: x - templateSlotPosition - templateSlotWidth, y: y + templateSlotHeight};
-    index++;
-    templatePoints[index] = {x: x - templateSlotPosition - templateSlotWidth, y: y};
-    index++;
-
-    /* Upper left */
-    templatePoints[index] = {x: x - templateWidth / 2, y: y};
-    index++;
-
     /* Lower left */
     templatePoints[index] = {x: x - templateWidth / 2, y: y + templateHeightMin};
     index++;
@@ -623,10 +591,10 @@ function uiRedrawDataPointsTxt(xCenter, yCenter) {
     name = name.replace(/>/g, "&gt;");
     name = name.replace(/"/g, "&quot;");
     name = name.replace(/'/g, "&#39;");
-    svgDrawText(   xCenter,         15, "2mm", name);
-    svgDrawText(   xCenter,         24, "1.5mm", document.getElementById("fingerprint").value);
-    svgDrawScale(  xCenter,         28, 40, true);
-    svgDrawSliders(xCenter - 105,   6.5, 35.0);
+//    svgDrawText(   xCenter,         15, "2mm", name);
+//    svgDrawText(   xCenter,         24, "1.5mm", document.getElementById("fingerprint").value);
+//    svgDrawScale(  xCenter,         28, 40, true);
+//    svgDrawSliders(xCenter - 105,   6.5, 35.0);
     svgDrawDataPointsTxt(xCenter, 5.0);
     templateSvg.innerHTML = svgContent;
 }
