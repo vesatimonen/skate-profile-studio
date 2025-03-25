@@ -595,7 +595,7 @@ function uiBladeTypeChange(event) {
 
 document.getElementById("profile-name").addEventListener("change", uiNameChange);
 document.getElementById("fingerprint").addEventListener("change",  uiFingerprintChange);
-document.getElementById("blade-type").addEventListener("change",   uiBladeTypeChange);
+document.getElementById("profile-type").addEventListener("change",   uiBladeTypeChange);
 
 
 //document.getElementById("debug-text").innerHTML = window.innerWidth;

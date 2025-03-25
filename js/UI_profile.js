@@ -611,8 +611,11 @@ function uiRedrawTemplate() {
     var svgWidth  = parseFloat(templateSvg.getAttribute("width")); /* mm */
     var svgHeight = parseFloat(templateSvg.getAttribute("height")); /* mm */
 
-    var bladeType = document.getElementById("blade-type").value;
-    switch (bladeType) {
+    var profileType = document.getElementById("profile-type").value;
+    switch (profileType) {
+        case "data-points-txt":
+            uiRedrawTemplatePROSHARP(svgWidth / 2, svgHeight / 2);
+            break;
         case "prosharp-3D":
             uiRedrawTemplatePROSHARP3D(svgWidth / 2, svgHeight / 2);
             break;
