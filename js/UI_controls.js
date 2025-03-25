@@ -49,14 +49,10 @@ function convertValueToY(value) {
 function convertYToValue(y) {
     value = sliderValueMin + (controlCanvasHeight - controlCanvasMargin.bottom - y) / canvasYScale;
 
-    if (value > 5.0) {
-        value = Math.round(value * 2.0) / 2.0;
+    if (value > 0.1) {
+        value = Math.round(value * 10.0) / 10.0;
     } else {
-        if (value > 0.1) {
-            value = Math.round(value * 10.0) / 10.0;
-        } else {
-            value = Math.round(value * 100.0) / 100.0;
-        }
+        value = Math.round(value * 100.0) / 100.0;
     }
 
     if (value < sliderValueMin) {
