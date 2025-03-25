@@ -468,7 +468,6 @@ function uiControlStart(event) {
 }
 
 function uiControlContinue(event) {
-
     if (sliderToMove != undefined) {
         position = uiEventPosition(event);
         if (position != undefined) {
@@ -509,7 +508,6 @@ controlCanvas.addEventListener("touchend",   uiControlEnd);
  *****************************************************************************/
 
 function uiFingerprintChange(event) {
-document.getElementById("fingerprint")
 
     var variables = fingerprintBox.value.split("/");
     var radiuses = variables[0].split("-");
@@ -574,7 +572,6 @@ document.getElementById("fingerprint")
     fingerprintBox.style.background = okColor;
 
     calculateCanvasScale();
-//    uiRedrawSizeButtons();
     uiRedrawControls();
     uiRedrawTemplate();
 }
@@ -591,7 +588,7 @@ function uiBladeTypeChange(event) {
 
 document.getElementById("profile-name").addEventListener("change", uiNameChange);
 document.getElementById("fingerprint").addEventListener("change",  uiFingerprintChange);
-document.getElementById("profile-type").addEventListener("change",   uiBladeTypeChange);
+document.getElementById("profile-type").addEventListener("change", uiBladeTypeChange);
 
 
 //document.getElementById("debug-text").innerHTML = window.innerWidth;

@@ -16,7 +16,6 @@ var skateEffectiveLength = 0.35;
 var skateBladeSize = 294;
 
 uiInitControls();
-//uiInitSizeButtons();
 
 
 const skateImage   = document.getElementById('skate-image');
