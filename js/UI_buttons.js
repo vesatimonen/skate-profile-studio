@@ -45,12 +45,33 @@ function uiSizeButton(event) {
     uiRedrawTemplate();
 }
 
-function uiExport() {
+
+function uiExportSVG() {
     var fileData = new Blob([templateSvg.outerHTML], {type: "text/plain"});
     var fileBlob = document.getElementById("export-profile");
 
     fileBlob.href     = URL.createObjectURL(fileData);
     fileBlob.download = document.getElementById("profile-name").value + ".svg";
+}
+
+function uiExportDataPointsTxt() {
+    var fileData = new Blob([templateSvg.outerHTML], {type: "text/plain"});
+    var fileBlob = document.getElementById("export-profile");
+
+    fileBlob.href     = URL.createObjectURL(fileData);
+    fileBlob.download = document.getElementById("profile-name").value + ".svg";
+}
+
+function uiExport() {
+    var profileType = document.getElementById("profile-type").value;
+    switch (profileType) {
+        case "data-points-txt":
+            uiExportDataPointsTxt();
+            break;
+        default:
+            uiExportSVG();
+            break;
+    }
 }
 
 
