@@ -26,7 +26,7 @@ function uiExportDataPointsTxt() {
         {x: 3.0, y: 6.0}
     ];
 
-    console.log(profileDataPoints);
+    console.log(templatePoints);
 
     const csvContent = profileDataPoints.map(obj => Object.values(obj).join(" ")).join("\n");
     console.log(csvContent);

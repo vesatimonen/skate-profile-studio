@@ -1,7 +1,8 @@
 const templateSvg = document.getElementById("template-svg");
 
-var templatePoints = [];
-var profilePoints = [];
+var templatePoints = [];  /* Coordinates used to draw svg */
+var profilePoints  = [];  /* Coordinates calculated from fingerprint */
+var dataPoints     = [];  /* Coordinates for txt file */
 
 var svgContent = "";
 
